@@ -71,8 +71,21 @@ public class RegisterModel : PageModel
             {
                 await _userManager.AddToRoleAsync(user, Input.Role);
                 await _signInManager.SignInAsync(user, isPersistent: false);
-                return LocalRedirect(returnUrl);
+
+                // Check the user's roles and redirect accordingly
+                if (await _userManager.IsInRoleAsync(user, "Admin"))
+                {
+                    return LocalRedirect(Url.Content("~/Admin"));
+                }
+                else if (await _userManager.IsInRoleAsync(user, "Customer"))
+                {
+                    return LocalRedirect(Url.Content("~/Customer"));
+                }
+                else if (await _userManager.IsInRoleAsync(user, "Provider"))
+                    return LocalRedirect(Url.Content("~/Provider"));
             }
+           
+       
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);

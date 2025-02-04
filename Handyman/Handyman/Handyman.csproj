@@ -18,10 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Entities\" />
     <Folder Include="Configurations\" />
+    <Folder Include="Data\MockData\" />
     <Folder Include="Services\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 
 </Project>
