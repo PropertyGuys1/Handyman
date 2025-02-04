@@ -20,11 +20,13 @@ namespace Handyman.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
             _logger = logger;
         }
 
@@ -115,8 +117,29 @@ namespace Handyman.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    // Get the logged-in user
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+                    // Check the user's roles and redirect accordingly
+                    if (await _userManager.IsInRoleAsync(user, "Admin"))
+                    {                                           
+                        return LocalRedirect(Url.Content("~/Admin "));
+                    }
+                    else if (await _userManager.IsInRoleAsync(user, "Customer"))
+                    {
+                        return LocalRedirect(Url.Content("~/Customer "));
+                    }
+                    else if (await _userManager.IsInRoleAsync(user, "Provider"))
+                    {
+                        return LocalRedirect(Url.Content("~/Provider "));
+                    }
+                    else
+                    {
+                        // Default redirect if no specific role is found
+                        return LocalRedirect(returnUrl);
+                    }
                 }
+
+
                 if (result.RequiresTwoFactor)
                 {
                     return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
