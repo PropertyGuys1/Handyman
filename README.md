@@ -11,7 +11,7 @@ This project is built using ASP.NET Core 8 MVC. It includes user authentication 
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/PropertyGuys-HandyMan/HandyMan.git
+git clone https://github.com/PropertyGuys1/Handyman.git
 cd handyman
 ```
 ## Set Up the Database
