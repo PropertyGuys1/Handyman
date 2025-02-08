@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Handyman.Data.Entities.Service
+@{
+    ViewData["Title"] = $"{Model.Name} - Details";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-8">
+            
+            <h1 class="mb-4">@Model.Name</h1>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Service Description</h5>
+                    <p class="card-text">@Model.ServiceType.Description</p>
+                </div>
+            </div>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form asp-action="BookService" method="post">
+                    <input type="hidden" name="serviceId" value="@Model.Id" />
+                    <button type="submit" class="btn btn-primary btn-lg">Book This Service</button>
+                </form>
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    <p class="mb-0">Please <a href="@Url.Action("Login", "Account", new { returnUrl = Context.Request.Path })">login</a> to book this service.</p>
+                </div>
+            }
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Service Details</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <strong>Category:</strong> @Model.ServiceType.Name
+                        </li>
+                        <li class="mb-2">
+                            <strong>Available:</strong> Yes
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @if (TempData["Success"] != null)
+    {
+        <script>
+            $(document).ready(function() {
+                toastr.success('@TempData["Success"]');
+            });
+        </script>
+    }
+}
