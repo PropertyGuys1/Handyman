@@ -1,15 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Handyman.Helper
 {
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.Extensions.DependencyInjection;
-    using System;
-    using System.Threading.Tasks;
-
     public static class IdentityInitializer
     {
         public static async Task Initialize(IServiceProvider serviceProvider)
@@ -21,15 +17,13 @@ namespace Handyman.Helper
 
         private static async Task CreateRolesAndAdminUser(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
         {
-            string[] roleNames = { "Admin", "Customer", "Provider" };
-            IdentityResult roleResult;
+            string[] roles = { "Admin", "Customer", "Provider" };
 
-            foreach (var roleName in roleNames)
+            foreach (var roleName in roles)
             {
-                var roleExist = await roleManager.RoleExistsAsync(roleName);
-                if (!roleExist)
+                if (!await roleManager.RoleExistsAsync(roleName))
                 {
-                    roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
+                    await roleManager.CreateAsync(new IdentityRole(roleName));
                 }
             }
 
@@ -38,13 +32,11 @@ namespace Handyman.Helper
             {
                 UserName = "admin@admin.com",
                 Email = "admin@admin.com",
-                EmailConfirmed = true 
+                EmailConfirmed = true
             };
 
             string adminPassword = "Admin@123";
-            var user = await userManager.FindByEmailAsync(adminUser.Email);
-
-            if (user == null)
+            if (await userManager.FindByEmailAsync(adminUser.Email) == null)
             {
                 var createAdminUser = await userManager.CreateAsync(adminUser, adminPassword);
                 if (createAdminUser.Succeeded)
@@ -52,8 +44,68 @@ namespace Handyman.Helper
                     await userManager.AddToRoleAsync(adminUser, "Admin");
                 }
             }
+
+            // Define users
+            var users = new List<IdentityUser>
+            {
+                new IdentityUser
+                {
+                    Id = "customer1",
+                    UserName = "john.doe@example.com",
+                    Email = "john.doe@example.com",
+                    EmailConfirmed = true
+                },
+                new IdentityUser
+                {
+                    Id = "customer2",
+                    UserName = "jane.smith@example.com",
+                    Email = "jane.smith@example.com",
+                    EmailConfirmed = true
+                },
+                new IdentityUser
+                {
+                    Id = "provider1",
+                    UserName = "mike.johnson@example.com",
+                    Email = "mike.johnson@example.com",
+                    EmailConfirmed = true
+                },
+                new IdentityUser
+                {
+                    Id = "provider2",
+                    UserName = "emily.davis@example.com",
+                    Email = "emily.davis@example.com",
+                    EmailConfirmed = true
+                }
+            };
+
+            string defaultPassword = "Admin@123";
+            // Create users and assign roles
+            foreach (var u in users)
+            {
+                if (await userManager.FindByNameAsync(u.UserName) == null)
+                {
+                    var createUser = await userManager.CreateAsync(u, defaultPassword);
+                    if (createUser.Succeeded)
+                    {
+                        if (u.Id.StartsWith("customer"))
+                        {
+                            await userManager.AddToRoleAsync(u, "Customer");
+                        }
+                        else if (u.Id.StartsWith("provider"))
+                        {
+                            await userManager.AddToRoleAsync(u, "Provider");
+                        }
+                    }
+                    else
+                    {
+                        // Log errors if user creation fails
+                        foreach (var error in createUser.Errors)
+                        {
+                            Console.WriteLine($"Error creating user {u.UserName}: {error.Description}");
+                        }
+                    }
+                }
+            }
         }
     }
-
-
 }
