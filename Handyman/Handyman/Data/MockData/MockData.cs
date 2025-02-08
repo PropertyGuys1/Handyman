@@ -5,61 +5,7 @@ namespace Handyman.Data.MockData
 {
     public static class MockData
     {
-        //public static List<IdentityUser> GetUsers()
-        //{
-        //    return new List<IdentityUser>
-        //    {
-        //        new IdentityUser
-        //        {
-        //            Id = "customer1",
-        //            UserName = "customer1",
-        //            Email = "john.doe@example.com",
-        //            NormalizedUserName = "CUSTOMER1",
-        //            NormalizedEmail = "JOHN.DOE@EXAMPLE.COM",
-        //            EmailConfirmed = true,
-        //            SecurityStamp = Guid.NewGuid().ToString("D"),
-        //            ConcurrencyStamp = Guid.NewGuid().ToString("D"),
-        //            PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, "Password123!")
-        //        },
-        //        new IdentityUser
-        //        {
-        //            Id = "customer2",
-        //            UserName = "customer2",
-        //            Email = "jane.smith@example.com",
-        //            NormalizedUserName = "CUSTOMER2",
-        //            NormalizedEmail = "JANE.SMITH@EXAMPLE.COM",
-        //            EmailConfirmed = true,
-        //            SecurityStamp = Guid.NewGuid().ToString("D"),
-        //            ConcurrencyStamp = Guid.NewGuid().ToString("D"),
-        //            PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, "Password123!")
-        //        },
-        //        new IdentityUser
-        //        {
-        //            Id = "provider1",
-        //            UserName = "provider1",
-        //            Email = "mike.johnson@example.com",
-        //            NormalizedUserName = "PROVIDER1",
-        //            NormalizedEmail = "MIKE.JOHNSON@EXAMPLE.COM",
-        //            EmailConfirmed = true,
-        //            SecurityStamp = Guid.NewGuid().ToString("D"),
-        //            ConcurrencyStamp = Guid.NewGuid().ToString("D"),
-        //            PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, "Password123!")
-        //        },
-        //        new IdentityUser
-        //        {
-        //            Id = "provider2",
-        //            UserName = "provider2",
-        //            Email = "emily.davis@example.com",
-        //            NormalizedUserName = "PROVIDER2",
-        //            NormalizedEmail = "EMILY.DAVIS@EXAMPLE.COM",
-        //            EmailConfirmed = true,
-        //            SecurityStamp = Guid.NewGuid().ToString("D"),
-        //            ConcurrencyStamp = Guid.NewGuid().ToString("D"),
-        //            PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, "Password123!")
-        //        }
-        //    };
-        //}
-
+      
         public static List<Profile> GetProfiles()
         {
             return new List<Profile>
