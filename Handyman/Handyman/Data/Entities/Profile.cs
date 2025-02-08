@@ -12,6 +12,8 @@
         public string? Role { get; set; } // "Customer" or "Provider"
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        
+        public string? Password { get; set; }
 
         // Navigation properties
         public virtual CustomerProfile CustomerProfile { get; set; }
