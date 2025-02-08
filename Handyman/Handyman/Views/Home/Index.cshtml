@@ -2,7 +2,155 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Website Purpose Section -->
+<div class="jumbotron jumbotron-fluid bg-light text-center py-5 mb-5">
+    <div class="container">
+        <h1 class="display-4">Welcome to Our Service Platform</h1>
+        <p class="lead">Your one-stop solution for all your service needs. Connect with skilled professionals to get tasks done efficiently and reliably.</p>
+        <a class="btn btn-primary btn-lg mt-3" href="#services" role="button">Explore Services</a>
+    </div>
+</div>
+
+<!-- Search Section -->
+<div class="container py-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center mb-4">Find a Service</h2>
+            <form action="/Search" method="get" class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Search for a service..." name="query">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Service Categories Section -->
+<div class="container py-5 mb-5" id="services">
+    <div class="row text-center mb-4">
+        <div class="col-md-12">
+            <h2>Our Services</h2>
+            <p>Explore our range of professional services tailored to your needs.</p>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="~/images/cleaning.jpg" class="card-img-top" alt="Cleaning">
+                <div class="card-body">
+                    <h5 class="card-title">Cleaning</h5>
+                    <p class="card-text">Professional cleaning services for your home or office.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="~/images/delivery.jpg" class="card-img-top" alt="Delivery">
+                <div class="card-body">
+                    <h5 class="card-title">Delivery</h5>
+                    <p class="card-text">Fast and reliable delivery services for your items.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="~/images/moving.jpg" class="card-img-top" alt="Moving">
+                <div class="card-body">
+                    <h5 class="card-title">Moving</h5>
+                    <p class="card-text">Efficient moving services to help you relocate.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="~/images/handyman.jpg" class="card-img-top" alt="Handyman">
+                <div class="card-body">
+                    <h5 class="card-title">Handyman</h5>
+                    <p class="card-text">Skilled handyman services for all your repair needs.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="~/images/mounting.jpg" class="card-img-top" alt="Mounting">
+                <div class="card-body">
+                    <h5 class="card-title">Mounting</h5>
+                    <p class="card-text">Professional mounting services for TVs and more.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="~/images/furniture.jpg" class="card-img-top" alt="Furniture Assembly">
+                <div class="card-body">
+                    <h5 class="card-title">Furniture Assembly</h5>
+                    <p class="card-text">Expert furniture assembly services for your home.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- How It Works Section -->
+<div class="container py-5 mb-5">
+    <div class="row text-center mb-4">
+        <div class="col-md-12">
+            <h2>How It Works</h2>
+            <p>Follow these simple steps to get your tasks done.</p>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Step 1: Login</h5>
+                    <p class="card-text">Sign in to your account to get started.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Step 2: Create Your Profile</h5>
+                    <p class="card-text">Set up your profile with your details.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Step 3: Add Address</h5>
+                    <p class="card-text">Enter your address for service location.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Step 4: Search for Services</h5>
+                    <p class="card-text">Find the service you need.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Step 5: Book Your Appointment</h5>
+                    <p class="card-text">Schedule your appointment with the service provider.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Call to Action Section -->
+<div class="container-fluid bg-primary text-white text-center py-5 mt-5">
+    <h2>Ready to Get Started?</h2>
+    <p>Join thousands of satisfied customers and get your tasks done today.</p>
+    <a class="btn btn-light btn-lg mt-3" href="#" role="button">Sign Up Now</a>
 </div>
