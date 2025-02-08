@@ -126,7 +126,7 @@ namespace Handyman.Areas.Identity.Pages.Account
                     }
                     else if (await _userManager.IsInRoleAsync(user, "Customer"))
                     {
-                        return LocalRedirect(Url.Content("~/Customer "));
+                        return LocalRedirect(Url.Content("~/"));
                     }
                     else if (await _userManager.IsInRoleAsync(user, "Provider"))
                     {

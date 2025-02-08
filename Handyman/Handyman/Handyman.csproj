@@ -21,6 +21,11 @@
   <ItemGroup>
     <Folder Include="Configurations\" />
     <Folder Include="Services\" />
+    <Folder Include="Views\Customer\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Customer\Index.cshtml" />
   </ItemGroup>
 
 </Project>
