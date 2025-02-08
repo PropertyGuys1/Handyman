@@ -117,24 +117,24 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 1,
-                            AppointmentDate = new DateTime(2025, 2, 11, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1788),
-                            CreatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1793),
+                            AppointmentDate = new DateTime(2025, 2, 11, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2896),
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2903),
                             CustomerNote = "Please make sure to trim the edges.",
                             CustomerProfileId = 1,
                             IsApproved = false,
                             ProviderServiceId = 1,
-                            UpdatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1794)
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2903)
                         },
                         new
                         {
                             Id = 2,
-                            AppointmentDate = new DateTime(2025, 2, 13, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1795),
-                            CreatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1796),
+                            AppointmentDate = new DateTime(2025, 2, 13, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2905),
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2906),
                             CustomerNote = "Focus on the kitchen and living room.",
                             CustomerProfileId = 2,
                             IsApproved = false,
                             ProviderServiceId = 2,
-                            UpdatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1797)
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2907)
                         });
                 });
 
@@ -182,23 +182,23 @@ namespace Handyman.Migrations
                         {
                             Id = 1,
                             AppointmentId = 1,
-                            CreatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1812),
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2928),
                             CustomerProfileId = 1,
                             Feedback = "Great service! Very satisfied.",
                             IsApproved = false,
                             Rating = 5,
-                            UpdatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1813)
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2929)
                         },
                         new
                         {
                             Id = 2,
                             AppointmentId = 2,
-                            CreatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1815),
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2931),
                             CustomerProfileId = 2,
                             Feedback = "Good job, but could be more thorough.",
                             IsApproved = false,
                             Rating = 4,
-                            UpdatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1816)
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2932)
                         });
                 });
 
@@ -294,24 +294,24 @@ namespace Handyman.Migrations
                             Id = 1,
                             Amount = 50.00m,
                             AppointmentId = 1,
-                            CreatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1847),
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2977),
                             CustomerProfileId = 1,
                             IsSuccessful = true,
-                            PaymentDate = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1846),
+                            PaymentDate = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2976),
                             PaymentMethod = "Credit Card",
-                            UpdatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1847)
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2977)
                         },
                         new
                         {
                             Id = 2,
                             Amount = 75.00m,
                             AppointmentId = 2,
-                            CreatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1851),
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2980),
                             CustomerProfileId = 2,
                             IsSuccessful = true,
-                            PaymentDate = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1851),
+                            PaymentDate = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2980),
                             PaymentMethod = "PayPal",
-                            UpdatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1852)
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2981)
                         });
                 });
 
@@ -335,6 +335,9 @@ namespace Handyman.Migrations
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -356,48 +359,52 @@ namespace Handyman.Migrations
                         {
                             Id = 1,
                             Address = "123 Main St, Anytown, USA",
-                            CreatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1628),
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2495),
                             Email = "john.doe@example.com",
                             FullName = "John Doe",
+                            Password = "jhon123",
                             PhoneNumber = "123-456-7890",
                             Role = "Customer",
-                            UpdatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1629),
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2498),
                             UserId = "customer1"
                         },
                         new
                         {
                             Id = 2,
                             Address = "456 Elm St, Othertown, USA",
-                            CreatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1632),
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2501),
                             Email = "jane.smith@example.com",
                             FullName = "Jane Smith",
+                            Password = "jane123",
                             PhoneNumber = "987-654-3210",
                             Role = "Customer",
-                            UpdatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1633),
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2502),
                             UserId = "customer2"
                         },
                         new
                         {
                             Id = 3,
                             Address = "789 Oak St, Sometown, USA",
-                            CreatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1634),
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2503),
                             Email = "mike.johnson@example.com",
                             FullName = "Mike Johnson",
+                            Password = "mike123",
                             PhoneNumber = "555-123-4567",
                             Role = "Provider",
-                            UpdatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1635),
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2504),
                             UserId = "provider1"
                         },
                         new
                         {
                             Id = 4,
                             Address = "321 Pine St, Anothertown, USA",
-                            CreatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1636),
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2505),
                             Email = "emily.davis@example.com",
                             FullName = "Emily Davis",
+                            Password = "emily123",
                             PhoneNumber = "555-987-6543",
                             Role = "Provider",
-                            UpdatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1637),
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2506),
                             UserId = "provider2"
                         });
                 });
@@ -490,22 +497,22 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1769),
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2873),
                             ImageUrl = "https://example.com/images/lawn_mowing.jpg",
                             Notes = "Experienced in lawn mowing with professional equipment.",
                             ProviderProfileId = 1,
                             ServiceId = 1,
-                            UpdatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1770)
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2874)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1772),
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2876),
                             ImageUrl = "https://example.com/images/house_cleaning.jpg",
                             Notes = "Thorough house cleaning services with eco-friendly products.",
                             ProviderProfileId = 2,
                             ServiceId = 3,
-                            UpdatedAt = new DateTime(2025, 2, 8, 14, 6, 37, 376, DateTimeKind.Utc).AddTicks(1772)
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2877)
                         });
                 });
 
@@ -538,43 +545,680 @@ namespace Handyman.Migrations
                         {
                             Id = 1,
                             IsDeleted = false,
-                            Name = "Lawn Mowing",
+                            Name = "Yardwork",
                             ServiceTypeId = 1
                         },
                         new
                         {
                             Id = 2,
                             IsDeleted = false,
-                            Name = "Hedge Trimming",
+                            Name = "Minor Home Repair",
                             ServiceTypeId = 1
                         },
                         new
                         {
                             Id = 3,
                             IsDeleted = false,
-                            Name = "House Cleaning",
-                            ServiceTypeId = 2
+                            Name = "Furniture Assembly",
+                            ServiceTypeId = 1
                         },
                         new
                         {
                             Id = 4,
                             IsDeleted = false,
-                            Name = "Carpet Cleaning",
-                            ServiceTypeId = 2
+                            Name = "Snow Removal",
+                            ServiceTypeId = 1
                         },
                         new
                         {
                             Id = 5,
                             IsDeleted = false,
-                            Name = "Pipe Repair",
-                            ServiceTypeId = 3
+                            Name = "TV Mounting",
+                            ServiceTypeId = 1
                         },
                         new
                         {
                             Id = 6,
                             IsDeleted = false,
-                            Name = "Leak Detection",
+                            Name = "Help Moving",
+                            ServiceTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            IsDeleted = false,
+                            Name = "Handyman",
+                            ServiceTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            IsDeleted = false,
+                            Name = "Painting",
+                            ServiceTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 9,
+                            IsDeleted = false,
+                            Name = "Lighting Installation",
+                            ServiceTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            IsDeleted = false,
+                            Name = "Hang Pictures",
+                            ServiceTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 11,
+                            IsDeleted = false,
+                            Name = "IKEA Services",
+                            ServiceTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 12,
+                            IsDeleted = false,
+                            Name = "Delivery",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 13,
+                            IsDeleted = false,
+                            Name = "Home Repairs",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 14,
+                            IsDeleted = false,
+                            Name = "General Cleaning",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 15,
+                            IsDeleted = false,
+                            Name = "Assemble Furniture",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 16,
+                            IsDeleted = false,
+                            Name = "Help Moving / Hauling",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 17,
+                            IsDeleted = false,
+                            Name = "Heavy Lifting",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 18,
+                            IsDeleted = false,
+                            Name = "Personal Assistant",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 19,
+                            IsDeleted = false,
+                            Name = "Yard Work",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 20,
+                            IsDeleted = false,
+                            Name = "Queue in Line",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 21,
+                            IsDeleted = false,
+                            Name = "Organize Closet",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 22,
+                            IsDeleted = false,
+                            Name = "Office Administration",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 23,
+                            IsDeleted = false,
+                            Name = "Organization",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 24,
+                            IsDeleted = false,
+                            Name = "Home Repairs",
                             ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 25,
+                            IsDeleted = false,
+                            Name = "Assemble Furniture",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 26,
+                            IsDeleted = false,
+                            Name = "TV Mounting",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 27,
+                            IsDeleted = false,
+                            Name = "Heavy Lifting",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 28,
+                            IsDeleted = false,
+                            Name = "Painting",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 29,
+                            IsDeleted = false,
+                            Name = "Plumbing",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 30,
+                            IsDeleted = false,
+                            Name = "Yard Work",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 31,
+                            IsDeleted = false,
+                            Name = "Hang Pictures",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 32,
+                            IsDeleted = false,
+                            Name = "Shelf Mounting",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 33,
+                            IsDeleted = false,
+                            Name = "Light Installation",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 34,
+                            IsDeleted = false,
+                            Name = "Electrical Work",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 35,
+                            IsDeleted = false,
+                            Name = "Carpentry",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 36,
+                            IsDeleted = false,
+                            Name = "Baby Proofing",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 37,
+                            IsDeleted = false,
+                            Name = "Smart Home Installation",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 38,
+                            IsDeleted = false,
+                            Name = "Help Moving / Hauling",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 39,
+                            IsDeleted = false,
+                            Name = "One Item Movers",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 40,
+                            IsDeleted = false,
+                            Name = "Furniture Movers",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 41,
+                            IsDeleted = false,
+                            Name = "Junk Removal",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 42,
+                            IsDeleted = false,
+                            Name = "Full Service Movers",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 43,
+                            IsDeleted = false,
+                            Name = "Packing and Moving Services",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 44,
+                            IsDeleted = false,
+                            Name = "Unpacking Services",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 45,
+                            IsDeleted = false,
+                            Name = "Heavy Lifting",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 46,
+                            IsDeleted = false,
+                            Name = "Furniture Removal",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 47,
+                            IsDeleted = false,
+                            Name = "Couch Removal",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 48,
+                            IsDeleted = false,
+                            Name = "Move Furniture Up/Downstairs",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 49,
+                            IsDeleted = false,
+                            Name = "Hang Christmas Lights",
+                            ServiceTypeId = 5
+                        },
+                        new
+                        {
+                            Id = 50,
+                            IsDeleted = false,
+                            Name = "Christmas Tree Delivery",
+                            ServiceTypeId = 5
+                        },
+                        new
+                        {
+                            Id = 51,
+                            IsDeleted = false,
+                            Name = "Christmas Decorating",
+                            ServiceTypeId = 5
+                        },
+                        new
+                        {
+                            Id = 52,
+                            IsDeleted = false,
+                            Name = "Shopping",
+                            ServiceTypeId = 5
+                        },
+                        new
+                        {
+                            Id = 53,
+                            IsDeleted = false,
+                            Name = "Holiday Shopping",
+                            ServiceTypeId = 5
+                        },
+                        new
+                        {
+                            Id = 54,
+                            IsDeleted = false,
+                            Name = "Gifts Wrapping",
+                            ServiceTypeId = 5
+                        },
+                        new
+                        {
+                            Id = 55,
+                            IsDeleted = false,
+                            Name = "Grocery Shopping",
+                            ServiceTypeId = 5
+                        },
+                        new
+                        {
+                            Id = 56,
+                            IsDeleted = false,
+                            Name = "Gift Shopping",
+                            ServiceTypeId = 5
+                        },
+                        new
+                        {
+                            Id = 57,
+                            IsDeleted = false,
+                            Name = "Furniture Assembly",
+                            ServiceTypeId = 6
+                        },
+                        new
+                        {
+                            Id = 58,
+                            IsDeleted = false,
+                            Name = "IKEA Furniture Assembly",
+                            ServiceTypeId = 6
+                        },
+                        new
+                        {
+                            Id = 59,
+                            IsDeleted = false,
+                            Name = "Assembly of Kids Furniture",
+                            ServiceTypeId = 6
+                        },
+                        new
+                        {
+                            Id = 60,
+                            IsDeleted = false,
+                            Name = "Office Furniture Assembly",
+                            ServiceTypeId = 6
+                        },
+                        new
+                        {
+                            Id = 61,
+                            IsDeleted = false,
+                            Name = "Shed Assembly",
+                            ServiceTypeId = 6
+                        },
+                        new
+                        {
+                            Id = 62,
+                            IsDeleted = false,
+                            Name = "Snow Removal",
+                            ServiceTypeId = 7
+                        },
+                        new
+                        {
+                            Id = 63,
+                            IsDeleted = false,
+                            Name = "Ice Melting",
+                            ServiceTypeId = 7
+                        },
+                        new
+                        {
+                            Id = 64,
+                            IsDeleted = false,
+                            Name = "Winterizing Property",
+                            ServiceTypeId = 7
+                        },
+                        new
+                        {
+                            Id = 65,
+                            IsDeleted = false,
+                            Name = "Gutter Cleaning",
+                            ServiceTypeId = 7
+                        },
+                        new
+                        {
+                            Id = 66,
+                            IsDeleted = false,
+                            Name = "Shoveling Driveways",
+                            ServiceTypeId = 7
+                        },
+                        new
+                        {
+                            Id = 67,
+                            IsDeleted = false,
+                            Name = "Winterizing Plumbing",
+                            ServiceTypeId = 7
+                        },
+                        new
+                        {
+                            Id = 68,
+                            IsDeleted = false,
+                            Name = "Lawn Care",
+                            ServiceTypeId = 8
+                        },
+                        new
+                        {
+                            Id = 69,
+                            IsDeleted = false,
+                            Name = "Tree Pruning",
+                            ServiceTypeId = 8
+                        },
+                        new
+                        {
+                            Id = 70,
+                            IsDeleted = false,
+                            Name = "Leaf Raking",
+                            ServiceTypeId = 8
+                        },
+                        new
+                        {
+                            Id = 71,
+                            IsDeleted = false,
+                            Name = "Lawn Mowing",
+                            ServiceTypeId = 8
+                        },
+                        new
+                        {
+                            Id = 72,
+                            IsDeleted = false,
+                            Name = "Gardening",
+                            ServiceTypeId = 8
+                        },
+                        new
+                        {
+                            Id = 73,
+                            IsDeleted = false,
+                            Name = "Mulching",
+                            ServiceTypeId = 8
+                        },
+                        new
+                        {
+                            Id = 74,
+                            IsDeleted = false,
+                            Name = "Deep Cleaning",
+                            ServiceTypeId = 9
+                        },
+                        new
+                        {
+                            Id = 75,
+                            IsDeleted = false,
+                            Name = "Office Cleaning",
+                            ServiceTypeId = 9
+                        },
+                        new
+                        {
+                            Id = 76,
+                            IsDeleted = false,
+                            Name = "Carpet Cleaning",
+                            ServiceTypeId = 9
+                        },
+                        new
+                        {
+                            Id = 77,
+                            IsDeleted = false,
+                            Name = "Window Cleaning",
+                            ServiceTypeId = 9
+                        },
+                        new
+                        {
+                            Id = 78,
+                            IsDeleted = false,
+                            Name = "Move-In/Move-Out Cleaning",
+                            ServiceTypeId = 9
+                        },
+                        new
+                        {
+                            Id = 79,
+                            IsDeleted = false,
+                            Name = "Pressure Washing",
+                            ServiceTypeId = 9
+                        },
+                        new
+                        {
+                            Id = 80,
+                            IsDeleted = false,
+                            Name = "Post-Construction Cleaning",
+                            ServiceTypeId = 9
+                        },
+                        new
+                        {
+                            Id = 81,
+                            IsDeleted = false,
+                            Name = "Grocery Shopping",
+                            ServiceTypeId = 10
+                        },
+                        new
+                        {
+                            Id = 82,
+                            IsDeleted = false,
+                            Name = "Gift Shopping",
+                            ServiceTypeId = 10
+                        },
+                        new
+                        {
+                            Id = 83,
+                            IsDeleted = false,
+                            Name = "Package Pickup & Delivery",
+                            ServiceTypeId = 10
+                        },
+                        new
+                        {
+                            Id = 84,
+                            IsDeleted = false,
+                            Name = "Personal Shopping Assistant",
+                            ServiceTypeId = 10
+                        },
+                        new
+                        {
+                            Id = 85,
+                            IsDeleted = false,
+                            Name = "Errand Running",
+                            ServiceTypeId = 10
+                        },
+                        new
+                        {
+                            Id = 86,
+                            IsDeleted = false,
+                            Name = "Contactless Grocery Shopping",
+                            ServiceTypeId = 11
+                        },
+                        new
+                        {
+                            Id = 87,
+                            IsDeleted = false,
+                            Name = "Contactless Furniture Assembly",
+                            ServiceTypeId = 11
+                        },
+                        new
+                        {
+                            Id = 88,
+                            IsDeleted = false,
+                            Name = "Contactless Delivery",
+                            ServiceTypeId = 11
+                        },
+                        new
+                        {
+                            Id = 89,
+                            IsDeleted = false,
+                            Name = "Contactless Cleaning",
+                            ServiceTypeId = 11
+                        },
+                        new
+                        {
+                            Id = 90,
+                            IsDeleted = false,
+                            Name = "IKEA Furniture Assembly",
+                            ServiceTypeId = 12
+                        },
+                        new
+                        {
+                            Id = 91,
+                            IsDeleted = false,
+                            Name = "IKEA Pickup & Delivery",
+                            ServiceTypeId = 12
+                        },
+                        new
+                        {
+                            Id = 92,
+                            IsDeleted = false,
+                            Name = "IKEA Home Installation",
+                            ServiceTypeId = 12
+                        },
+                        new
+                        {
+                            Id = 93,
+                            IsDeleted = false,
+                            Name = "TV Mounting",
+                            ServiceTypeId = 13
+                        },
+                        new
+                        {
+                            Id = 94,
+                            IsDeleted = false,
+                            Name = "Picture Hanging",
+                            ServiceTypeId = 13
+                        },
+                        new
+                        {
+                            Id = 95,
+                            IsDeleted = false,
+                            Name = "Shelving Installation",
+                            ServiceTypeId = 13
+                        },
+                        new
+                        {
+                            Id = 96,
+                            IsDeleted = false,
+                            Name = "Light Fixture Installation",
+                            ServiceTypeId = 13
+                        },
+                        new
+                        {
+                            Id = 97,
+                            IsDeleted = false,
+                            Name = "Curtain Rod Installation",
+                            ServiceTypeId = 13
                         });
                 });
 
@@ -588,6 +1232,9 @@ namespace Handyman.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -605,23 +1252,93 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Services related to lawn maintenance and care.",
+                            Description = "Most commonly requested services.",
                             IsDeleted = false,
-                            Name = "Lawn Care"
+                            Name = "Popular Tasks"
                         },
                         new
                         {
                             Id = 2,
-                            Description = "Services related to cleaning and maintaining the house.",
+                            Description = "Handpicked services for special needs.",
                             IsDeleted = false,
-                            Name = "House Cleaning"
+                            Name = "Featured Tasks"
                         },
                         new
                         {
                             Id = 3,
-                            Description = "Services related to plumbing and pipe maintenance.",
+                            Description = "General handyman and repair services.",
                             IsDeleted = false,
-                            Name = "Plumbing"
+                            Name = "Handyman Services"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Services for helping with moving and hauling.",
+                            IsDeleted = false,
+                            Name = "Moving Services"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Services related to holiday preparations.",
+                            IsDeleted = false,
+                            Name = "Holiday Help"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "Services for assembling furniture.",
+                            IsDeleted = false,
+                            Name = "Furniture Assembly"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "Services for winter-related tasks.",
+                            IsDeleted = false,
+                            Name = "Winter Tasks"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Description = "Services for lawn and garden care.",
+                            IsDeleted = false,
+                            Name = "Yard Work"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Description = "Cleaning and disinfecting services.",
+                            IsDeleted = false,
+                            Name = "Cleaning"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Description = "Services related to shopping and delivery.",
+                            IsDeleted = false,
+                            Name = "Shopping & Delivery"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Description = "Services that can be performed contactlessly.",
+                            IsDeleted = false,
+                            Name = "Contactless Tasks"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Description = "Services related to IKEA products.",
+                            IsDeleted = false,
+                            Name = "IKEA Services"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Description = "Mounting and installation tasks.",
+                            IsDeleted = false,
+                            Name = "Mounting & Installation"
                         });
                 });
 

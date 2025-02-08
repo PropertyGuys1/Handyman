@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<Handyman.Data.Entities.ServiceType>
+
+<div class="container py-5">
+    <h1 class="text-center mb-5">Let Taskers help tackle your to-do list!</h1>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var serviceType in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm border-0">
+                    @if (!string.IsNullOrEmpty(serviceType.ImageUrl))
+                    {
+                        <img src="@serviceType.ImageUrl" class="card-img-top rounded-top" alt="@serviceType.Name">
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title text-primary fw-bold mb-3">@serviceType.Name</h5>
+                        <p class="card-text text-muted mb-4">@serviceType.Description</p>
+                        
+                        <ul class="list-group list-group-flush">
+                            @foreach (var service in serviceType.Services)
+                            {
+                                <li class="list-group-item border-0 ps-0">
+                                    <a asp-controller="Home" 
+                                       asp-action="servicedetails" 
+                                       asp-route-name="@service.Name" 
+                                       class="text-success text-decoration-none d-block py-2">
+                                        @service.Name
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
