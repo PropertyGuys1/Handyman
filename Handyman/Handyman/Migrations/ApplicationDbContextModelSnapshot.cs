@@ -24,6 +24,90 @@ namespace Handyman.Migrations
 
             modelBuilder.Entity("Handyman.Data.Entities.Address", b =>
                 {
+
+                    b.Property<Guid>("AddressID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AptSuite")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Instructions")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Province")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserProfileUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("AddressID");
+
+                    b.HasIndex("UserProfileUserId");
+
+                    b.ToTable("Address");
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.Appointment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CustomerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ServiceDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ServiceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Urgent")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Appointments");
+=======
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
@@ -493,9 +577,171 @@ namespace Handyman.Migrations
 
                     b.ToTable("ProviderServices");
 
+
                     b.HasData(
                         new
                         {
+
+                            Id = new Guid("fe408a41-92b1-43ec-842d-f3de2ad5045d"),
+                            CreatedDate = new DateTime(2025, 2, 8, 21, 19, 29, 434, DateTimeKind.Local).AddTicks(5094),
+                            CustomerId = "john_d",
+                            Location = "123 Main Street, City",
+                            ServiceDateTime = new DateTime(2025, 2, 10, 21, 19, 29, 434, DateTimeKind.Local).AddTicks(5088),
+                            ServiceId = new Guid("33375157-ebe7-4480-8d1e-6b8a6378cab2"),
+                            Status = "Scheduled",
+                            UpdatedDate = new DateTime(2025, 2, 8, 21, 19, 29, 434, DateTimeKind.Local).AddTicks(5095),
+                            Urgent = false
+                        },
+                        new
+                        {
+                            Id = new Guid("914d9da7-f30f-4aad-9a24-26de410ec52f"),
+                            CreatedDate = new DateTime(2025, 2, 8, 21, 19, 29, 434, DateTimeKind.Local).AddTicks(5103),
+                            CustomerId = "john_d",
+                            Location = "456 Elm Street, City",
+                            ServiceDateTime = new DateTime(2025, 2, 13, 21, 19, 29, 434, DateTimeKind.Local).AddTicks(5101),
+                            ServiceId = new Guid("ef8cb068-0cb1-4bfb-91a0-0c9b058ea470"),
+                            Status = "Pending",
+                            UpdatedDate = new DateTime(2025, 2, 8, 21, 19, 29, 434, DateTimeKind.Local).AddTicks(5104),
+                            Urgent = true
+                        });
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.Service", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Catagory")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Cost")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserProfileUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserProfileUserId");
+
+                    b.ToTable("Services");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("7f0fbc16-5ed4-4109-9dcf-87182b829921"),
+                            Catagory = "Plumbing",
+                            Cost = 150.00m,
+                            Description = "Fixing leaks and installing new plumbing fixtures.",
+                            IsDeleted = false,
+                            Name = "Plumbing Repair"
+                        },
+                        new
+                        {
+                            Id = new Guid("25f6d3e2-48b7-4c71-b480-82e358a987d0"),
+                            Catagory = "Electrical",
+                            Cost = 200.00m,
+                            Description = "Installation and repair of home electrical systems.",
+                            IsDeleted = false,
+                            Name = "Electrical Wiring"
+                        },
+                        new
+                        {
+                            Id = new Guid("b644dd8d-cdbc-495b-8b07-664c1a8f23fb"),
+                            Catagory = "Carpentry",
+                            Cost = 180.00m,
+                            Description = "Custom furniture, doors, and wooden structures.",
+                            IsDeleted = false,
+                            Name = "Carpentry Work"
+                        },
+                        new
+                        {
+                            Id = new Guid("f0e20d39-4262-41e4-acd4-437e0021d91a"),
+                            Catagory = "HVAC",
+                            Cost = 250.00m,
+                            Description = "Heating, ventilation, and AC system servicing.",
+                            IsDeleted = false,
+                            Name = "HVAC Maintenance"
+                        });
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.ServiceReview", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CustomerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Feedback")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ProviderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Rating")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserProfileUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserProfileUserId");
+
+                    b.ToTable("ServiceReview");
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.UserProfile", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateOnly>("BirthOfDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsReceivePromotionalEmails")
+                        .HasColumnType("bit");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("UserProfiles");
+=======
                             Id = 1,
                             CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2873),
                             ImageUrl = "https://example.com/images/lawn_mowing.jpg",
@@ -1248,9 +1494,29 @@ namespace Handyman.Migrations
 
                     b.ToTable("ServiceTypes");
 
+
                     b.HasData(
                         new
                         {
+
+                            UserId = "john_d",
+                            BirthOfDate = new DateOnly(1990, 5, 15),
+                            DisplayName = "John Doe",
+                            Email = "johndoe@example.com",
+                            Gender = "Male",
+                            IsDeleted = false,
+                            IsReceivePromotionalEmails = true
+                        },
+                        new
+                        {
+                            UserId = "jane_smith911",
+                            BirthOfDate = new DateOnly(1995, 8, 22),
+                            DisplayName = "Jane Smith",
+                            Email = "janesmith@example.com",
+                            Gender = "Female",
+                            IsDeleted = false,
+                            IsReceivePromotionalEmails = false
+
                             Id = 1,
                             Description = "Most commonly requested services.",
                             IsDeleted = false,
@@ -1339,6 +1605,7 @@ namespace Handyman.Migrations
                             Description = "Mounting and installation tasks.",
                             IsDeleted = false,
                             Name = "Mounting & Installation"
+
                         });
                 });
 
@@ -1544,6 +1811,29 @@ namespace Handyman.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+
+            modelBuilder.Entity("Handyman.Data.Entities.Address", b =>
+                {
+                    b.HasOne("Handyman.Data.Entities.UserProfile", "UserProfile")
+                        .WithMany("Addresses")
+                        .HasForeignKey("UserProfileUserId");
+
+                    b.Navigation("UserProfile");
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.Service", b =>
+                {
+                    b.HasOne("Handyman.Data.Entities.UserProfile", null)
+                        .WithMany("ServiceHistroy")
+                        .HasForeignKey("UserProfileUserId");
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.ServiceReview", b =>
+                {
+                    b.HasOne("Handyman.Data.Entities.UserProfile", null)
+                        .WithMany("ServiceReviews")
+                        .HasForeignKey("UserProfileUserId");
+
             modelBuilder.Entity("Handyman.Data.Entities.Appointment", b =>
                 {
                     b.HasOne("Handyman.Data.Entities.CustomerProfile", "CustomerProfile")
@@ -1659,6 +1949,7 @@ namespace Handyman.Migrations
                         .IsRequired();
 
                     b.Navigation("ServiceType");
+
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1712,6 +2003,15 @@ namespace Handyman.Migrations
                         .IsRequired();
                 });
 
+
+            modelBuilder.Entity("Handyman.Data.Entities.UserProfile", b =>
+                {
+                    b.Navigation("Addresses");
+
+                    b.Navigation("ServiceHistroy");
+
+                    b.Navigation("ServiceReviews");
+
             modelBuilder.Entity("Handyman.Data.Entities.Appointment", b =>
                 {
                     b.Navigation("AppointmentFeedback")
@@ -1757,6 +2057,7 @@ namespace Handyman.Migrations
             modelBuilder.Entity("Handyman.Data.Entities.ServiceType", b =>
                 {
                     b.Navigation("Services");
+
                 });
 #pragma warning restore 612, 618
         }
