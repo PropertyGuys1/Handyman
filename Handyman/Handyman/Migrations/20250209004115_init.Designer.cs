@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Handyman.Data.Migrations
+namespace Handyman.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250201014255_addidentity")]
-    partial class addidentity
+    [Migration("20250209004115_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,239 @@ namespace Handyman.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Handyman.Data.Entities.Address", b =>
+                {
+                    b.Property<Guid>("AddressID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AptSuite")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Instructions")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Province")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserProfileUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("AddressID");
+
+                    b.HasIndex("UserProfileUserId");
+
+                    b.ToTable("Address");
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.Appointment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CustomerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ServiceDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ServiceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Urgent")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Appointments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("2f65b350-0ace-43e4-9fd4-4c3b2d25fdf9"),
+                            CreatedDate = new DateTime(2025, 2, 8, 19, 41, 14, 46, DateTimeKind.Local).AddTicks(2451),
+                            CustomerId = "john_d",
+                            Location = "123 Main Street, City",
+                            ServiceDateTime = new DateTime(2025, 2, 10, 19, 41, 14, 46, DateTimeKind.Local).AddTicks(2444),
+                            ServiceId = new Guid("574c35f8-1950-4a4d-8e8f-51331557abbd"),
+                            Status = "Scheduled",
+                            UpdatedDate = new DateTime(2025, 2, 8, 19, 41, 14, 46, DateTimeKind.Local).AddTicks(2454),
+                            Urgent = false
+                        },
+                        new
+                        {
+                            Id = new Guid("4e12033b-3e5c-4ed1-843e-7b05e3fffe7e"),
+                            CreatedDate = new DateTime(2025, 2, 8, 19, 41, 14, 46, DateTimeKind.Local).AddTicks(2490),
+                            CustomerId = "john_d",
+                            Location = "456 Elm Street, City",
+                            ServiceDateTime = new DateTime(2025, 2, 13, 19, 41, 14, 46, DateTimeKind.Local).AddTicks(2482),
+                            ServiceId = new Guid("ad43fc81-62ab-4d22-9f88-ba3ddb1da39a"),
+                            Status = "Pending",
+                            UpdatedDate = new DateTime(2025, 2, 8, 19, 41, 14, 46, DateTimeKind.Local).AddTicks(2496),
+                            Urgent = true
+                        });
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.Service", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Catagory")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Cost")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserProfileUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserProfileUserId");
+
+                    b.ToTable("Service");
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.ServiceReview", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CustomerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Feedback")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ProviderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Rating")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserProfileUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserProfileUserId");
+
+                    b.ToTable("ServiceReview");
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.UserProfile", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateOnly>("BirthOfDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsReceivePromotionalEmails")
+                        .HasColumnType("bit");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("UserProfiles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "john_d",
+                            BirthOfDate = new DateOnly(1990, 5, 15),
+                            DisplayName = "John Doe",
+                            Email = "johndoe@example.com",
+                            Gender = "Male",
+                            IsDeleted = false,
+                            IsReceivePromotionalEmails = true
+                        },
+                        new
+                        {
+                            UserId = "jane_smith911",
+                            BirthOfDate = new DateOnly(1995, 8, 22),
+                            DisplayName = "Jane Smith",
+                            Email = "janesmith@example.com",
+                            Gender = "Female",
+                            IsDeleted = false,
+                            IsReceivePromotionalEmails = false
+                        });
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -227,6 +460,29 @@ namespace Handyman.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Handyman.Data.Entities.Address", b =>
+                {
+                    b.HasOne("Handyman.Data.Entities.UserProfile", "UserProfile")
+                        .WithMany("Addresses")
+                        .HasForeignKey("UserProfileUserId");
+
+                    b.Navigation("UserProfile");
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.Service", b =>
+                {
+                    b.HasOne("Handyman.Data.Entities.UserProfile", null)
+                        .WithMany("ServiceHistroy")
+                        .HasForeignKey("UserProfileUserId");
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.ServiceReview", b =>
+                {
+                    b.HasOne("Handyman.Data.Entities.UserProfile", null)
+                        .WithMany("ServiceReviews")
+                        .HasForeignKey("UserProfileUserId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -276,6 +532,15 @@ namespace Handyman.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.UserProfile", b =>
+                {
+                    b.Navigation("Addresses");
+
+                    b.Navigation("ServiceHistroy");
+
+                    b.Navigation("ServiceReviews");
                 });
 #pragma warning restore 612, 618
         }
