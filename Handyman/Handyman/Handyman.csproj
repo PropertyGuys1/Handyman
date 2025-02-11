@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNetEnv" Version="3.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.11" />
@@ -19,10 +20,17 @@
 
   <ItemGroup>
     <Folder Include="Configurations\" />
+
     <Folder Include="Data\Migrations\" />
     <Folder Include="Data\MockData\" />
     <Folder Include="Migrations\" />
+
     <Folder Include="Services\" />
+    <Folder Include="Views\Customer\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Customer\Index.cshtml" />
   </ItemGroup>
 
 </Project>

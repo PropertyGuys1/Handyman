@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Handyman.Data;
+using Handyman.Data.Entities;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,15 +15,18 @@ public class RegisterModel : PageModel
     private readonly UserManager<IdentityUser> _userManager;
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly ApplicationDbContext _context;
 
     public RegisterModel(
         UserManager<IdentityUser> userManager,
         SignInManager<IdentityUser> signInManager,
-        RoleManager<IdentityRole> roleManager)
+        RoleManager<IdentityRole> roleManager,
+        ApplicationDbContext context)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _roleManager = roleManager;
+        _context = context;
     }
 
     [BindProperty]
@@ -71,6 +77,18 @@ public class RegisterModel : PageModel
             {
                 await _userManager.AddToRoleAsync(user, Input.Role);
                 await _signInManager.SignInAsync(user, isPersistent: false);
+                // Create and save the Profile
+                var profile = new Profile
+                {
+                    UserId = user.Id,
+                    Email = user.Email,
+                    Role = Input.Role,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow
+                };
+
+                _context.Profiles.Add(profile);
+                await _context.SaveChangesAsync();
 
                 // Check the user's roles and redirect accordingly
                 if (await _userManager.IsInRoleAsync(user, "Admin"))

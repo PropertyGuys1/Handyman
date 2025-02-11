@@ -24,6 +24,7 @@ namespace Handyman.Migrations
 
             modelBuilder.Entity("Handyman.Data.Entities.Address", b =>
                 {
+
                     b.Property<Guid>("AddressID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
@@ -106,10 +107,481 @@ namespace Handyman.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Appointments");
+=======
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Address");
 
                     b.HasData(
                         new
                         {
+                            Id = 1,
+                            City = "Anytown",
+                            Country = "USA",
+                            PostalCode = "12345",
+                            State = "CA",
+                            Street = "123 Main St"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            City = "Othertown",
+                            Country = "USA",
+                            PostalCode = "67890",
+                            State = "NY",
+                            Street = "456 Elm St"
+                        });
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.Appointment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("AppointmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CustomerNote")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CustomerProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProviderServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerProfileId");
+
+                    b.HasIndex("ProviderServiceId");
+
+                    b.ToTable("Appointments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AppointmentDate = new DateTime(2025, 2, 11, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2896),
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2903),
+                            CustomerNote = "Please make sure to trim the edges.",
+                            CustomerProfileId = 1,
+                            IsApproved = false,
+                            ProviderServiceId = 1,
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2903)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AppointmentDate = new DateTime(2025, 2, 13, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2905),
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2906),
+                            CustomerNote = "Focus on the kitchen and living room.",
+                            CustomerProfileId = 2,
+                            IsApproved = false,
+                            ProviderServiceId = 2,
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2907)
+                        });
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.AppointmentFeedback", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CustomerProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Feedback")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId")
+                        .IsUnique();
+
+                    b.HasIndex("CustomerProfileId");
+
+                    b.ToTable("AppointmentFeedbacks");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AppointmentId = 1,
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2928),
+                            CustomerProfileId = 1,
+                            Feedback = "Great service! Very satisfied.",
+                            IsApproved = false,
+                            Rating = 5,
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2929)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AppointmentId = 2,
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2931),
+                            CustomerProfileId = 2,
+                            Feedback = "Good job, but could be more thorough.",
+                            IsApproved = false,
+                            Rating = 4,
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2932)
+                        });
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.CustomerProfile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Preferences")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProfileId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("ProfileId")
+                        .IsUnique();
+
+                    b.ToTable("CustomerProfiles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AddressId = 1,
+                            Preferences = "Weekly lawn mowing",
+                            ProfileId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AddressId = 2,
+                            Preferences = "Monthly house cleaning",
+                            ProfileId = 2
+                        });
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.Payment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CustomerProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsSuccessful")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId")
+                        .IsUnique();
+
+                    b.HasIndex("CustomerProfileId");
+
+                    b.ToTable("Payments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Amount = 50.00m,
+                            AppointmentId = 1,
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2977),
+                            CustomerProfileId = 1,
+                            IsSuccessful = true,
+                            PaymentDate = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2976),
+                            PaymentMethod = "Credit Card",
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2977)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Amount = 75.00m,
+                            AppointmentId = 2,
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2980),
+                            CustomerProfileId = 2,
+                            IsSuccessful = true,
+                            PaymentDate = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2980),
+                            PaymentMethod = "PayPal",
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2981)
+                        });
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.Profile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Profiles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "123 Main St, Anytown, USA",
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2495),
+                            Email = "john.doe@example.com",
+                            FullName = "John Doe",
+                            Password = "jhon123",
+                            PhoneNumber = "123-456-7890",
+                            Role = "Customer",
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2498),
+                            UserId = "customer1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "456 Elm St, Othertown, USA",
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2501),
+                            Email = "jane.smith@example.com",
+                            FullName = "Jane Smith",
+                            Password = "jane123",
+                            PhoneNumber = "987-654-3210",
+                            Role = "Customer",
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2502),
+                            UserId = "customer2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "789 Oak St, Sometown, USA",
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2503),
+                            Email = "mike.johnson@example.com",
+                            FullName = "Mike Johnson",
+                            Password = "mike123",
+                            PhoneNumber = "555-123-4567",
+                            Role = "Provider",
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2504),
+                            UserId = "provider1"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "321 Pine St, Anothertown, USA",
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2505),
+                            Email = "emily.davis@example.com",
+                            FullName = "Emily Davis",
+                            Password = "emily123",
+                            PhoneNumber = "555-987-6543",
+                            Role = "Provider",
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2506),
+                            UserId = "provider2"
+                        });
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.ProviderProfile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Availability")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Rating")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ServicesOffered")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfileId")
+                        .IsUnique();
+
+                    b.ToTable("ProviderProfiles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Availability = "Mon-Fri 9am-5pm",
+                            ProfileId = 3,
+                            Rating = 4.5m,
+                            ServicesOffered = "Lawn Mowing, Hedge Trimming"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Availability = "Sat-Sun 10am-4pm",
+                            ProfileId = 4,
+                            Rating = 4.8m,
+                            ServicesOffered = "House Cleaning, Carpet Cleaning"
+                        });
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.ProviderService", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProviderProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProviderProfileId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("ProviderServices");
+
+
+                    b.HasData(
+                        new
+                        {
+
                             Id = new Guid("fe408a41-92b1-43ec-842d-f3de2ad5045d"),
                             CreatedDate = new DateTime(2025, 2, 8, 21, 19, 29, 434, DateTimeKind.Local).AddTicks(5094),
                             CustomerId = "john_d",
@@ -269,10 +741,764 @@ namespace Handyman.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("UserProfiles");
+=======
+                            Id = 1,
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2873),
+                            ImageUrl = "https://example.com/images/lawn_mowing.jpg",
+                            Notes = "Experienced in lawn mowing with professional equipment.",
+                            ProviderProfileId = 1,
+                            ServiceId = 1,
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2874)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2876),
+                            ImageUrl = "https://example.com/images/house_cleaning.jpg",
+                            Notes = "Thorough house cleaning services with eco-friendly products.",
+                            ProviderProfileId = 2,
+                            ServiceId = 3,
+                            UpdatedAt = new DateTime(2025, 2, 8, 17, 8, 58, 882, DateTimeKind.Utc).AddTicks(2877)
+                        });
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.Service", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ServiceTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ServiceTypeId");
+
+                    b.ToTable("Services");
 
                     b.HasData(
                         new
                         {
+                            Id = 1,
+                            IsDeleted = false,
+                            Name = "Yardwork",
+                            ServiceTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsDeleted = false,
+                            Name = "Minor Home Repair",
+                            ServiceTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsDeleted = false,
+                            Name = "Furniture Assembly",
+                            ServiceTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IsDeleted = false,
+                            Name = "Snow Removal",
+                            ServiceTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IsDeleted = false,
+                            Name = "TV Mounting",
+                            ServiceTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            IsDeleted = false,
+                            Name = "Help Moving",
+                            ServiceTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            IsDeleted = false,
+                            Name = "Handyman",
+                            ServiceTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            IsDeleted = false,
+                            Name = "Painting",
+                            ServiceTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 9,
+                            IsDeleted = false,
+                            Name = "Lighting Installation",
+                            ServiceTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            IsDeleted = false,
+                            Name = "Hang Pictures",
+                            ServiceTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 11,
+                            IsDeleted = false,
+                            Name = "IKEA Services",
+                            ServiceTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 12,
+                            IsDeleted = false,
+                            Name = "Delivery",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 13,
+                            IsDeleted = false,
+                            Name = "Home Repairs",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 14,
+                            IsDeleted = false,
+                            Name = "General Cleaning",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 15,
+                            IsDeleted = false,
+                            Name = "Assemble Furniture",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 16,
+                            IsDeleted = false,
+                            Name = "Help Moving / Hauling",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 17,
+                            IsDeleted = false,
+                            Name = "Heavy Lifting",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 18,
+                            IsDeleted = false,
+                            Name = "Personal Assistant",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 19,
+                            IsDeleted = false,
+                            Name = "Yard Work",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 20,
+                            IsDeleted = false,
+                            Name = "Queue in Line",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 21,
+                            IsDeleted = false,
+                            Name = "Organize Closet",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 22,
+                            IsDeleted = false,
+                            Name = "Office Administration",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 23,
+                            IsDeleted = false,
+                            Name = "Organization",
+                            ServiceTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 24,
+                            IsDeleted = false,
+                            Name = "Home Repairs",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 25,
+                            IsDeleted = false,
+                            Name = "Assemble Furniture",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 26,
+                            IsDeleted = false,
+                            Name = "TV Mounting",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 27,
+                            IsDeleted = false,
+                            Name = "Heavy Lifting",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 28,
+                            IsDeleted = false,
+                            Name = "Painting",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 29,
+                            IsDeleted = false,
+                            Name = "Plumbing",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 30,
+                            IsDeleted = false,
+                            Name = "Yard Work",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 31,
+                            IsDeleted = false,
+                            Name = "Hang Pictures",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 32,
+                            IsDeleted = false,
+                            Name = "Shelf Mounting",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 33,
+                            IsDeleted = false,
+                            Name = "Light Installation",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 34,
+                            IsDeleted = false,
+                            Name = "Electrical Work",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 35,
+                            IsDeleted = false,
+                            Name = "Carpentry",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 36,
+                            IsDeleted = false,
+                            Name = "Baby Proofing",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 37,
+                            IsDeleted = false,
+                            Name = "Smart Home Installation",
+                            ServiceTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 38,
+                            IsDeleted = false,
+                            Name = "Help Moving / Hauling",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 39,
+                            IsDeleted = false,
+                            Name = "One Item Movers",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 40,
+                            IsDeleted = false,
+                            Name = "Furniture Movers",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 41,
+                            IsDeleted = false,
+                            Name = "Junk Removal",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 42,
+                            IsDeleted = false,
+                            Name = "Full Service Movers",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 43,
+                            IsDeleted = false,
+                            Name = "Packing and Moving Services",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 44,
+                            IsDeleted = false,
+                            Name = "Unpacking Services",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 45,
+                            IsDeleted = false,
+                            Name = "Heavy Lifting",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 46,
+                            IsDeleted = false,
+                            Name = "Furniture Removal",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 47,
+                            IsDeleted = false,
+                            Name = "Couch Removal",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 48,
+                            IsDeleted = false,
+                            Name = "Move Furniture Up/Downstairs",
+                            ServiceTypeId = 4
+                        },
+                        new
+                        {
+                            Id = 49,
+                            IsDeleted = false,
+                            Name = "Hang Christmas Lights",
+                            ServiceTypeId = 5
+                        },
+                        new
+                        {
+                            Id = 50,
+                            IsDeleted = false,
+                            Name = "Christmas Tree Delivery",
+                            ServiceTypeId = 5
+                        },
+                        new
+                        {
+                            Id = 51,
+                            IsDeleted = false,
+                            Name = "Christmas Decorating",
+                            ServiceTypeId = 5
+                        },
+                        new
+                        {
+                            Id = 52,
+                            IsDeleted = false,
+                            Name = "Shopping",
+                            ServiceTypeId = 5
+                        },
+                        new
+                        {
+                            Id = 53,
+                            IsDeleted = false,
+                            Name = "Holiday Shopping",
+                            ServiceTypeId = 5
+                        },
+                        new
+                        {
+                            Id = 54,
+                            IsDeleted = false,
+                            Name = "Gifts Wrapping",
+                            ServiceTypeId = 5
+                        },
+                        new
+                        {
+                            Id = 55,
+                            IsDeleted = false,
+                            Name = "Grocery Shopping",
+                            ServiceTypeId = 5
+                        },
+                        new
+                        {
+                            Id = 56,
+                            IsDeleted = false,
+                            Name = "Gift Shopping",
+                            ServiceTypeId = 5
+                        },
+                        new
+                        {
+                            Id = 57,
+                            IsDeleted = false,
+                            Name = "Furniture Assembly",
+                            ServiceTypeId = 6
+                        },
+                        new
+                        {
+                            Id = 58,
+                            IsDeleted = false,
+                            Name = "IKEA Furniture Assembly",
+                            ServiceTypeId = 6
+                        },
+                        new
+                        {
+                            Id = 59,
+                            IsDeleted = false,
+                            Name = "Assembly of Kids Furniture",
+                            ServiceTypeId = 6
+                        },
+                        new
+                        {
+                            Id = 60,
+                            IsDeleted = false,
+                            Name = "Office Furniture Assembly",
+                            ServiceTypeId = 6
+                        },
+                        new
+                        {
+                            Id = 61,
+                            IsDeleted = false,
+                            Name = "Shed Assembly",
+                            ServiceTypeId = 6
+                        },
+                        new
+                        {
+                            Id = 62,
+                            IsDeleted = false,
+                            Name = "Snow Removal",
+                            ServiceTypeId = 7
+                        },
+                        new
+                        {
+                            Id = 63,
+                            IsDeleted = false,
+                            Name = "Ice Melting",
+                            ServiceTypeId = 7
+                        },
+                        new
+                        {
+                            Id = 64,
+                            IsDeleted = false,
+                            Name = "Winterizing Property",
+                            ServiceTypeId = 7
+                        },
+                        new
+                        {
+                            Id = 65,
+                            IsDeleted = false,
+                            Name = "Gutter Cleaning",
+                            ServiceTypeId = 7
+                        },
+                        new
+                        {
+                            Id = 66,
+                            IsDeleted = false,
+                            Name = "Shoveling Driveways",
+                            ServiceTypeId = 7
+                        },
+                        new
+                        {
+                            Id = 67,
+                            IsDeleted = false,
+                            Name = "Winterizing Plumbing",
+                            ServiceTypeId = 7
+                        },
+                        new
+                        {
+                            Id = 68,
+                            IsDeleted = false,
+                            Name = "Lawn Care",
+                            ServiceTypeId = 8
+                        },
+                        new
+                        {
+                            Id = 69,
+                            IsDeleted = false,
+                            Name = "Tree Pruning",
+                            ServiceTypeId = 8
+                        },
+                        new
+                        {
+                            Id = 70,
+                            IsDeleted = false,
+                            Name = "Leaf Raking",
+                            ServiceTypeId = 8
+                        },
+                        new
+                        {
+                            Id = 71,
+                            IsDeleted = false,
+                            Name = "Lawn Mowing",
+                            ServiceTypeId = 8
+                        },
+                        new
+                        {
+                            Id = 72,
+                            IsDeleted = false,
+                            Name = "Gardening",
+                            ServiceTypeId = 8
+                        },
+                        new
+                        {
+                            Id = 73,
+                            IsDeleted = false,
+                            Name = "Mulching",
+                            ServiceTypeId = 8
+                        },
+                        new
+                        {
+                            Id = 74,
+                            IsDeleted = false,
+                            Name = "Deep Cleaning",
+                            ServiceTypeId = 9
+                        },
+                        new
+                        {
+                            Id = 75,
+                            IsDeleted = false,
+                            Name = "Office Cleaning",
+                            ServiceTypeId = 9
+                        },
+                        new
+                        {
+                            Id = 76,
+                            IsDeleted = false,
+                            Name = "Carpet Cleaning",
+                            ServiceTypeId = 9
+                        },
+                        new
+                        {
+                            Id = 77,
+                            IsDeleted = false,
+                            Name = "Window Cleaning",
+                            ServiceTypeId = 9
+                        },
+                        new
+                        {
+                            Id = 78,
+                            IsDeleted = false,
+                            Name = "Move-In/Move-Out Cleaning",
+                            ServiceTypeId = 9
+                        },
+                        new
+                        {
+                            Id = 79,
+                            IsDeleted = false,
+                            Name = "Pressure Washing",
+                            ServiceTypeId = 9
+                        },
+                        new
+                        {
+                            Id = 80,
+                            IsDeleted = false,
+                            Name = "Post-Construction Cleaning",
+                            ServiceTypeId = 9
+                        },
+                        new
+                        {
+                            Id = 81,
+                            IsDeleted = false,
+                            Name = "Grocery Shopping",
+                            ServiceTypeId = 10
+                        },
+                        new
+                        {
+                            Id = 82,
+                            IsDeleted = false,
+                            Name = "Gift Shopping",
+                            ServiceTypeId = 10
+                        },
+                        new
+                        {
+                            Id = 83,
+                            IsDeleted = false,
+                            Name = "Package Pickup & Delivery",
+                            ServiceTypeId = 10
+                        },
+                        new
+                        {
+                            Id = 84,
+                            IsDeleted = false,
+                            Name = "Personal Shopping Assistant",
+                            ServiceTypeId = 10
+                        },
+                        new
+                        {
+                            Id = 85,
+                            IsDeleted = false,
+                            Name = "Errand Running",
+                            ServiceTypeId = 10
+                        },
+                        new
+                        {
+                            Id = 86,
+                            IsDeleted = false,
+                            Name = "Contactless Grocery Shopping",
+                            ServiceTypeId = 11
+                        },
+                        new
+                        {
+                            Id = 87,
+                            IsDeleted = false,
+                            Name = "Contactless Furniture Assembly",
+                            ServiceTypeId = 11
+                        },
+                        new
+                        {
+                            Id = 88,
+                            IsDeleted = false,
+                            Name = "Contactless Delivery",
+                            ServiceTypeId = 11
+                        },
+                        new
+                        {
+                            Id = 89,
+                            IsDeleted = false,
+                            Name = "Contactless Cleaning",
+                            ServiceTypeId = 11
+                        },
+                        new
+                        {
+                            Id = 90,
+                            IsDeleted = false,
+                            Name = "IKEA Furniture Assembly",
+                            ServiceTypeId = 12
+                        },
+                        new
+                        {
+                            Id = 91,
+                            IsDeleted = false,
+                            Name = "IKEA Pickup & Delivery",
+                            ServiceTypeId = 12
+                        },
+                        new
+                        {
+                            Id = 92,
+                            IsDeleted = false,
+                            Name = "IKEA Home Installation",
+                            ServiceTypeId = 12
+                        },
+                        new
+                        {
+                            Id = 93,
+                            IsDeleted = false,
+                            Name = "TV Mounting",
+                            ServiceTypeId = 13
+                        },
+                        new
+                        {
+                            Id = 94,
+                            IsDeleted = false,
+                            Name = "Picture Hanging",
+                            ServiceTypeId = 13
+                        },
+                        new
+                        {
+                            Id = 95,
+                            IsDeleted = false,
+                            Name = "Shelving Installation",
+                            ServiceTypeId = 13
+                        },
+                        new
+                        {
+                            Id = 96,
+                            IsDeleted = false,
+                            Name = "Light Fixture Installation",
+                            ServiceTypeId = 13
+                        },
+                        new
+                        {
+                            Id = 97,
+                            IsDeleted = false,
+                            Name = "Curtain Rod Installation",
+                            ServiceTypeId = 13
+                        });
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.ServiceType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ServiceTypes");
+
+
+                    b.HasData(
+                        new
+                        {
+
                             UserId = "john_d",
                             BirthOfDate = new DateOnly(1990, 5, 15),
                             DisplayName = "John Doe",
@@ -290,6 +1516,96 @@ namespace Handyman.Migrations
                             Gender = "Female",
                             IsDeleted = false,
                             IsReceivePromotionalEmails = false
+
+                            Id = 1,
+                            Description = "Most commonly requested services.",
+                            IsDeleted = false,
+                            Name = "Popular Tasks"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Handpicked services for special needs.",
+                            IsDeleted = false,
+                            Name = "Featured Tasks"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "General handyman and repair services.",
+                            IsDeleted = false,
+                            Name = "Handyman Services"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Services for helping with moving and hauling.",
+                            IsDeleted = false,
+                            Name = "Moving Services"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Services related to holiday preparations.",
+                            IsDeleted = false,
+                            Name = "Holiday Help"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "Services for assembling furniture.",
+                            IsDeleted = false,
+                            Name = "Furniture Assembly"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "Services for winter-related tasks.",
+                            IsDeleted = false,
+                            Name = "Winter Tasks"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Description = "Services for lawn and garden care.",
+                            IsDeleted = false,
+                            Name = "Yard Work"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Description = "Cleaning and disinfecting services.",
+                            IsDeleted = false,
+                            Name = "Cleaning"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Description = "Services related to shopping and delivery.",
+                            IsDeleted = false,
+                            Name = "Shopping & Delivery"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Description = "Services that can be performed contactlessly.",
+                            IsDeleted = false,
+                            Name = "Contactless Tasks"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Description = "Services related to IKEA products.",
+                            IsDeleted = false,
+                            Name = "IKEA Services"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Description = "Mounting and installation tasks.",
+                            IsDeleted = false,
+                            Name = "Mounting & Installation"
+
                         });
                 });
 
@@ -495,6 +1811,7 @@ namespace Handyman.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+
             modelBuilder.Entity("Handyman.Data.Entities.Address", b =>
                 {
                     b.HasOne("Handyman.Data.Entities.UserProfile", "UserProfile")
@@ -516,6 +1833,123 @@ namespace Handyman.Migrations
                     b.HasOne("Handyman.Data.Entities.UserProfile", null)
                         .WithMany("ServiceReviews")
                         .HasForeignKey("UserProfileUserId");
+
+            modelBuilder.Entity("Handyman.Data.Entities.Appointment", b =>
+                {
+                    b.HasOne("Handyman.Data.Entities.CustomerProfile", "CustomerProfile")
+                        .WithMany("Appointments")
+                        .HasForeignKey("CustomerProfileId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Handyman.Data.Entities.ProviderService", "ProviderService")
+                        .WithMany("Appointments")
+                        .HasForeignKey("ProviderServiceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CustomerProfile");
+
+                    b.Navigation("ProviderService");
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.AppointmentFeedback", b =>
+                {
+                    b.HasOne("Handyman.Data.Entities.Appointment", "Appointment")
+                        .WithOne("AppointmentFeedback")
+                        .HasForeignKey("Handyman.Data.Entities.AppointmentFeedback", "AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Handyman.Data.Entities.CustomerProfile", "CustomerProfile")
+                        .WithMany("AppointmentFeedbacks")
+                        .HasForeignKey("CustomerProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
+
+                    b.Navigation("CustomerProfile");
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.CustomerProfile", b =>
+                {
+                    b.HasOne("Handyman.Data.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Handyman.Data.Entities.Profile", "Profile")
+                        .WithOne("CustomerProfile")
+                        .HasForeignKey("Handyman.Data.Entities.CustomerProfile", "ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+
+                    b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.Payment", b =>
+                {
+                    b.HasOne("Handyman.Data.Entities.Appointment", "Appointment")
+                        .WithOne("Payment")
+                        .HasForeignKey("Handyman.Data.Entities.Payment", "AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Handyman.Data.Entities.CustomerProfile", "CustomerProfile")
+                        .WithMany("Payments")
+                        .HasForeignKey("CustomerProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
+
+                    b.Navigation("CustomerProfile");
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.ProviderProfile", b =>
+                {
+                    b.HasOne("Handyman.Data.Entities.Profile", "Profile")
+                        .WithOne("ProviderProfile")
+                        .HasForeignKey("Handyman.Data.Entities.ProviderProfile", "ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.ProviderService", b =>
+                {
+                    b.HasOne("Handyman.Data.Entities.ProviderProfile", "ProviderProfile")
+                        .WithMany("ProviderServices")
+                        .HasForeignKey("ProviderProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Handyman.Data.Entities.Service", "Service")
+                        .WithMany("ProviderServices")
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProviderProfile");
+
+                    b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.Service", b =>
+                {
+                    b.HasOne("Handyman.Data.Entities.ServiceType", "ServiceType")
+                        .WithMany("Services")
+                        .HasForeignKey("ServiceTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ServiceType");
+
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -569,6 +2003,7 @@ namespace Handyman.Migrations
                         .IsRequired();
                 });
 
+
             modelBuilder.Entity("Handyman.Data.Entities.UserProfile", b =>
                 {
                     b.Navigation("Addresses");
@@ -576,6 +2011,53 @@ namespace Handyman.Migrations
                     b.Navigation("ServiceHistroy");
 
                     b.Navigation("ServiceReviews");
+
+            modelBuilder.Entity("Handyman.Data.Entities.Appointment", b =>
+                {
+                    b.Navigation("AppointmentFeedback")
+                        .IsRequired();
+
+                    b.Navigation("Payment")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.CustomerProfile", b =>
+                {
+                    b.Navigation("AppointmentFeedbacks");
+
+                    b.Navigation("Appointments");
+
+                    b.Navigation("Payments");
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.Profile", b =>
+                {
+                    b.Navigation("CustomerProfile")
+                        .IsRequired();
+
+                    b.Navigation("ProviderProfile")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.ProviderProfile", b =>
+                {
+                    b.Navigation("ProviderServices");
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.ProviderService", b =>
+                {
+                    b.Navigation("Appointments");
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.Service", b =>
+                {
+                    b.Navigation("ProviderServices");
+                });
+
+            modelBuilder.Entity("Handyman.Data.Entities.ServiceType", b =>
+                {
+                    b.Navigation("Services");
+
                 });
 #pragma warning restore 612, 618
         }
