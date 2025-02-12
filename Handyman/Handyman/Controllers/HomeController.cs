@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.Mail;
 using Handyman.Data;
+using Handyman.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Handyman.Controllers
@@ -21,6 +22,23 @@ namespace Handyman.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public async Task<IActionResult> GetServices(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return Json(new List<string>()); // Return empty list if query is empty
+            }
+
+            var services = await _context.Services
+                .Where(s => s.Name.ToLower().Contains(query.ToLower()))
+                .OrderBy(s => s.Name)
+                .Select(s => s.Name) // Only fetch names for performance
+                .ToListAsync();
+
+            return Json(services);
+        }
+        
 
         public async Task<IActionResult> services()
         {

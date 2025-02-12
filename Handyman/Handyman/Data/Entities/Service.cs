@@ -7,7 +7,6 @@ namespace Handyman.Data.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public int ServiceTypeId { get; set; }
-        
         public bool IsDeleted { get; set; }=false;
         // Navigation property
         public virtual ServiceType ServiceType { get; set; }
