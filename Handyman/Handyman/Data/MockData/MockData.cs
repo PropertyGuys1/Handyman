@@ -430,6 +430,7 @@ namespace Handyman.Data.MockData
         new Address
         {
             Id = 1,
+            userId = "dfasdfas",
             Street = "123 Main St",
             City = "Anytown",
             State = "CA",
@@ -439,6 +440,7 @@ namespace Handyman.Data.MockData
         new Address
         {
             Id = 2,
+            userId = "dfasdfas",
             Street = "456 Elm St",
             City = "Othertown",
             State = "NY",

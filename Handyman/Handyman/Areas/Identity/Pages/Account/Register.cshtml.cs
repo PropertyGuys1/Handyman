@@ -97,7 +97,7 @@ public class RegisterModel : PageModel
                 }
                 else if (await _userManager.IsInRoleAsync(user, "Customer"))
                 {
-                    return LocalRedirect(Url.Content("~/Customer"));
+                    return LocalRedirect(Url.Content("~/"));
                 }
                 else if (await _userManager.IsInRoleAsync(user, "Provider"))
                     return LocalRedirect(Url.Content("~/Provider"));

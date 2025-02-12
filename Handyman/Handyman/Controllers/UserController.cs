@@ -1,5 +1,6 @@
 ﻿using Handyman.Data;
 using Handyman.Data.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
@@ -11,30 +12,42 @@ namespace Handyman.Controllers
         private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly ApplicationDbContext _context;
 
-        public UserController(IWebHostEnvironment hostingEnvironment, ApplicationDbContext context)
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
+
+        public UserController(IWebHostEnvironment hostingEnvironment,
+            ApplicationDbContext context,
+            UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager)
         {
             _hostingEnvironment = hostingEnvironment;
             _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
-        public async Task<IActionResult> Profile(string Id)
+        public async Task<IActionResult> Profile(string id)
         {
             var profile = await _context.Profiles
                 .Include(p => p.CustomerProfile)
-                .ThenInclude(c => c.Address)
+                .ThenInclude(cp => cp.Addresses) // Correctly include the collection of addresses
                 .Include(p => p.CustomerProfile.Appointments)
                 .Include(p => p.CustomerProfile.AppointmentFeedbacks)
                 .Include(p => p.CustomerProfile.Payments)
-                .FirstOrDefaultAsync(p => p.UserId == Id);
+                .FirstOrDefaultAsync(p => p.UserId == id); // Use the correct ID type
+
+            var address = _context.Addresses;
 
             if (profile == null)
                 return NotFound();
+
+
 
             var viewModel = new UserProfileViewModel
             {
                 Profile = profile,
                 CustomerProfile = profile.CustomerProfile,
-                Address = profile.CustomerProfile?.Address,
+                Addresses = address, // Assign the collection of addresses
                 Appointments = profile.CustomerProfile?.Appointments,
                 Feedbacks = profile.CustomerProfile?.AppointmentFeedbacks,
                 Payments = profile.CustomerProfile?.Payments
@@ -42,6 +55,7 @@ namespace Handyman.Controllers
 
             return View(viewModel);
         }
+
 
         [HttpGet]
         public IActionResult EditProfile(string Id)
@@ -61,7 +75,6 @@ namespace Handyman.Controllers
                 FullName = userProfile.FullName,
                 Email = userProfile.Email,
                 PhoneNumber = userProfile.PhoneNumber,
-                Address = userProfile.Address,
                 /*
                 Preferences = userProfile.CustomerProfile?.Preferences
             */
@@ -89,7 +102,6 @@ namespace Handyman.Controllers
                     profile.FullName = model.FullName;
                     profile.Email = model.Email;
                     profile.PhoneNumber = model.PhoneNumber;
-                    profile.Address = model.Address;
                     profile.UpdatedAt = DateTime.Now;
 
                     if (profileImage != null && profileImage.Length > 0)
@@ -136,25 +148,113 @@ namespace Handyman.Controllers
 
 
 
-        // Delete Profile Action
         [HttpPost]
-        public IActionResult DeleteProfile(string id)
+        public async Task<IActionResult> DeleteProfile(string id)
         {
+            // Find the user profile
             var userProfile = _context.Profiles
-                .Include(p => p.CustomerProfile)
                 .FirstOrDefault(p => p.UserId == id);
 
-            if (userProfile != null)
+            if (userProfile == null)
             {
-                _context.Profiles.Remove(userProfile);
-                _context.SaveChanges();
-
-                // Redirect to home or login page after deletion
-                return RedirectToAction("Index", "Home");
+                return NotFound();
             }
 
-            return NotFound();
+            // Find the user in Identity
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            // Delete the profile from the database
+            _context.Profiles.Remove(userProfile);
+            await _context.SaveChangesAsync();
+
+            // Delete the user from Identity
+            var result = await _userManager.DeleteAsync(user);
+            if (!result.Succeeded)
+            {
+                return BadRequest("Failed to delete user.");
+            }
+
+            // Log the user out
+            await _signInManager.SignOutAsync();
+
+            // Redirect to login page
+            return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AddEditAddress(string id, int? addressId)
+        {
+            var model = new AddressViewModel { UserProfileId = id };
+
+            if (addressId.HasValue)
+            {
+                var address = await _context.Addresses.FindAsync(addressId.Value);
+                if (address != null)
+                {
+                    model.Street = address.Street;
+                    model.City = address.City;
+                    model.State = address.State;
+                    model.PostalCode = address.PostalCode;
+                    model.Country = address.Country;
+                }
+            }
+
+            return View(model);
+        }
+
+        // Action to handle the Add/Edit Address form submission
+        [HttpPost]
+        public async Task<IActionResult> AddEditAddress(AddressViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var address = new Address
+                {
+                    userId = model.UserProfileId,
+                    Street = model.Street,
+                    City = model.City,
+                    State = model.State,
+                    PostalCode = model.PostalCode,
+                    Country = model.Country,
+                };
+
+                if (model.UserProfileId != null)
+                {
+                    _context.Addresses.Add(address);
+                }
+                else
+                {
+                    _context.Addresses.Update(address);
+                }
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Profile", new { id = model.UserProfileId });
+            }
+
+            return View(model);
+        }
+
+        // Action to handle deleting an address
+        [HttpPost]
+        public async Task<IActionResult> DeleteAddress(int id)
+        {
+            var address = await _context.Addresses.FindAsync(id);
+
+            
+            var userProfileId = address.userId; // Store the UserProfileId before deleting
+            _context.Addresses.Remove(address);
+            await _context.SaveChangesAsync();
+           
+            return RedirectToAction("Profile", new { id = userProfileId }); // Redirect using the stored UserProfileId
+
+
+        }
+
+
 
         public IActionResult Appointments()
         {

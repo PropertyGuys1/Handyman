@@ -16,6 +16,7 @@ namespace Handyman.Data
         public DbSet<CustomerProfile> CustomerProfiles { get; set; }
         public DbSet<ProviderProfile> ProviderProfiles { get; set; }
         public DbSet<ServiceType> ServiceTypes { get; set; }
+        public DbSet<Address> Addresses { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<ProviderService> ProviderServices { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
@@ -80,9 +81,8 @@ namespace Handyman.Data
                 .HasForeignKey(af => af.CustomerProfileId);
 
             modelBuilder.Entity<CustomerProfile>()
-                .HasOne(cp => cp.Address)
-                .WithMany()
-                .HasForeignKey(cp => cp.AddressId);
+                .HasMany(cp => cp.Addresses)
+                .WithMany();
 
             modelBuilder.Entity<Payment>()
                 .HasOne(p => p.CustomerProfile)
