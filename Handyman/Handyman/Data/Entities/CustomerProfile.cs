@@ -9,7 +9,8 @@
 
         // Navigation property
         public virtual Profile Profile { get; set; }
-        public virtual Address Address { get; set; }
+        
+        public IEnumerable<Address> Addresses { get; set; } // Collection of addresses
         public virtual ICollection<Appointment> Appointments { get; set; }
         public virtual ICollection<AppointmentFeedback> AppointmentFeedbacks { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }  
