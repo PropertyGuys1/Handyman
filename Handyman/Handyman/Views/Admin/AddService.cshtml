@@ -1,9 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@model Handyman.Data.Entities.Service
+﻿@model Handyman.Data.Entities.Service
 
 @{
     ViewData["Title"] = "Add Service";
@@ -11,7 +6,7 @@
 
 <h2>Add Service</h2>
 
-<form asp-action="AddService">
+<form asp-action="AddService" asp-controller="Admin" method="post">
     <div class="form-group">
         <label asp-for="Name" class="control-label"></label>
         <input asp-for="Name" class="form-control" />
@@ -25,9 +20,10 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="Catagory" class="control-label"></label>
-        <input asp-for="Catagory" class="form-control" />
-        <span asp-validation-for="Catagory" class="text-danger"></span>
+        <label for="ServiceTypeId">Select Service Type</label>
+        <select asp-for="ServiceTypeId" asp-items="ViewBag.ServiceTypes" class="form-control">
+            <option value="">-- Select Service Type --</option>
+        </select>
     </div>
 
     <div class="form-group">
@@ -37,5 +33,5 @@
     </div>
 
     <button type="submit" class="btn btn-success mt-3">Create</button>
-    <a asp-action="Service" class="btn btn-secondary mt-3">Back to List</a>
+    <a asp-action="ServiceType" class="btn btn-secondary mt-3">Back to List</a>
 </form>

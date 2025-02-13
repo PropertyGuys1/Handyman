@@ -1,7 +1,17 @@
-﻿@model IEnumerable<Handyman.Data.Entities.Appointment>
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<Handyman.Data.Entities.ServiceType>
+
+@{
+    ViewData["Title"] = "Services";
+}
 
 <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container-fluid">
+
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -24,30 +34,36 @@
     </div>
 </nav>
 
-<h2>All Appointments</h2>
+<h2>Services Type</h2>
 
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Customer</th>
-                <th>Service</th>
-                <th>Service Date</th>
-                <th>Status</th>
-                <th>Urgent</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var appointment in Model)
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Button</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var service in Model)
             {
                 <tr>
-                    <td>@appointment.CustomerProfileId</td>
-                    <td>@appointment.ProviderServiceId</td>
-                    <td>@appointment.AppointmentDate.ToString("g")</td>
-                    <td>@(appointment.IsApproved ? "Approved" : "Pending")</td>
-                    <td>@(appointment.AppointmentFeedback != null ? "Yes" : "No")</td>
+                    <td>@service.Name</td>
+                    <td>@service.Description</td>
+                    <td>
+                        <a asp-action="ServiceList" asp-route-id="@service.Id" class="btn btn-info btn-sm">Details</a>
+                    </td>
                 </tr>
             }
-        </tbody>
-    </table>
-</div>
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No services available</td>
+            </tr>
+        }
+    </tbody>
+
+</table>

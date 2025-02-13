@@ -23,7 +23,6 @@
 
     <Folder Include="Data\Migrations\" />
     <Folder Include="Data\MockData\" />
-    <Folder Include="Migrations\" />
 
     <Folder Include="Services\" />
     <Folder Include="Views\Customer\" />

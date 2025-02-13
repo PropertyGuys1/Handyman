@@ -1,0 +1,86 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model Handyman.Data.Entities.ServiceType
+
+@{
+    ViewData["Title"] = "Service Type Details";
+}
+
+<nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Appointment">Appointments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Index">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="ServiceProviders">Service Providers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Reports">Reports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="ServiceType">Services Type</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<h2>Service Type Details</h2>
+<a asp-action="AddService" asp-route-id="@Model.Id" class="btn btn-primary">Add Service</a>
+<div class="card">
+    <div class="card-header">
+        <h4>@Model.Name</h4>
+    </div>
+    <div class="card-body">
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid mb-3" style="max-width: 200px;">
+        }
+        <p><strong>Description:</strong> @Model.Description</p>
+        <p><strong>Status:</strong> @(Model.IsDeleted ? "Deleted" : "Active")</p>
+    </div>
+</div>
+
+<h3>Services Under This Type</h3>
+@if (Model.Services != null && Model.Services.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Cost</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var service in Model.Services)
+            {
+                <tr>
+                    <td>@service.Name</td>
+                    <td>@service.Description</td>
+                    <td>@service.Cost</td>
+                    <td>
+                        <a asp-action="EditService" asp-route-id="@service.Id" class="btn btn-info btn-sm">Edit</a>
+                        <a asp-action="DeleteService" asp-route-id="@service.Id" class="btn btn-info btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No services available under this category.</p>
+}
+
+<a asp-action="ServiceType" class="btn btn-secondary">Back to List</a>

@@ -22,7 +22,7 @@
                     <a class="nav-link" asp-action="Reports">Reports</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-action="Service">Services</a>
+                    <a class="nav-link" asp-action="ServiceType">Services Type</a>
                 </li>
             </ul>
         </div>
@@ -30,8 +30,9 @@
 </nav>
 
 <h2>Services</h2>
-<a asp-action="AddService" class="btn btn-primary mb-3">Add New Service</a>
 
+<a asp-action="AddService" class="btn btn-primary mb-3">Add New Service</a>
+<br/>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -43,19 +44,29 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var service in Model)
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var service in Model)
+            {
+                <tr>
+                    <td>@service.Name</td>
+                    <td>@service.Description</td>
+                    <td>@(service.ServiceTypeId != null ? service.ServiceTypeId : "N/A")</td>
+                    <td>@service.Cost</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@service.Id" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="EditService" asp-route-id="@service.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <button type="submit" asp-action="DeleteService" asp-route-id="@service.Id" class="btn btn-danger">Delete</button>
+                    </td>
+                </tr>
+            }
+        }
+        else
         {
             <tr>
-                <td>@service.Name</td>
-                <td>@service.Description</td>
-                <td>@service.Catagory</td>
-                <td>@service.Cost?.ToString("C")</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@service.Id" class="btn btn-info btn-sm">Details</a>
-                    <a asp-action="EditService" asp-route-id="@service.Id" class="btn btn-warning btn-sm">Edit</a>
-                    <button type="submit" asp-action="DeleteService" asp-route-id="@service.Id" class="btn btn-danger">Delete</button>
-                </td>
+                <td colspan="5" class="text-center">No services available</td>
             </tr>
         }
     </tbody>
+
 </table>
