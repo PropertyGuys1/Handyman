@@ -5,7 +5,7 @@ namespace Handyman.Data.MockData
 {
     public static class MockData
     {
-      
+
         public static List<Profile> GetProfiles()
         {
             return new List<Profile>

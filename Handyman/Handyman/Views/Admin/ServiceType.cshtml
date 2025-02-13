@@ -1,0 +1,69 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<Handyman.Data.Entities.ServiceType>
+
+@{
+    ViewData["Title"] = "Services";
+}
+
+<nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container-fluid">
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Appointment">Appointments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Index">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="ServiceProviders">Service Providers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Reports">Reports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="ServiceType">Services Type</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<h2>Services Type</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Button</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var service in Model)
+            {
+                <tr>
+                    <td>@service.Name</td>
+                    <td>@service.Description</td>
+                    <td>
+                        <a asp-action="ServiceList" asp-route-id="@service.Id" class="btn btn-info btn-sm">Details</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No services available</td>
+            </tr>
+        }
+    </tbody>
+
+</table>

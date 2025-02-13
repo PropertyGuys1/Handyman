@@ -18,5 +18,6 @@
         public virtual AppointmentFeedback AppointmentFeedback { get; set; }
         public virtual Payment Payment { get; set; }
 
+
     }
 }
