@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Handyman.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250212235719_seedServiceData123")]
-    partial class seedServiceData123
+    [Migration("20250214204159_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,21 @@ namespace Handyman.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("AddressCustomerProfile", b =>
+                {
+                    b.Property<int>("AddressesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustomerProfileId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AddressesId", "CustomerProfileId");
+
+                    b.HasIndex("CustomerProfileId");
+
+                    b.ToTable("AddressCustomerProfile");
+                });
 
             modelBuilder.Entity("Handyman.Data.Entities.Address", b =>
                 {
@@ -53,9 +68,13 @@ namespace Handyman.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("userId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Address");
+                    b.ToTable("Addresses");
 
                     b.HasData(
                         new
@@ -65,7 +84,8 @@ namespace Handyman.Migrations
                             Country = "USA",
                             PostalCode = "12345",
                             State = "CA",
-                            Street = "123 Main St"
+                            Street = "123 Main St",
+                            userId = "dfasdfas"
                         },
                         new
                         {
@@ -74,7 +94,8 @@ namespace Handyman.Migrations
                             Country = "USA",
                             PostalCode = "67890",
                             State = "NY",
-                            Street = "456 Elm St"
+                            Street = "456 Elm St",
+                            userId = "dfasdfas"
                         });
                 });
 
@@ -120,24 +141,24 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 1,
-                            AppointmentDate = new DateTime(2025, 2, 15, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(8319),
-                            CreatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(8327),
+                            AppointmentDate = new DateTime(2025, 2, 17, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(6784),
+                            CreatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(6792),
                             CustomerNote = "Please make sure to trim the edges.",
                             CustomerProfileId = 1,
                             IsApproved = false,
                             ProviderServiceId = 1,
-                            UpdatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(8328)
+                            UpdatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(6792)
                         },
                         new
                         {
                             Id = 2,
-                            AppointmentDate = new DateTime(2025, 2, 17, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(8330),
-                            CreatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(8332),
+                            AppointmentDate = new DateTime(2025, 2, 19, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(6795),
+                            CreatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(6796),
                             CustomerNote = "Focus on the kitchen and living room.",
                             CustomerProfileId = 2,
                             IsApproved = false,
                             ProviderServiceId = 2,
-                            UpdatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(8332)
+                            UpdatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(6797)
                         });
                 });
 
@@ -185,23 +206,23 @@ namespace Handyman.Migrations
                         {
                             Id = 1,
                             AppointmentId = 1,
-                            CreatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(8368),
+                            CreatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(6842),
                             CustomerProfileId = 1,
                             Feedback = "Great service! Very satisfied.",
                             IsApproved = false,
                             Rating = 5,
-                            UpdatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(8369)
+                            UpdatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(6843)
                         },
                         new
                         {
                             Id = 2,
                             AppointmentId = 2,
-                            CreatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(8371),
+                            CreatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(6848),
                             CustomerProfileId = 2,
                             Feedback = "Good job, but could be more thorough.",
                             IsApproved = false,
                             Rating = 4,
-                            UpdatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(8372)
+                            UpdatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(6848)
                         });
                 });
 
@@ -224,8 +245,6 @@ namespace Handyman.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
 
                     b.HasIndex("ProfileId")
                         .IsUnique();
@@ -297,24 +316,24 @@ namespace Handyman.Migrations
                             Id = 1,
                             Amount = 50.00m,
                             AppointmentId = 1,
-                            CreatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(8470),
+                            CreatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(6936),
                             CustomerProfileId = 1,
                             IsSuccessful = true,
-                            PaymentDate = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(8469),
+                            PaymentDate = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(6935),
                             PaymentMethod = "Credit Card",
-                            UpdatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(8470)
+                            UpdatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(6936)
                         },
                         new
                         {
                             Id = 2,
                             Amount = 75.00m,
                             AppointmentId = 2,
-                            CreatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(8473),
+                            CreatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(6944),
                             CustomerProfileId = 2,
                             IsSuccessful = true,
-                            PaymentDate = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(8473),
+                            PaymentDate = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(6943),
                             PaymentMethod = "PayPal",
-                            UpdatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(8474)
+                            UpdatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(6944)
                         });
                 });
 
@@ -344,6 +363,9 @@ namespace Handyman.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("ProfileImage")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
@@ -362,52 +384,52 @@ namespace Handyman.Migrations
                         {
                             Id = 1,
                             Address = "123 Main St, Anytown, USA",
-                            CreatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(7663),
+                            CreatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(5831),
                             Email = "john.doe@example.com",
                             FullName = "John Doe",
                             Password = "jhon123",
                             PhoneNumber = "123-456-7890",
                             Role = "Customer",
-                            UpdatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(7667),
+                            UpdatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(5835),
                             UserId = "customer1"
                         },
                         new
                         {
                             Id = 2,
                             Address = "456 Elm St, Othertown, USA",
-                            CreatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(7670),
+                            CreatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(5839),
                             Email = "jane.smith@example.com",
                             FullName = "Jane Smith",
                             Password = "jane123",
                             PhoneNumber = "987-654-3210",
                             Role = "Customer",
-                            UpdatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(7670),
+                            UpdatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(5840),
                             UserId = "customer2"
                         },
                         new
                         {
                             Id = 3,
                             Address = "789 Oak St, Sometown, USA",
-                            CreatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(7672),
+                            CreatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(5842),
                             Email = "mike.johnson@example.com",
                             FullName = "Mike Johnson",
                             Password = "mike123",
                             PhoneNumber = "555-123-4567",
                             Role = "Provider",
-                            UpdatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(7673),
+                            UpdatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(5843),
                             UserId = "provider1"
                         },
                         new
                         {
                             Id = 4,
                             Address = "321 Pine St, Anothertown, USA",
-                            CreatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(7675),
+                            CreatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(5847),
                             Email = "emily.davis@example.com",
                             FullName = "Emily Davis",
                             Password = "emily123",
                             PhoneNumber = "555-987-6543",
                             Role = "Provider",
-                            UpdatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(7675),
+                            UpdatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(5847),
                             UserId = "provider2"
                         });
                 });
@@ -500,22 +522,22 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(8280),
+                            CreatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(6729),
                             ImageUrl = "https://example.com/images/lawn_mowing.jpg",
                             Notes = "Experienced in lawn mowing with professional equipment.",
                             ProviderProfileId = 1,
                             ServiceId = 1,
-                            UpdatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(8280)
+                            UpdatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(6730)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(8282),
+                            CreatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(6734),
                             ImageUrl = "https://example.com/images/house_cleaning.jpg",
                             Notes = "Thorough house cleaning services with eco-friendly products.",
                             ProviderProfileId = 2,
                             ServiceId = 3,
-                            UpdatedAt = new DateTime(2025, 2, 12, 23, 57, 15, 795, DateTimeKind.Utc).AddTicks(8283)
+                            UpdatedAt = new DateTime(2025, 2, 14, 20, 41, 58, 191, DateTimeKind.Utc).AddTicks(6735)
                         });
                 });
 
@@ -1553,6 +1575,21 @@ namespace Handyman.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("AddressCustomerProfile", b =>
+                {
+                    b.HasOne("Handyman.Data.Entities.Address", null)
+                        .WithMany()
+                        .HasForeignKey("AddressesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Handyman.Data.Entities.CustomerProfile", null)
+                        .WithMany()
+                        .HasForeignKey("CustomerProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Handyman.Data.Entities.Appointment", b =>
                 {
                     b.HasOne("Handyman.Data.Entities.CustomerProfile", "CustomerProfile")
@@ -1593,19 +1630,11 @@ namespace Handyman.Migrations
 
             modelBuilder.Entity("Handyman.Data.Entities.CustomerProfile", b =>
                 {
-                    b.HasOne("Handyman.Data.Entities.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Handyman.Data.Entities.Profile", "Profile")
                         .WithOne("CustomerProfile")
                         .HasForeignKey("Handyman.Data.Entities.CustomerProfile", "ProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Address");
 
                     b.Navigation("Profile");
                 });

@@ -17,7 +17,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 );
 
 //builder.Services.AddDbContext<ApplicationDbContext>(options =>
-  //  options.UseSqlServer(connectionString));
+//  options.UseSqlServer(connectionString));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 //TODO: change the requireConfirmed to true when email service is done.
