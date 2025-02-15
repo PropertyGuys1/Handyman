@@ -40,7 +40,7 @@ namespace Handyman.Controllers
         }
         
 
-        public async Task<IActionResult> services()
+        public async Task<IActionResult> Services()
         {
             var serviceTypes = await _context.ServiceTypes
                 .Include(st => st.Services)
@@ -49,7 +49,7 @@ namespace Handyman.Controllers
             return View(serviceTypes);
         }
         
-        public async Task<IActionResult> servicedetails(string name)
+        public async Task<IActionResult> ServiceDetails(string name)
         {
             var service = await _context.Services
                 .Include(s => s.ServiceType)
@@ -73,18 +73,16 @@ namespace Handyman.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Contact(string name, string email, string subject, string message)
+        public async Task<IActionResult> Contact(ContactViewModel model)
         {
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(subject) ||
-                string.IsNullOrEmpty(message))
+            if (!ModelState.IsValid)
             {
-                ViewBag.ErrorMessage = "All fields are required.";
-                return View();
+                return View(model);
             }
 
             try
             {
-                await SendEmailAsync(name, email, subject, message);
+                await SendEmailAsync(model.Name!, model.Email!, model.Subject!, model.Message!);
                 ViewBag.Message = "Thank you for contacting us!";
                 return View();
             }
