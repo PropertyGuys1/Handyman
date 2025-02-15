@@ -105,7 +105,7 @@ namespace Handyman.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+           // returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
@@ -122,20 +122,20 @@ namespace Handyman.Areas.Identity.Pages.Account
                     // Check the user's roles and redirect accordingly
                     if (await _userManager.IsInRoleAsync(user, "Admin"))
                     {                                           
-                        return LocalRedirect(Url.Content("~/Admin "));
+                        return  LocalRedirect(returnUrl ?? Url.Content("~/Admin "));
                     }
                     else if (await _userManager.IsInRoleAsync(user, "Customer"))
                     {
-                        return LocalRedirect(Url.Content("~/"));
+                        return LocalRedirect(returnUrl ?? Url.Content("~/"));
                     }
                     else if (await _userManager.IsInRoleAsync(user, "Provider"))
                     {
-                        return LocalRedirect(Url.Content("~/Provider "));
+                        return LocalRedirect(returnUrl ?? Url.Content("~/Provider "));
                     }
                     else
                     {
                         // Default redirect if no specific role is found
-                        return LocalRedirect(returnUrl);
+                        return LocalRedirect("~/");
                     }
                 }
 

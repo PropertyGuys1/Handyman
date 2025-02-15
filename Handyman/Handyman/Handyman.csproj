@@ -20,12 +20,7 @@
 
   <ItemGroup>
     <Folder Include="Configurations\" />
-
-    <Folder Include="Data\Migrations\" />
-    <Folder Include="Data\MockData\" />
-
     <Folder Include="Services\" />
-    <Folder Include="Views\Customer\" />
   </ItemGroup>
 
   <ItemGroup>

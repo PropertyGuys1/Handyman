@@ -5,19 +5,35 @@
 <ul class="navbar-nav ms-auto">
     @if (SignInManager.IsSignedIn(User))
     {
-        <!-- Profile Button -->
-        <li class="nav-item">
-            <a class="nav-link btn btn-info text-white px-3" asp-area="" asp-controller="User" asp-action="Profile">
-                <i class="bi bi-person"></i> Profile
-            </a>
-        </li>
 
-        <!-- Appointment Button -->
-        <li class="nav-item ms-2">
-            <a class="nav-link btn btn-warning text-dark px-3" asp-area="" asp-controller="Appointments" asp-action="Index">
-                <i class="bi bi-calendar-check"></i> Appointments
-            </a>
-        </li>
+        var userId = UserManager.GetUserId(User);
+        var user = await UserManager.GetUserAsync(User);
+        var isAdmin = await UserManager.IsInRoleAsync(user!, "Admin");
+
+        <!-- Admin Button -->
+        @if (isAdmin)
+        {
+            <li class="nav-item ms-2">
+                <a class="nav-link btn btn-primary text-white px-3" asp-area="" asp-controller="Admin" asp-action="Index">
+                    <i class="bi bi-shield-lock"></i> Admin
+                </a>
+            </li>
+        }
+        else
+        {
+            <!-- Profile Button -->
+            <li class="nav-item ms-2">
+                <a class="nav-link btn btn-info text-white px-3" asp-area="" asp-controller="User" asp-route-Id="@userId" asp-action="Profile">
+                    <i class="bi bi-person"></i> Profile
+                </a>
+            </li>
+            <!-- Appointment Button -->
+            <li class="nav-item ms-2">
+                <a class="nav-link btn btn-warning text-dark px-3" asp-area="" asp-controller="User" asp-route-Id="@userId" asp-action="Appointments">
+                    <i class="bi bi-calendar-check"></i> Appointments
+                </a>
+            </li>
+        }
 
         <!-- Logout Button -->
         <li class="nav-item ms-2">

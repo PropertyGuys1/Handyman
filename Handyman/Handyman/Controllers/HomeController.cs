@@ -4,7 +4,9 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.Mail;
 using Handyman.Data;
+using Handyman.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using Handyman.Helper;
 
 namespace Handyman.Controllers
 {
@@ -21,8 +23,25 @@ namespace Handyman.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public async Task<IActionResult> GetServices(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return Json(new List<string>()); // Return empty list if query is empty
+            }
 
-        public async Task<IActionResult> services()
+            var services = await _context.Services
+                .Where(s => s.Name.ToLower().Contains(query.ToLower()))
+                .OrderBy(s => s.Name)
+                .Select(s => s.Name) // Only fetch names for performance
+                .ToListAsync();
+
+            return Json(services);
+        }
+        
+
+        public async Task<IActionResult> Services()
         {
             var serviceTypes = await _context.ServiceTypes
                 .Include(st => st.Services)
@@ -55,18 +74,16 @@ namespace Handyman.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Contact(string name, string email, string subject, string message)
+        public async Task<IActionResult> Contact(ContactViewModel model)
         {
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(subject) ||
-                string.IsNullOrEmpty(message))
+            if (!ModelState.IsValid)
             {
-                ViewBag.ErrorMessage = "All fields are required.";
-                return View();
+                return View(model);
             }
 
             try
             {
-                await SendEmailAsync(name, email, subject, message);
+                await EmailHelper.SendEmailAsync(model.Name!, model.Email!, model.Subject!, model.Message!);
                 ViewBag.Message = "Thank you for contacting us!";
                 return View();
             }
@@ -77,48 +94,6 @@ namespace Handyman.Controllers
             }
         }
 
-        private async Task SendEmailAsync(string name, string email, string subject, string message)
-        {
-            // Retrieve environment variables
-            var smtpUsername = Environment.GetEnvironmentVariable("EMAIL_USERNAME");
-            var smtpPassword = Environment.GetEnvironmentVariable("EMAIL_PASSWORD");
-            var smtpServer = Environment.GetEnvironmentVariable("SMTP_SERVER");
-            var smtpPort = Environment.GetEnvironmentVariable("SMTP_PORT");
-
-            // Validate environment variables
-            if (string.IsNullOrEmpty(smtpUsername) || string.IsNullOrEmpty(smtpPassword) ||
-                string.IsNullOrEmpty(smtpServer) || string.IsNullOrEmpty(smtpPort))
-            {
-                throw new Exception("SMTP configuration is missing. Please ensure all environment variables are set.");
-            }
-
-            // Validate email parameter
-            if (string.IsNullOrEmpty(email))
-            {
-                throw new ArgumentException("Email cannot be null or empty.", nameof(email));
-            }
-
-            // Parse SMTP Port
-            if (!int.TryParse(smtpPort, out var port))
-            {
-                throw new Exception("Invalid SMTP port value.");
-            }
-
-            var mailMessage = new MailMessage
-            {
-                From = new MailAddress(email),
-                Subject = subject,
-                Body = $"From: {name} ({email})\n\n{message}",
-                IsBodyHtml = false
-            };
-            mailMessage.To.Add(smtpUsername); // Replace with your email
-
-            using (var smtp = new SmtpClient(smtpServer, port))
-            {
-                smtp.Credentials = new NetworkCredential(smtpUsername, smtpPassword);
-                smtp.EnableSsl = true;
-                await smtp.SendMailAsync(mailMessage);
-            }
-        }
+        
     }
 }
