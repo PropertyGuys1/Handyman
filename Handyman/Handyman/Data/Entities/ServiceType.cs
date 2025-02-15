@@ -8,7 +8,7 @@
         public bool IsDeleted { get; set; }=false;
 
         // Navigation property
-        public virtual ICollection<Service> Services { get; set; }
+        public virtual ICollection<Service>? Services { get; set; }
         public string? ImageUrl { get; set; }
     }
 }

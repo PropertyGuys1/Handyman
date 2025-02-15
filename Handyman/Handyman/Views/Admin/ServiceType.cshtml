@@ -35,6 +35,7 @@
 </nav>
 
 <h2>Services Type</h2>
+<a asp-action="AddServiceType" class="btn btn-primary">Add Service Type</a>
 
 <table class="table table-bordered">
     <thead>
@@ -54,6 +55,7 @@
                     <td>@service.Description</td>
                     <td>
                         <a asp-action="ServiceList" asp-route-id="@service.Id" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="EditServiceType" asp-route-id="@service.Id" class="btn btn-info btn-sm">Edit</a>
                     </td>
                 </tr>
             }

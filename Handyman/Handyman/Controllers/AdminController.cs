@@ -1,5 +1,6 @@
 ﻿using Handyman.Data;
 using Handyman.Data.Entities;
+using Handyman.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -57,24 +58,84 @@ namespace Handyman.Controllers
             return View(await _context.Services.Where(s => !s.IsDeleted).ToListAsync());
         }
 
-        public async Task<IActionResult> AddService(int? serviceTypeId)
+        public async Task<IActionResult> AddService(int serviceTypeId)
         {
-            ViewBag.ServiceTypes = new SelectList(await _context.ServiceTypes.ToListAsync(), "Id", "Name", serviceTypeId);
+            var serviceTypes = await _context.ServiceTypes
+                .Select(st => new SelectListItem
+                {
+                    Value = st.Id.ToString(),
+                    Text = st.Name
+                })
+                .ToListAsync();
 
+            var viewModel = new AddServiceViewModel
+            {
+                ServiceTypeId = serviceTypeId, // Pre-select Service Type
+                ServiceTypes = serviceTypes
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddService(AddServiceViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Repopulate dropdown if validation fails
+                model.ServiceTypes = await _context.ServiceTypes
+                    .Select(st => new SelectListItem
+                    {
+                        Value = st.Id.ToString(),
+                        Text = st.Name
+                    })
+                    .ToListAsync();
+
+                return View(model);
+            }
+
+            var service = new Service
+            {
+                Name = model.Name,
+                Description = model.Description,
+                Cost = model.Cost,
+                ServiceTypeId = model.ServiceTypeId // Ensure ServiceTypeId is set
+            };
+
+            _context.Services.Add(service);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("ServiceList", model.ServiceTypeId);
+        }
+
+
+        public async Task<IActionResult> AddServiceType()
+        {
             return View();
         }
 
-
-
         [HttpPost]
-        public async Task<IActionResult> AddService(Service service)
+        public async Task<IActionResult> AddServiceType(ServiceType ser)
         {
-            _context.Services.Add(service);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("ServiceList",service.ServiceTypeId);
 
+            _context.ServiceTypes.Add(ser); // Do NOT manually set service.Id
+            await _context.SaveChangesAsync();
+            return RedirectToAction("ServiceType"); // Redirect to service list
         }
 
+        public async Task<IActionResult> EditServiceType(int? id)
+        {
+            var service = await _context.ServiceTypes.FindAsync(id);
+            if (service == null)
+            {
+                return NotFound();
+            }
+
+            // Populate Service Types with the current service's type pre-selected
+            ViewBag.ServiceTypes = new SelectList(_context.ServiceTypes, "Id", "Name", service.Id);
+
+            return View(service);
+        }
         public async Task<IActionResult> EditService(int? id)
         {
             var service = await _context.Services.FindAsync(id);
@@ -87,6 +148,14 @@ namespace Handyman.Controllers
             ViewBag.ServiceTypes = new SelectList(_context.ServiceTypes, "Id", "Name", service.ServiceTypeId);
 
             return View(service);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditServiceType(ServiceType service)
+        {
+            _context.ServiceTypes.Update(service);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("ServiceList", service.Id);
         }
 
         [HttpPost]
