@@ -31,11 +31,11 @@ namespace Handyman.Controllers
             return View(serviceTypes);
         }
         
-        public async Task<IActionResult> servicedetails(string name)
+        public async Task<IActionResult> servicedetails(int id)
         {
             var service = await _context.Services
                 .Include(s => s.ServiceType)
-                .FirstOrDefaultAsync(s => s.Name == name);
+                .FirstOrDefaultAsync(s => s.Id == id);
 
             if (service == null)
             {
