@@ -1,13 +1,14 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
-@model List<Handyman.Data.Entities.Service>
+@using Handyman.Data.Entities
+@model List<Service>
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<!-- Website Purpose Section -->
-<div class="jumbotron jumbotron-fluid bg-light text-center py-5 mb-5">
-    <div class="container">
+
+<div class="jumbotron jumbotron-fluid bg-opacity-75 bg-black text-center py-5 mb-5" style="width: 100%; margin: 0;">
+    <div class="text-white">
         <h1 class="display-4">Welcome to Our Service Platform</h1>
         <p class="lead">Your one-stop solution for all your service needs. Connect with skilled professionals to get tasks done efficiently and reliably.</p>
         <a class="btn btn-primary btn-lg mt-3" href="#services" role="button">Explore Services</a>
