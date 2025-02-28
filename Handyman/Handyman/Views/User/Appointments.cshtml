@@ -1,1 +1,67 @@
-﻿<p>appointments </p>
+﻿@model IEnumerable<Handyman.Data.Entities.Appointment>
+
+@{
+    ViewData["Title"] = "My Appointments";
+}
+
+<div class="container py-5">
+    <h2>Appointments</h2>
+    <br/>
+    <br/>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Address</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var appointment in Model)
+                        {
+                            <tr>
+                                <td>@appointment.Service.Name</td>
+                                <td>@appointment.Address</td>
+                                <td>@appointment.AppointmentDate.ToString("yyyy-MM-dd")</td>
+                                <td>@appointment.AppointmentTime</td>
+                                <td>
+                                    @if (appointment.Status == "Pending")
+                                    {
+                                        <span class="badge text-warning">@appointment.Status</span>
+                                    }
+                                    else if (appointment.Status == "Confirmed")
+                                    {
+                                        <span class="badge text-success">@appointment.Status</span>
+                                    }
+                                    else if (appointment.Status == "Completed")
+                                    {
+                                        <span class="badge text-info">@appointment.Status</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge text-danger">@appointment.Status</span>
+                                    }
+                                </td>
+                                <td>@appointment.notes</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <p>You have no upcoming or pending appointments.</p>
+        </div>
+    }
+</div>

@@ -8,6 +8,8 @@ public class UserProfileViewModel
     public Address Address { get; set; }
     */
 
+    
+    public string Preferences { get; set; }
     public IEnumerable<Address> Addresses { get; set; } // Collection of addresses
 
     public IEnumerable<Appointment> Appointments { get; set; }

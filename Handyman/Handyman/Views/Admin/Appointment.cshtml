@@ -1,9 +1,13 @@
 ﻿@model IEnumerable<Handyman.Data.Entities.Appointment>
 
-<nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-4">
     <div class="container-fluid">
+        <a class="navbar-brand" href="#">Admin Panel</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a class="nav-link" asp-action="Appointment">Appointments</a>
                 </li>
@@ -24,30 +28,32 @@
     </div>
 </nav>
 
-<h2>All Appointments</h2>
+<div class="container py-4">
+    <h2 class="mb-4 text-center">All Appointments</h2>
 
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Customer</th>
-                <th>Service</th>
-                <th>Service Date</th>
-                <th>Status</th>
-                <th>Urgent</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var appointment in Model)
-            {
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
                 <tr>
-                    <td>@appointment.CustomerProfileId</td>
-                    <td>@appointment.ProviderServiceId</td>
-                    <td>@appointment.AppointmentDate.ToString("g")</td>
-                    <td>@(appointment.IsApproved ? "Approved" : "Pending")</td>
-                    <td>@(appointment.AppointmentFeedback != null ? "Yes" : "No")</td>
+                    <th>Customer</th>
+                    <th>Service</th>
+                    <th>Service Date</th>
+                    <th>Status</th>
+                    <th>Notes</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var appointment in Model)
+                {
+                    <tr>
+                        <td>@appointment.UserId</td>
+                        <td>@appointment.Service.Name</td>
+                        <td>@appointment.AppointmentDate.ToString("g")</td>
+                        <td>@appointment.Status</td>
+                        <td>@appointment.notes</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

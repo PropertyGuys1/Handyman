@@ -174,9 +174,9 @@
                             data.forEach(function (service) {
                                 $("#suggestions").append(
                                     `<li class="list-group-item">
-                                        <a href="/Home/ServiceDetails?name=${encodeURIComponent(service)}" 
+                                        <a href="/Home/ServiceDetails?id=${encodeURIComponent(service.id)}" 
                                            class="text-success text-decoration-none">
-                                            ${service}
+                                            ${service.name}
                                         </a>
                                     </li>`
                                 );

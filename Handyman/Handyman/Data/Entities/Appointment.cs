@@ -3,21 +3,16 @@
     public class Appointment
     {
         public int Id { get; set; }
-        public int ProviderServiceId { get; set; }
-        public int CustomerProfileId { get; set; }
+        public string PersonName { get; set; }
+        public string Address { get; set; }
         public DateTime AppointmentDate { get; set; }
-        public string CustomerNote { get; set; }
-        public bool IsApproved { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
-
-        // Navigation properties
-        public virtual ProviderService ProviderService { get; set; }
-        public virtual CustomerProfile CustomerProfile { get; set;}
-
-        public virtual AppointmentFeedback AppointmentFeedback { get; set; }
-        public virtual Payment Payment { get; set; }
-
+        public TimeSpan AppointmentTime { get; set; }
+        public string Status { get; set; }  // E.g., "Pending", "Confirmed", etc.
+        public int ServiceId { get; set; }
+        public Service Service { get; set; }  // Navigation property to Service
+        public string UserId { get; set; }  // The user who booked the service
+        
+        public string notes { get; set; }
 
     }
 }

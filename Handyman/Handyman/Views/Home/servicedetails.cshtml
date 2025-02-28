@@ -1,33 +1,34 @@
-﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
-@model Handyman.Data.Entities.Service
+﻿@model Handyman.Data.Entities.ServiceDetailsViewModel
 @{
-    ViewData["Title"] = $"{Model.Name} - Details";
+    ViewData["Title"] = $"{Model.Service.Name} - Details";
 }
 
 <div class="container py-5">
     <div class="row">
         <div class="col-md-8">
-            
-            <h1 class="mb-4">@Model.Name</h1>
-            
+
+            <h1 class="mb-4">@Model.Service.Name</h1>
+
             <div class="card mb-4">
                 <div class="card-body">
                     <h5 class="card-title">Service Description</h5>
-                    <p class="card-text">@Model.ServiceType.Description</p>
+                    <p class="card-text">@Model.Service.Description</p>
                 </div>
             </div>
 
             @if (User.Identity.IsAuthenticated)
             {
                 <form asp-action="BookService" method="post">
-                    <input type="hidden" name="serviceId" value="@Model.Id" />
-                    <button type="submit" class="btn btn-primary btn-lg">Book This Service</button>
+                    <input type="hidden" name="serviceId" value="@Model.Service.Id" />
+                    <button type="button" class="btn btn-primary btn-lg" id="openBookingModal">
+                        Book This Service
+                    </button>
                 </form>
             }
             else
             {
                 <div class="alert alert-info">
-                    <p class="mb-0">Please <a href="/Identity/Account/Login?returnUrl=@Uri.EscapeDataString(Context.Request.Path+"?name="+Model.Name)">login</a> to book this service.</p>
+                    <p class="mb-0">Please <a href="/Identity/Account/Login?returnUrl=@Uri.EscapeDataString(Context.Request.Path+"?name="+Model.Service.Name)">login</a> to book this service.</p>
                 </div>
             }
         </div>
@@ -38,7 +39,7 @@
                     <h5 class="card-title">Service Details</h5>
                     <ul class="list-unstyled">
                         <li class="mb-2">
-                            <strong>Category:</strong> @Model.ServiceType.Name
+                            <strong>Category:</strong> @Model.Service.ServiceType.Name
                         </li>
                         <li class="mb-2">
                             <strong>Available:</strong> Yes
@@ -50,13 +51,85 @@
     </div>
 </div>
 
+<!-- Booking Modal -->
+<div class="modal fade" id="bookServiceModal" tabindex="-1" aria-labelledby="bookServiceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="bookServiceModalLabel">Confirm Your Booking</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="bookingForm" asp-action="BookService" method="post">
+                    <input type="hidden" name="serviceId" value="@Model.Service.Id" />
+
+                    <!-- Address Selection -->
+                    <div class="form-group">
+                        <label for="addressId" class="font-weight-bold">Select Address</label>
+                        <select class="form-control" id="addressId" name="addressId" required>
+                            @if (Model.Addresses != null && Model.Addresses.Any())
+                            {
+                                @foreach (var address in Model.Addresses)
+                                {
+                                    <option value="@address.Id">@address.Street, @address.City, @address.State, @address.PostalCode, @address.Country</option>
+                                }
+                            }
+                            else
+                            {
+                                <option disabled selected>You do not have any saved addresses.</option>
+                            }
+                        </select>
+                    </div>
+
+                    <!-- Date Selection -->
+                    <div class="form-group">
+                        <label for="date" class="font-weight-bold">Select Date</label>
+                        <input type="date" class="form-control" id="date" name="date" required>
+                    </div>
+
+                    <!-- Time Selection -->
+                    <div class="form-group">
+                        <label for="time" class="font-weight-bold">Select Time</label>
+                        <input type="time" class="form-control" id="time" name="time" required>
+                    </div>
+
+                    <!-- Additional Notes -->
+                    <div class="form-group">
+                        <label for="notes" class="font-weight-bold">Any Additional Notes?</label>
+                        <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Enter any additional information or special requests here..."></textarea>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-success btn-lg">Confirm Booking</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
-    @if (TempData["Success"] != null)
-    {
-        <script>
-            $(document).ready(function() {
-                toastr.success('@TempData["Success"]');
+    <script>
+        $(document).ready(function () {
+            // Open modal when clicking "Book This Service"
+            $("#openBookingModal").click(function () {
+                $("#bookServiceModal").modal("show");
             });
-        </script>
-    }
+
+            // Display success or error message using Toastr
+            if ("@TempData["Success"]" != "") {
+                toastr.success('@TempData["Success"]');
+            }
+
+            if ("@TempData["Error"]" != "") {
+                toastr.error('@TempData["Error"]');
+            }
+
+            // Get today's date in YYYY-MM-DD format
+            var today = new Date().toISOString().split('T')[0];
+            document.getElementById("date").setAttribute("min", today);
+        });
+    </script>
 }

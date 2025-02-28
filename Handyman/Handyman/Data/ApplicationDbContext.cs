@@ -53,6 +53,7 @@ namespace Handyman.Data
                 .WithMany(s => s.ProviderServices)
                 .HasForeignKey(ps => ps.ServiceId);
 
+            /*
             modelBuilder.Entity<Appointment>()
                 .HasOne(a => a.ProviderService)
                 .WithMany(ps => ps.Appointments)
@@ -73,7 +74,7 @@ namespace Handyman.Data
             modelBuilder.Entity<Appointment>()
                 .HasOne(a => a.Payment)
                 .WithOne(p => p.Appointment)
-                .HasForeignKey<Payment>(p => p.AppointmentId);
+                .HasForeignKey<Payment>(p => p.AppointmentId);*/
 
             modelBuilder.Entity<AppointmentFeedback>()
                 .HasOne(af => af.CustomerProfile)

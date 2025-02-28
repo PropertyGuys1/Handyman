@@ -31,7 +31,9 @@ namespace Handyman.Controllers
         }
         public async Task<IActionResult> Appointment()
         {
-            var appointments = await _context.Appointments.ToListAsync();
+            var appointments = await _context.Appointments
+                .Include(a => a.Service)
+                .ToListAsync();
             return View(appointments);
         }
         public async Task<IActionResult> ServiceType()

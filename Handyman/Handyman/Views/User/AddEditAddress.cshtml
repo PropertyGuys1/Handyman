@@ -1,36 +1,40 @@
-﻿@model Handyman.Data.Entities.AddressViewModel
+﻿@model Handyman.Data.Entities.Address
 
 <div class="container py-5">
     <div class="card shadow-lg p-4">
-        <h4 class="mb-3">Add New Address</h4>
         <form asp-action="AddEditAddress" method="post">
-            <input type="hidden" asp-for="UserProfileId" />
-            <div class="form-group">
-                <label asp-for="Street" class="control-label"></label>
-                <input asp-for="Street" class="form-control" />
+            <input type="hidden" asp-for="userId" value="@Model.userId" />
+            <input type="hidden" asp-for="Id" value="@Model.Id" />
+
+
+            <div class="form-group mb-3">
+                <label asp-for="Street" class="control-label font-weight-bold"></label>
+                <input asp-for="Street" class="form-control form-control-lg" placeholder="Enter street address" />
                 <span asp-validation-for="Street" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" />
+            <div class="form-group mb-3">
+                <label asp-for="City" class="control-label font-weight-bold"></label>
+                <input asp-for="City" class="form-control form-control-lg" placeholder="Enter city" />
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="State" class="control-label"></label>
-                <input asp-for="State" class="form-control" />
+            <div class="form-group mb-3">
+                <label asp-for="State" class="control-label font-weight-bold"></label>
+                <input asp-for="State" class="form-control form-control-lg" placeholder="Enter state" />
                 <span asp-validation-for="State" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="PostalCode" class="control-label"></label>
-                <input asp-for="PostalCode" class="form-control" />
+            <div class="form-group mb-3">
+                <label asp-for="PostalCode" class="control-label font-weight-bold"></label>
+                <input asp-for="PostalCode" class="form-control form-control-lg" placeholder="Enter postal code" />
                 <span asp-validation-for="PostalCode" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Country" class="control-label"></label>
-                <input asp-for="Country" class="form-control" />
+            <div class="form-group mb-3">
+                <label asp-for="Country" class="control-label font-weight-bold"></label>
+                <input asp-for="Country" class="form-control form-control-lg" placeholder="Enter country" />
                 <span asp-validation-for="Country" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Add Address</button>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg">Save Address</button>
+            </div>
         </form>
     </div>
 </div>
