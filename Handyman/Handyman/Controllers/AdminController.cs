@@ -72,7 +72,7 @@ namespace Handyman.Controllers
 
             var viewModel = new AddServiceViewModel
             {
-                ServiceTypeId = serviceTypeId, // Pre-select Service Type
+                ServiceTypeId = serviceTypeId, 
                 ServiceTypes = serviceTypes
             };
 
