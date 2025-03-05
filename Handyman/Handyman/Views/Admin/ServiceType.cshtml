@@ -7,13 +7,18 @@
 
 @{
     ViewData["Title"] = "Services";
+  
+    ViewData["HideNavbar"] = true;
 }
 
-<nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-4">
     <div class="container-fluid">
-
+        <a class="navbar-brand" href="#">Admin Panel</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a class="nav-link" asp-action="Appointment">Appointments</a>
                 </li>
@@ -34,38 +39,42 @@
     </div>
 </nav>
 
-<h2>Services Type</h2>
-<a asp-action="AddServiceType" class="btn btn-primary">Add Service Type</a>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Button</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null && Model.Any())
-        {
-            @foreach (var service in Model)
-            {
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">Services Type</h2>
+    <a asp-action="AddServiceType" class="btn btn-primary">Add Service Type</a>
+    <div class="tab-content mt-3">
+        <table class="table table-bordered">
+            <thead>
                 <tr>
-                    <td>@service.Name</td>
-                    <td>@service.Description</td>
-                    <td>
-                        <a asp-action="ServiceList" asp-route-id="@service.Id" class="btn btn-info btn-sm">Details</a>
-                        <a asp-action="EditServiceType" asp-route-id="@service.Id" class="btn btn-info btn-sm">Edit</a>
-                    </td>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Button</th>
                 </tr>
-            }
-        }
-        else
-        {
-            <tr>
-                <td colspan="5" class="text-center">No services available</td>
-            </tr>
-        }
-    </tbody>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var service in Model)
+                    {
+                        <tr>
+                            <td>@service.Name</td>
+                            <td>@service.Description</td>
+                            <td>
+                                <a asp-action="ServiceList" asp-route-id="@service.Id" class="btn btn-info btn-sm">Details</a>
+                                <a asp-action="EditServiceType" asp-route-id="@service.Id" class="btn btn-info btn-sm">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center">No services available</td>
+                    </tr>
+                }
+            </tbody>
 
-</table>
+        </table>
+    </div>
+</div>

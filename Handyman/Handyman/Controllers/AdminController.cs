@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Text;
 
 namespace Handyman.Controllers
 {
@@ -220,7 +221,80 @@ namespace Handyman.Controllers
         {
             return _context.Services.Any(e => e.Id == id);
         }
+        public async Task<IActionResult> Reports()
+        {
+            return View();
+        }
+        public async Task<IActionResult> DownloadAllUsers()
+        {
+            var users = await _context.Profiles.Where(s => s.Role == "Customer").ToListAsync(); // Get all users from the database
 
+            var csv = new StringBuilder();
+            csv.AppendLine("UserId, Customer Name, Email, CreatedDate");
+
+            foreach (var user in users)
+            {
+                csv.AppendLine($"{user.Id}, {user.FullName}, {user.Email}, {user.CreatedAt}");
+            }
+
+            var byteArray = Encoding.UTF8.GetBytes(csv.ToString());
+            var fileStream = new System.IO.MemoryStream(byteArray);
+            return File(fileStream, "text/csv", "AllUsersReport.csv");
+        }
+
+        // Action to download All Service Providers Report
+        public async Task<IActionResult> DownloadAllServiceProviders()
+        {
+            var providers = await _context.Profiles.Where(s => s.Role == "Provider").ToListAsync(); // Get all service providers
+
+            var csv = new StringBuilder();
+            csv.AppendLine("ProviderId, Provider Name, Address, ContactNumber");
+
+            foreach (var provider in providers)
+            {
+                csv.AppendLine($"{provider.Id}, {provider.FullName}, {provider.Address}, {provider.PhoneNumber}");
+            }
+
+            var byteArray = Encoding.UTF8.GetBytes(csv.ToString());
+            var fileStream = new System.IO.MemoryStream(byteArray);
+            return File(fileStream, "text/csv", "AllServiceProvidersReport.csv");
+        }
+
+        // Action to download All Appointments Report
+        public IActionResult DownloadAllAppointments()
+        {
+            var appointments = _context.Appointments.ToList(); // Get all appointments
+
+            var csv = new StringBuilder();
+            csv.AppendLine("AppointmentId, PersonName, Address, AppointmentDate, AppointmentTime, Status");
+
+            foreach (var appointment in appointments)
+            {
+                csv.AppendLine($"{appointment.Id}, {appointment.PersonName}, {appointment.Address}, {appointment.AppointmentDate}, {appointment.AppointmentTime}, {appointment.Status}");
+            }
+
+            var byteArray = Encoding.UTF8.GetBytes(csv.ToString());
+            var fileStream = new System.IO.MemoryStream(byteArray);
+            return File(fileStream, "text/csv", "AllAppointmentsReport.csv");
+        }
+
+        // Action to download All Appointment Feedbacks Report
+        public IActionResult DownloadAllAppointmentFeedbacks()
+        {
+            var feedbacks = _context.AppointmentFeedbacks.ToList(); // Get all appointment feedbacks
+
+            var csv = new StringBuilder();
+            csv.AppendLine("FeedbackId, AppointmentId, CustomerProfileId, Feedback, Rating");
+
+            foreach (var feedback in feedbacks)
+            {
+                csv.AppendLine($"{feedback.Id}, {feedback.AppointmentId}, {feedback.CustomerProfileId}, {feedback.Feedback}, {feedback.Rating}");
+            }
+
+            var byteArray = Encoding.UTF8.GetBytes(csv.ToString());
+            var fileStream = new System.IO.MemoryStream(byteArray);
+            return File(fileStream, "text/csv", "AllAppointmentFeedbacksReport.csv");
+        }
     }
 
 }

@@ -370,30 +370,32 @@ namespace Handyman.Data.MockData
         public static List<Appointment> GetAppointments()
         {
             return new List<Appointment>
-    {
-        /*new Appointment
-        {
-            Id = 1,
-            ProviderServiceId = 1,
-            CustomerProfileId = 1,
-            AppointmentDate = DateTime.UtcNow.AddDays(3),
-            CustomerNote = "Please make sure to trim the edges.",
-            IsApproved = false,
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt = DateTime.UtcNow
-        },
-        new Appointment
-        {
-            Id = 2,
-            ProviderServiceId = 2,
-            CustomerProfileId = 2,
-            AppointmentDate = DateTime.UtcNow.AddDays(5),
-            CustomerNote = "Focus on the kitchen and living room.",
-            IsApproved = false,
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt = DateTime.UtcNow
-        }*/
-    };
+            {
+                new Appointment
+                {
+                    Id = 1,
+                    PersonName = "John Doe",
+                    Address = "123 Main St, Springfield, IL",
+                    AppointmentDate = new DateTime(2025, 3, 5),  // Example appointment date
+                    AppointmentTime = new TimeSpan(10, 0, 0),   // Example appointment time: 10:00 AM
+                    Status = "Pending",                         // Example status
+                    ServiceId = 1,                              // Reference to an existing ServiceId
+                    UserId = "user1",                           // User who booked the service (this should exist in your Users table)
+                    notes = "Customer requested a quick repair of the sink."
+                },
+                new Appointment
+                {
+                    Id = 2,
+                    PersonName = "Jane Smith",
+                    Address = "456 Elm St, Springfield, IL",
+                    AppointmentDate = new DateTime(2025, 3, 6),
+                    AppointmentTime = new TimeSpan(14, 30, 0),  // 2:30 PM
+                    Status = "Confirmed",
+                    ServiceId = 2,  // Ensure ServiceId 2 exists in the Service table
+                    UserId = "user2",
+                    notes = "Routine maintenance of air conditioning system."
+                }
+            };
         }
         public static List<AppointmentFeedback> GetAppointmentFeedbacks()
         {

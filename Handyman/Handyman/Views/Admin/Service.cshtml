@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Services";
+    
+    ViewData["HideNavbar"] = true;
 }
 
 <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -29,44 +31,47 @@
     </div>
 </nav>
 
-<h2>Services</h2>
-
-<a asp-action="AddService" class="btn btn-primary mb-3">Add New Service</a>
-<br/>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Cost</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null && Model.Any())
-        {
-            @foreach (var service in Model)
-            {
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">Services</h2>
+    <a asp-action="AddService" class="btn btn-primary mb-3">Add New Service</a>
+    <br/>
+    <div class="tab-content mt-3">
+        <table class="table table-bordered">
+            <thead>
                 <tr>
-                    <td>@service.Name</td>
-                    <td>@service.Description</td>
-                    <td>@(service.ServiceTypeId != null ? service.ServiceTypeId : "N/A")</td>
-                    <td>@service.Cost</td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@service.Id" class="btn btn-info btn-sm">Details</a>
-                        <a asp-action="EditService" asp-route-id="@service.Id" class="btn btn-warning btn-sm">Edit</a>
-                        <button type="submit" asp-action="DeleteService" asp-route-id="@service.Id" class="btn btn-danger">Delete</button>
-                    </td>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Cost</th>
+                    <th>Actions</th>
                 </tr>
-            }
-        }
-        else
-        {
-            <tr>
-                <td colspan="5" class="text-center">No services available</td>
-            </tr>
-        }
-    </tbody>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var service in Model)
+                    {
+                        <tr>
+                            <td>@service.Name</td>
+                            <td>@service.Description</td>
+                            <td>@(service.ServiceTypeId != null ? service.ServiceTypeId : "N/A")</td>
+                            <td>@service.Cost</td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@service.Id" class="btn btn-info btn-sm">Details</a>
+                                <a asp-action="EditService" asp-route-id="@service.Id" class="btn btn-warning btn-sm">Edit</a>
+                                <button type="submit" asp-action="DeleteService" asp-route-id="@service.Id" class="btn btn-danger">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center">No services available</td>
+                    </tr>
+                }
+            </tbody>
 
-</table>
+        </table>
+    </div>
+</div>

@@ -1,34 +1,40 @@
-﻿<div class="container mt-4">
-    <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container-fluid">
+﻿@{
+    ViewData["HideNavbar"] = true;
+}
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-action="Appointment">Appointments</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-action="Index">Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-action="ServiceProviders">Service Providers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-action="Reports">Reports</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-action="ServiceType">Services Type</a>
-                    </li>
-                </ul>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Admin Panel</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Appointment">Appointments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Index">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="ServiceProviders">Service Providers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Reports">Reports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="ServiceType">Services Type</a>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
-
+<div class="container mt-4">
     <div class="tab-content mt-3">
         @model List<Handyman.Data.Entities.Profile>
 
-        <h2>User List</h2>
+        <h2 class="mb-4 text-center">Service Provider List</h2>
 
         <table class="table">
             <thead>

@@ -3,8 +3,38 @@
 @{
     ViewData["Title"] = "Add Service";
 }
+@{
+    ViewData["HideNavbar"] = true;
+}
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Admin Panel</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Appointment">Appointments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Index">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="ServiceProviders">Service Providers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Reports">Reports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="ServiceType">Services Type</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-<h2>Add Service Type</h2>
+<h2 class="mb-4 text-center">Add Service Type</h2>
 
 <form asp-action="AddServiceType" asp-controller="Admin" method="post">
     <div class="form-group">
