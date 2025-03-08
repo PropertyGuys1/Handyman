@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35431.28
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Handyman", "Handyman\Handyman.csproj", "{A72499D1-7CD1-4A41-BE9F-0F2C699741B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Handyman", "Handyman\Handyman.csproj", "{A72499D1-7CD1-4A41-BE9F-0F2C699741B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Handyman.test", "Handyman.test\Handyman.test.csproj", "{E7159B8D-C87D-4BA6-9E16-1132742B77F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A72499D1-7CD1-4A41-BE9F-0F2C699741B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A72499D1-7CD1-4A41-BE9F-0F2C699741B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A72499D1-7CD1-4A41-BE9F-0F2C699741B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7159B8D-C87D-4BA6-9E16-1132742B77F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7159B8D-C87D-4BA6-9E16-1132742B77F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7159B8D-C87D-4BA6-9E16-1132742B77F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7159B8D-C87D-4BA6-9E16-1132742B77F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
