@@ -34,27 +34,49 @@
     <div class="tab-content mt-3">
         @model List<Handyman.Data.Entities.Profile>
 
-        <h2 class="mb-4 text-center">Service Provider List</h2>
+        <h2 class="mb-4 text-center">Service Providers</h2>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var user in Model)
-                {
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
                     <tr>
-                        <td>@user.Id</td>
-                        <td>@user.FullName</td>
-                        <td>@user.Email</td>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Active</th>
+                        <th>Action</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>@user.Id</td>
+                            <td>@user.FullName</td>
+                            <td>@user.Email</td>
+                            <td>@user.Active</td>
+                            <td>
+                                @if(user.Active == true)
+                                {
+                                    <!-- Delete button inside a form to use POST -->
+                                    <form asp-action="DeleteProfile" asp-route-id="@user.Id" method="post" onsubmit="return confirm('Are you sure you want to delete this provider?');">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <!-- Delete button inside a form to use POST -->
+                                    <form asp-action="ActiveProfile" asp-route-id="@user.Id" method="post" onsubmit="return confirm('Are you sure you want to activate this provider?');">
+                                        <button type="submit" class="btn btn-danger">Active</button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </div>
 

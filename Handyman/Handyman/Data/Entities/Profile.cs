@@ -15,6 +15,8 @@
         public string? Role { get; set; } // "Customer" or "Provider"
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+
+        public bool Active { get; set; } = true;
         
         public string? Password { get; set; }
 

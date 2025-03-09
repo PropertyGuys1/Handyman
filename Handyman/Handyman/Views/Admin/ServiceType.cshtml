@@ -43,38 +43,51 @@
 <div class="container mt-4">
     <h2 class="mb-4 text-center">Services Type</h2>
     <a asp-action="AddServiceType" class="btn btn-primary">Add Service Type</a>
+    <br/>
     <div class="tab-content mt-3">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Button</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model != null && Model.Any())
-                {
-                    @foreach (var service in Model)
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Button</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
                     {
+                        @foreach (var service in Model)
+                        {
+                            if(service.IsDeleted == false)
+                            {
+                                <tr>
+                                    <td>@service.Name</td>
+                                    <td>@service.Description</td>
+                                    <td>
+                                        <!-- Details button -->
+                                        <a asp-action="ServiceList" asp-route-id="@service.Id" class="btn btn-info btn-sm">Details</a>
+
+                                        <!-- Edit button -->
+                                        <a asp-action="EditServiceType" asp-route-id="@service.Id" class="btn btn-warning btn-sm">Edit</a>
+
+                                        <!-- Delete button -->
+                                        <a asp-action="DeleteServiceType" asp-route-id="@service.Id" class="btn btn-danger btn-sm">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <!-- If no services, display a message spanning all columns -->
                         <tr>
-                            <td>@service.Name</td>
-                            <td>@service.Description</td>
-                            <td>
-                                <a asp-action="ServiceList" asp-route-id="@service.Id" class="btn btn-info btn-sm">Details</a>
-                                <a asp-action="EditServiceType" asp-route-id="@service.Id" class="btn btn-info btn-sm">Edit</a>
-                            </td>
+                            <td colspan="3" class="text-center">No services available</td>
                         </tr>
                     }
-                }
-                else
-                {
-                    <tr>
-                        <td colspan="5" class="text-center">No services available</td>
-                    </tr>
-                }
-            </tbody>
+                </tbody>
+            </table>
+        </div>
 
-        </table>
     </div>
 </div>
