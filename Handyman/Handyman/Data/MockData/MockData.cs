@@ -213,50 +213,50 @@ namespace Handyman.Data.MockData
             return new List<Service>
             {
                 //Popular tasks
-                new Service { Id = 1, Name = "Yardwork", ServiceTypeId = 1, IsDeleted = false },
-                new Service { Id = 2, Name = "Minor Home Repair", ServiceTypeId = 1, IsDeleted = false },
-                new Service { Id = 3, Name = "Furniture Assembly", ServiceTypeId = 1, IsDeleted = false },
-                new Service { Id = 4, Name = "Snow Removal", ServiceTypeId = 1, IsDeleted = false },
-                new Service { Id = 5, Name = "TV Mounting", ServiceTypeId = 1, IsDeleted = false },
-                new Service { Id = 6, Name = "Help Moving", ServiceTypeId = 1, IsDeleted = false },
-                new Service { Id = 7, Name = "Handyman", ServiceTypeId = 1, IsDeleted = false },
-                new Service { Id = 8, Name = "Painting", ServiceTypeId = 1, IsDeleted = false },
-                new Service { Id = 9, Name = "Lighting Installation", ServiceTypeId = 1, IsDeleted = false },
-                new Service { Id = 10, Name = "Hang Pictures", ServiceTypeId = 1, IsDeleted = false },
-                new Service { Id = 11, Name = "IKEA Services", ServiceTypeId = 1, IsDeleted = false },
+                new Service { Id = 1, Name = "Yardwork", ServiceTypeId = 1, Description = "Book a Handyman to bring your yard to the next level! We offer hedge sculpting/trimming, masonry, and botanical waste removal.", IsDeleted = false },// DONE
+                new Service { Id = 2, Name = "Minor Home Repair", ServiceTypeId = 1, Description = "From power outlet replacement to drywall repair, book a Handyman for easy repair!", IsDeleted = false },// DONE
+                new Service { Id = 3, Name = "Furniture Assembly", ServiceTypeId = 1, Description = "Stubborn and stressful furnature can be a thing of the past with our certified Handymen. Book today and enjoy your new furnature sooner!", IsDeleted = false },// DONE
+                new Service { Id = 4, Name = "Snow Removal", ServiceTypeId = 1, Description = "Book one-time or recurring snow removal services. No extra charge for cancellations 12 hours in advance.", IsDeleted = false },// DONE
+                new Service { Id = 5, Name = "TV Mounting", ServiceTypeId = 1, Description = "A certified & insured Handyman will professionally install any TV to any surface! Additional fees may apply for custom fitted bracket mounts.", IsDeleted = false },// DONE
+                new Service { Id = 6, Name = "Help Moving", ServiceTypeId = 1, Description = "Skip the backpain of moving with a team of Handymen! The perfect solution for any moving day!", IsDeleted = false },// DONE
+                new Service { Id = 7, Name = "Handyman", ServiceTypeId = 1, Description = "Hire-A-Handyman. A Jack-of-all-Trades, certified and insured by Handyman™", IsDeleted = false },// DONE
+                new Service { Id = 8, Name = "Painting", ServiceTypeId = 1, Description = "Book a helping hand to help you paint on any surface from interior walls to canvas.", IsDeleted = false },// DONE
+                new Service { Id = 9, Name = "Lighting Installation", ServiceTypeId = 1, Description = "Light up your life with a professionally installed chandelier! Or act fast and your 4th light install is free!", IsDeleted = false },// DONE
+                new Service { Id = 10, Name = "Hang Pictures", ServiceTypeId = 1, Description = "Never have a precious picture fall or be damaged again with a Handyman™ professional installation.", IsDeleted = false },
+                new Service { Id = 11, Name = "IKEA Services", ServiceTypeId = 1, Description = "Sturdy furnature meets a strong arm. Officially certified by IKEA™", IsDeleted = false },// DONE
 
                 // Featured Tasks
-                new Service { Id = 12, Name = "Delivery", ServiceTypeId = 2, IsDeleted = false },
-                new Service { Id = 13, Name = "Home Repairs", ServiceTypeId = 2, IsDeleted = false },
-                new Service { Id = 14, Name = "General Cleaning", ServiceTypeId = 2, IsDeleted = false },
-                new Service { Id = 15, Name = "Assemble Furniture", ServiceTypeId = 2, IsDeleted = false },
-                new Service { Id = 16, Name = "Help Moving / Hauling", ServiceTypeId = 2, IsDeleted = false },
-                new Service { Id = 17, Name = "Heavy Lifting", ServiceTypeId = 2, IsDeleted = false },
-                new Service { Id = 18, Name = "Personal Assistant", ServiceTypeId = 2, IsDeleted = false },
-                new Service { Id = 19, Name = "Yard Work", ServiceTypeId = 2, IsDeleted = false },
-                new Service { Id = 20, Name = "Queue in Line", ServiceTypeId = 2, IsDeleted = false },
-                new Service { Id = 21, Name = "Organize Closet", ServiceTypeId = 2, IsDeleted = false },
-                new Service { Id = 22, Name = "Office Administration", ServiceTypeId = 2, IsDeleted = false },
-                new Service { Id = 23, Name = "Organization", ServiceTypeId = 2, IsDeleted = false },
+                new Service { Id = 12, Name = "Delivery", ServiceTypeId = 2, Description = "Take advantage of Handyman's delivery services for both food or materials.", IsDeleted = false },// DONE
+                new Service { Id = 13, Name = "Home Repairs", ServiceTypeId = 2, Description = "From power outlet replacement to drywall repair, book a Handyman for easy repair!", IsDeleted = false },// DONE
+                new Service { Id = 14, Name = "General Cleaning", ServiceTypeId = 2, Description = "Simply point and watch the mess disappear!", IsDeleted = false },// DONE
+                new Service { Id = 15, Name = "Assemble Furniture", ServiceTypeId = 2, Description = "Stubborn and stressful furnature can be a thing of the past with our certified Handymen. Book today and enjoy your new furnature sooner!", IsDeleted = false },// DONE
+                new Service { Id = 16, Name = "Help Moving / Hauling", ServiceTypeId = 2, Description = "Skip the backpain of moving with a team of Handymen! The perfect solution for any moving day!", IsDeleted = false },// DONE
+                new Service { Id = 17, Name = "Heavy Lifting", ServiceTypeId = 2, Description = "Heavy objects may cause injury, but Handyman™ is here to stop that. Book a Handyman; health is wealth!", IsDeleted = false },// DONE
+                new Service { Id = 18, Name = "Personal Assistant", ServiceTypeId = 2, Description = "Perfect for those days you with you could split yourself in two. Book the best assistant this side of the tide today!", IsDeleted = false },// DONE
+                new Service { Id = 19, Name = "Yard Work", ServiceTypeId = 2, Description = "Book a Handyman to bring your yard to the next level! We offer hedge sculpting/trimming, masonry, and botanical waste removal.", IsDeleted = false },// DONE
+                new Service { Id = 20, Name = "Queue in Line", ServiceTypeId = 2, Description = "Skip the worst kind of waiting with Handyman™ today!", IsDeleted = false },// DONE
+                new Service { Id = 21, Name = "Organize Closet", ServiceTypeId = 2, Description = "Our organization expert can turn tornado wreckage into function AND form. Book today and watch as your life becomes clutter free.", IsDeleted = false },// DONE
+                new Service { Id = 22, Name = "Office Administration", ServiceTypeId = 2, Description = "Hire a contractor to handle office administration duties. Permanent and one-time solutions available.", IsDeleted = false },// DONE
+                new Service { Id = 23, Name = "Organization", ServiceTypeId = 2, Description = "Our team of organizational specialists can turn any mess into a functional workplace, playspace, or otherwise. Book a free consultation today!", IsDeleted = false },// DONE
 
                 // Handyman Services
-                new Service { Id = 24, Name = "Home Repairs", ServiceTypeId = 3, IsDeleted = false },
-                new Service { Id = 25, Name = "Assemble Furniture", ServiceTypeId = 3, IsDeleted = false },
-                new Service { Id = 26, Name = "TV Mounting", ServiceTypeId = 3, IsDeleted = false },
-                new Service { Id = 27, Name = "Heavy Lifting", ServiceTypeId = 3, IsDeleted = false },
-                new Service { Id = 28, Name = "Painting", ServiceTypeId = 3, IsDeleted = false },
-                new Service { Id = 29, Name = "Plumbing", ServiceTypeId = 3, IsDeleted = false },
-                new Service { Id = 30, Name = "Yard Work", ServiceTypeId = 3, IsDeleted = false },
-                new Service { Id = 31, Name = "Hang Pictures", ServiceTypeId = 3, IsDeleted = false },
-                new Service { Id = 32, Name = "Shelf Mounting", ServiceTypeId = 3, IsDeleted = false },
-                new Service { Id = 33, Name = "Light Installation", ServiceTypeId = 3, IsDeleted = false },
-                new Service { Id = 34, Name = "Electrical Work", ServiceTypeId = 3, IsDeleted = false },
-                new Service { Id = 35, Name = "Carpentry", ServiceTypeId = 3, IsDeleted = false },
-                new Service { Id = 36, Name = "Baby Proofing", ServiceTypeId = 3, IsDeleted = false },
-                new Service { Id = 37, Name = "Smart Home Installation", ServiceTypeId = 3, IsDeleted = false },
+                new Service { Id = 24, Name = "Home Repairs", ServiceTypeId = 3, IsDeleted = false },// DONE
+                new Service { Id = 25, Name = "Assemble Furniture", ServiceTypeId = 3, IsDeleted = false },// DONE
+                new Service { Id = 26, Name = "TV Mounting", ServiceTypeId = 3, IsDeleted = false },// DONE
+                new Service { Id = 27, Name = "Heavy Lifting", ServiceTypeId = 3, IsDeleted = false },// DONE
+                new Service { Id = 28, Name = "Painting", ServiceTypeId = 3, IsDeleted = false },// DONE
+                new Service { Id = 29, Name = "Plumbing", ServiceTypeId = 3, IsDeleted = false },// DONE
+                new Service { Id = 30, Name = "Yard Work", ServiceTypeId = 3, IsDeleted = false },// DONE
+                new Service { Id = 31, Name = "Hang Pictures", ServiceTypeId = 3, IsDeleted = false },// DONE
+                new Service { Id = 32, Name = "Shelf Mounting", ServiceTypeId = 3, IsDeleted = false },// DONE
+                new Service { Id = 33, Name = "Light Installation", ServiceTypeId = 3, IsDeleted = false },// DONE
+                new Service { Id = 34, Name = "Electrical Work", ServiceTypeId = 3, IsDeleted = false },// DONE
+                new Service { Id = 35, Name = "Carpentry", ServiceTypeId = 3, IsDeleted = false },// DONE
+                new Service { Id = 36, Name = "Baby Proofing", ServiceTypeId = 3, IsDeleted = false },// DONE
+                new Service { Id = 37, Name = "Smart Home Installation", ServiceTypeId = 3, IsDeleted = false },// DONE
 
                 // Moving Services
-                new Service { Id = 38, Name = "Help Moving / Hauling", ServiceTypeId = 4, IsDeleted = false },
+                new Service { Id = 38, Name = "Help Moving / Hauling", ServiceTypeId = 4, IsDeleted = false },// DONE
                 new Service { Id = 39, Name = "One Item Movers", ServiceTypeId = 4, IsDeleted = false },
                 new Service { Id = 40, Name = "Furniture Movers", ServiceTypeId = 4, IsDeleted = false },
                 new Service { Id = 41, Name = "Junk Removal", ServiceTypeId = 4, IsDeleted = false },

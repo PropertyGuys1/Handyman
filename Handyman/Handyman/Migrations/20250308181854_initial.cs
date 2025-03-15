@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Handyman.Migrations
 {
     /// <inheritdoc />
-    public partial class Testing123456 : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -448,10 +448,10 @@ namespace Handyman.Migrations
                 columns: new[] { "Id", "Address", "CreatedAt", "Email", "FullName", "Password", "PhoneNumber", "ProfileImage", "Role", "UpdatedAt", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "123 Main St, Anytown, USA", new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(5529), "john.doe@example.com", "John Doe", "jhon123", "123-456-7890", null, "Customer", new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(5536), "customer1" },
-                    { 2, "456 Elm St, Othertown, USA", new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(5541), "jane.smith@example.com", "Jane Smith", "jane123", "987-654-3210", null, "Customer", new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(5541), "customer2" },
-                    { 3, "789 Oak St, Sometown, USA", new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(5544), "mike.johnson@example.com", "Mike Johnson", "mike123", "555-123-4567", null, "Provider", new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(5544), "provider1" },
-                    { 4, "321 Pine St, Anothertown, USA", new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(5546), "emily.davis@example.com", "Emily Davis", "emily123", "555-987-6543", null, "Provider", new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(5546), "provider2" }
+                    { 1, "123 Main St, Anytown, USA", new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3027), "john.doe@example.com", "John Doe", "jhon123", "123-456-7890", null, "Customer", new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3030), "customer1" },
+                    { 2, "456 Elm St, Othertown, USA", new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3035), "jane.smith@example.com", "Jane Smith", "jane123", "987-654-3210", null, "Customer", new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3035), "customer2" },
+                    { 3, "789 Oak St, Sometown, USA", new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3038), "mike.johnson@example.com", "Mike Johnson", "mike123", "555-123-4567", null, "Provider", new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3038), "provider1" },
+                    { 4, "321 Pine St, Anothertown, USA", new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3041), "emily.davis@example.com", "Emily Davis", "emily123", "555-987-6543", null, "Provider", new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3041), "provider2" }
                 });
 
             migrationBuilder.InsertData(
@@ -610,8 +610,8 @@ namespace Handyman.Migrations
                 columns: new[] { "Id", "CreatedAt", "ImageUrl", "Notes", "ProviderProfileId", "ServiceId", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(5989), "https://example.com/images/lawn_mowing.jpg", "Experienced in lawn mowing with professional equipment.", 1, 1, new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(5989) },
-                    { 2, new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(5992), "https://example.com/images/house_cleaning.jpg", "Thorough house cleaning services with eco-friendly products.", 2, 3, new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(5992) }
+                    { 1, new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3541), "https://example.com/images/lawn_mowing.jpg", "Experienced in lawn mowing with professional equipment.", 1, 1, new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3543) },
+                    { 2, new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3546), "https://example.com/images/house_cleaning.jpg", "Thorough house cleaning services with eco-friendly products.", 2, 3, new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3547) }
                 });
 
             migrationBuilder.InsertData(
@@ -619,8 +619,8 @@ namespace Handyman.Migrations
                 columns: new[] { "Id", "AppointmentId", "CreatedAt", "CustomerProfileId", "Feedback", "IsApproved", "Rating", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(6171), 1, "Great service! Very satisfied.", false, 5, new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(6172) },
-                    { 2, 2, new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(6175), 2, "Good job, but could be more thorough.", false, 4, new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(6176) }
+                    { 1, 1, new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3623), 1, "Great service! Very satisfied.", false, 5, new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3624) },
+                    { 2, 2, new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3628), 2, "Good job, but could be more thorough.", false, 4, new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3628) }
                 });
 
             migrationBuilder.InsertData(
@@ -628,8 +628,8 @@ namespace Handyman.Migrations
                 columns: new[] { "Id", "Amount", "AppointmentId", "CreatedAt", "CustomerProfileId", "IsSuccessful", "PaymentDate", "PaymentMethod", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, 50.00m, 1, new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(6227), 1, true, new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(6226), "Credit Card", new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(6227) },
-                    { 2, 75.00m, 2, new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(6231), 2, true, new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(6230), "PayPal", new DateTime(2025, 3, 3, 23, 59, 19, 118, DateTimeKind.Utc).AddTicks(6231) }
+                    { 1, 50.00m, 1, new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3689), 1, true, new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3688), "Credit Card", new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3690) },
+                    { 2, 75.00m, 2, new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3694), 2, true, new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3693), "PayPal", new DateTime(2025, 3, 8, 18, 18, 52, 569, DateTimeKind.Utc).AddTicks(3695) }
                 });
 
             migrationBuilder.CreateIndex(
