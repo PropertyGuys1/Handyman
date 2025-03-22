@@ -110,7 +110,7 @@ namespace Handyman.Controllers
 
             _context.Services.Add(service);
             await _context.SaveChangesAsync();
-            return RedirectToAction("ServiceList", model.ServiceTypeId);
+            return RedirectToAction("ServiceType");
         }
 
 
@@ -206,6 +206,61 @@ namespace Handyman.Controllers
         //    return View(service);
         //}
 
+        [HttpPost, ActionName("DeleteServiceType")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteServiceType(int id)
+        {
+            var service = await _context.ServiceTypes.FindAsync(id);
+            if (service != null)
+            {
+                service.IsDeleted = true; // Soft delete
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("ServiceType");
+        }
+
+        [HttpPost, ActionName("DeleteProfile")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteProfile(int id)
+        {
+            var user = await _context.Profiles.FindAsync(id);
+            if (user != null)
+            {
+                user.Active = false; // Soft delete
+                await _context.SaveChangesAsync();
+                if (user.Role == "Customer")
+                {
+                    return RedirectToAction("Index");
+                }
+                else {
+                    return RedirectToAction("ServiceProviders");
+                }
+            }
+
+            return View();
+        }
+
+        public async Task<IActionResult> ActiveProfile(int id)
+        {
+            var user = await _context.Profiles.FindAsync(id);
+            if (user != null)
+            {
+                user.Active = true; // Soft delete
+                await _context.SaveChangesAsync();
+                if (user.Role == "Customer")
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("ServiceProviders");
+                }
+            }
+
+            return View();
+        }
+
         [HttpPost, ActionName("DeleteService")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteService(int id)
@@ -215,8 +270,10 @@ namespace Handyman.Controllers
             {
                 service.IsDeleted = true; // Soft delete
                 await _context.SaveChangesAsync();
+                return RedirectToAction("ServiceList", "Admin", new { id = service.ServiceTypeId });
             }
-            return RedirectToAction(nameof(Service));
+
+            return RedirectToAction("ServiceList");
         }
 
         private bool ServiceExists(int id)
