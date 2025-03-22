@@ -3,17 +3,10 @@
     public class Payment
     {
         public int Id { get; set; }
-        public int CustomerProfileId { get; set; }
-        public int AppointmentId { get; set; }
-        public decimal Amount { get; set; }
-        public string PaymentMethod { get; set; } // e.g., Credit Card, PayPal, etc.
-        public DateTime PaymentDate { get; set; }
-        public bool IsSuccessful { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
-
-        // Navigation properties
-        public virtual CustomerProfile CustomerProfile { get; set; }
-        public virtual Appointment Appointment { get; set; }
+        public string UserId { get; set; }
+        public string CardHolderName { get; set; }
+        public string CardNumber { get; set; }
+        public string ExpiryDate { get; set; }
+        public string CVV { get; set; }
     }
 }

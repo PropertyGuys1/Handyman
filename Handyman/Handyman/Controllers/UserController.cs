@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
 
 namespace Handyman.Controllers
 {
@@ -32,12 +33,13 @@ namespace Handyman.Controllers
             var profile = await _context.Profiles
                 .Include(p => p.CustomerProfile)
                 .ThenInclude(cp => cp.Addresses) // Correctly include the collection of addresses
+                .Include(p => p.CustomerProfile.Payments)
                 .Include(p => p.CustomerProfile.Appointments)
                 .Include(p => p.CustomerProfile.AppointmentFeedbacks)
-                .Include(p => p.CustomerProfile.Payments)
                 .FirstOrDefaultAsync(p => p.UserId == id); // Use the correct ID type
 
-            var address = _context.Addresses;
+            var address = _context.Addresses.Where(a => a.userId == id);
+            var payments = _context.Payments.Where(a => a.UserId == id);
 
             if (profile == null)
                 return NotFound();
@@ -51,7 +53,7 @@ namespace Handyman.Controllers
                 Addresses = address, // Assign the collection of addresses
                 Appointments = profile.CustomerProfile?.Appointments,
                 Feedbacks = profile.CustomerProfile?.AppointmentFeedbacks,
-                Payments = profile.CustomerProfile?.Payments,
+                Payments = payments,
                 Preferences = profile.CustomerProfile?.Preferences,
             };
 
@@ -65,8 +67,6 @@ namespace Handyman.Controllers
             var userProfile = _context.Profiles
                 .Include(p => p.CustomerProfile)
                 .FirstOrDefault(p => p.UserId == Id);
-            
-
 
             if (userProfile == null)
             {
@@ -145,9 +145,10 @@ namespace Handyman.Controllers
                     Console.WriteLine("Error: " + error.ErrorMessage);
                 }
             }
+
             return View(model);
         }
-        
+
 
         public async Task<IActionResult> GetProfileImage(int id)
         {
@@ -164,7 +165,7 @@ namespace Handyman.Controllers
             var defaultImageBytes = await System.IO.File.ReadAllBytesAsync(defaultImagePath);
             return File(defaultImageBytes, "image/jpeg");
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> DeleteProfile(string id)
         {
@@ -203,9 +204,94 @@ namespace Handyman.Controllers
         }
         
         [HttpGet]
+        public async Task<IActionResult> AddEditPayment(string Id, int? paymentId)
+        {
+
+            Console.WriteLine($"GET AddEditAddress - userId: {Id}");
+
+            if (string.IsNullOrEmpty(Id))
+            {
+                return BadRequest("UserId is required.");
+            }
+
+            var model = new Payment { UserId = Id };
+
+            if (paymentId.HasValue && paymentId.Value > 0)
+            {
+                var payment = await _context.Payments.FirstOrDefaultAsync(a => a.Id == paymentId.Value);
+                if (payment != null)
+                {
+                    model.Id = payment.Id; // Assign ID for editing
+                    model.CardNumber = payment.CardNumber;
+                    model.ExpiryDate = payment.ExpiryDate;
+                    model.CardHolderName = payment.CardHolderName;
+                    model.CVV= payment.CVV;
+                }
+            }
+
+            return View(model);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> AddEditPayment(Payment model)
+        {
+            Console.WriteLine($"Received Id: {model.Id}");
+            Console.WriteLine($"Received UserId: {model.UserId}");
+
+            if (!ModelState.IsValid)
+            {
+                Console.WriteLine("ModelState is invalid.");
+                foreach (var error in ModelState)
+                {
+                    Console.WriteLine($"Key: {error.Key}");
+                    foreach (var err in error.Value.Errors)
+                    {
+                        Console.WriteLine($" - {err.ErrorMessage}");
+                    }
+                }
+
+                return View(model);
+            }
+
+            if (model.Id == 0) // Create new address if Id is not set
+            {
+                _context.Payments.Add(model);
+            }
+            else
+            {
+                var existingPayment = await _context.Payments.FindAsync(model.Id);
+                if (existingPayment != null)
+                {
+                    existingPayment.CardNumber = model.CardNumber;
+                    existingPayment.CardHolderName= model.CardHolderName;
+                    existingPayment.CVV= model.CVV;
+                    existingPayment.ExpiryDate = model.ExpiryDate;
+                    
+                    _context.Payments.Update(existingPayment);
+                }
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Profile", new { id = model.UserId });
+        }
+
+        [HttpPost]
+        public IActionResult DeletePaymentCard(int id)
+        {
+            var card = _context.Payments.Find(id);
+            if (card != null)
+            {
+                _context.Payments.Remove(card);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Profile", new { id = card?.UserId });
+        }
+
+
+        [HttpGet]
         public async Task<IActionResult> AddEditAddress(string Id, int? addressId)
         {
-            
+
             Console.WriteLine($"GET AddEditAddress - userId: {Id}");
 
             if (string.IsNullOrEmpty(Id))
@@ -231,7 +317,7 @@ namespace Handyman.Controllers
 
             return View(model);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> AddEditAddress(Address model)
         {
@@ -249,6 +335,7 @@ namespace Handyman.Controllers
                         Console.WriteLine($" - {err.ErrorMessage}");
                     }
                 }
+
                 return View(model);
             }
 
@@ -281,16 +368,16 @@ namespace Handyman.Controllers
         {
             var address = await _context.Addresses.FindAsync(id);
 
-            
+
             var userProfileId = address.userId; // Store the UserProfileId before deleting
             _context.Addresses.Remove(address);
             await _context.SaveChangesAsync();
-           
+
             return RedirectToAction("Profile", new { id = userProfileId }); // Redirect using the stored UserProfileId
 
 
         }
-        
+
 
         public async Task<IActionResult> Appointments()
         {
@@ -306,7 +393,5 @@ namespace Handyman.Controllers
 
             return View(appointments);
         }
-
-
     }
 }

@@ -85,10 +85,10 @@ namespace Handyman.Data
                 .HasMany(cp => cp.Addresses)
                 .WithMany();
 
-            modelBuilder.Entity<Payment>()
+            /*modelBuilder.Entity<Payment>()
                 .HasOne(p => p.CustomerProfile)
                 .WithMany(cp => cp.Payments)
-                .HasForeignKey(p => p.CustomerProfileId);
+                .HasForeignKey(p => p.CustomerProfileId);*/
 
 
 
@@ -103,8 +103,12 @@ namespace Handyman.Data
             modelBuilder.Entity<ProviderService>().HasData(MockData.MockData.GetProviderServices());
             modelBuilder.Entity<Appointment>().HasData(MockData.MockData.GetAppointments());
             modelBuilder.Entity<AppointmentFeedback>().HasData(MockData.MockData.GetAppointmentFeedbacks());
+            /*
             modelBuilder.Entity<Address>().HasData(MockData.MockData.GetAddresses());
+            */
+            /*
             modelBuilder.Entity<Payment>().HasData(MockData.MockData.GetPayments());
+        */
         }
 
     }
