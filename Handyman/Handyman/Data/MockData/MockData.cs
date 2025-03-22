@@ -269,7 +269,7 @@ namespace Handyman.Data.MockData
                 new Service { Id = 48, Name = "Move Furniture Up/Downstairs", ServiceTypeId = 4, Description = "Leave the danger of moving heavy furnature on stairs to our insured and professional Handymen!", IsDeleted = false , Cost = 35},
 
                 // Holiday Help
-                new Service { Id = 49, Name = "Hang Christmas Lights", ServiceTypeId = 5, IsDeleted = false, Description = "Decorating your home with Christmas lights.", Cost = 120 },
+                new Service { Id = 49, Name = "Hang Christmas Lights", ServiceTypeId = 5, IsDeleted = false, Description = "Decorating your home with Christmas lights.", Cost = 100 },
                 new Service { Id = 50, Name = "Christmas Tree Delivery", ServiceTypeId = 5, IsDeleted = false, Description = "Delivery of a Christmas tree to your home.", Cost = 80 },
                 new Service { Id = 51, Name = "Christmas Decorating", ServiceTypeId = 5, IsDeleted = false, Description = "Decorating your home for the holidays.", Cost = 150 },
                 new Service { Id = 52, Name = "Shopping", ServiceTypeId = 5, IsDeleted = false, Description = "Shopping for holiday gifts or groceries.", Cost = 100 },
