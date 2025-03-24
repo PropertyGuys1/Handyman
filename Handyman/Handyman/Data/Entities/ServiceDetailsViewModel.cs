@@ -7,4 +7,5 @@ public class ServiceDetailsViewModel
     public CustomerProfile? User { get; set; }
     
     public IEnumerable<Address>? Addresses { get; set; } // Collection of addresses
+    public IEnumerable<Payment>? Payments { get; set; } // Collection of payments
 }

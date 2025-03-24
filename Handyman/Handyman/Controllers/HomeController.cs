@@ -63,6 +63,7 @@ namespace Handyman.Controllers
 
             // Prepare a list of addresses to display
             List<Address> addresses = new List<Address>();
+            List<Payment> payments = new List<Payment>();
 
             if (User.Identity.IsAuthenticated)
             {
@@ -73,13 +74,16 @@ namespace Handyman.Controllers
                 addresses = await _context.Addresses
                     .Where(a => a.userId == userId)
                     .ToListAsync();  // Use ToListAsync to execute the query asynchronously
+
+                payments = await _context.Payments.Where(a => a.UserId == userId).ToListAsync();
             }
             
             // Create and return the view model with service and addresses
             var model = new ServiceDetailsViewModel
             {
                 Service = service,
-                Addresses = addresses
+                Addresses = addresses,
+                Payments = payments
             };
 
             return View(model);
@@ -131,6 +135,7 @@ namespace Handyman.Controllers
                 AppointmentTime = time,
                 Status = "Pending",  // Default status
                 ServiceId = serviceId,
+                Cost = service.Cost,
                 UserId = userId,
                 notes = notes
             };

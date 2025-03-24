@@ -1,0 +1,34 @@
+﻿@model Handyman.Data.Entities.Payment
+
+<div class="container py-5">
+    <div class="card shadow-lg p-4">
+        <form asp-action="AddEditPayment" method="post">
+            <input type="hidden" asp-for="UserId" value="@Model.UserId" />
+            <input type="hidden" asp-for="Id" value="@Model.Id" />
+
+            <div class="form-group mb-3">
+                <label asp-for="CardNumber" class="control-label font-weight-bold">Card Number</label>
+                <input asp-for="CardNumber" class="form-control form-control-lg" placeholder="Enter Card Number" />
+                <span asp-validation-for="CardNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="CardHolderName" class="control-label font-weight-bold">Card Holder Name</label>
+                <input asp-for="CardHolderName" class="form-control form-control-lg" placeholder="Enter Holder Name" />
+                <span asp-validation-for="CardHolderName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ExpiryDate" class="control-label font-weight-bold">Expiry Date</label>
+                <input asp-for="ExpiryDate" class="form-control form-control-lg" placeholder="MM/YY" />
+                <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="CVV" class="control-label font-weight-bold">CVV</label>
+                <input asp-for="CVV" class="form-control form-control-lg" placeholder="Enter CVV" />
+                <span asp-validation-for="CVV" class="text-danger"></span>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg">Save Card</button>
+            </div>
+        </form>
+    </div>
+</div>
