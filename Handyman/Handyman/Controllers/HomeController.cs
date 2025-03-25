@@ -179,6 +179,14 @@ namespace Handyman.Controllers
             }
         }
 
-        
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult Terms()
+        {
+            return View();
+        }
+
     }
 }
