@@ -490,12 +490,12 @@ namespace Handyman.Controllers
                     Console.WriteLine($"Updating appointment - Old Time: {originalTime}, New Time: {model.AppointmentTime}");
 
                     // Update only the editable fields
-                    appointment.AppointmentDate = model.AppointmentDate;
-                    appointment.AppointmentTime = model.AppointmentTime;
-                    appointment.notes = model.notes;
+                appointment.AppointmentDate = model.AppointmentDate;
+                appointment.AppointmentTime = model.AppointmentTime;
+                appointment.notes = model.notes;
 
                     // Keep all other fields unchanged
-                    await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                     Console.WriteLine("Appointment updated successfully");
 
                     // Get user details for email
