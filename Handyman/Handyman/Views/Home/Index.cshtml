@@ -5,6 +5,22 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+<style>
+    .unified-image {
+        width: 100%;
+        height: 20rem; 
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        transition: transform 0.3s ease;
+    }
+
+     .unified-image:hover {
+            transform: scale(1.1); 
+        }
+</style>
 
 
 <div class="jumbotron jumbotron-fluid bg-opacity-75 bg-black text-center py-5 mb-5" style="width: 100%; margin: 0;">
@@ -41,8 +57,8 @@
     </div>
     <div class="row mb-4">
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="~/images/cleaning.jpg" class="card-img-top" alt="Cleaning">
+            <div class="card mb-4 shadow-lg">
+                <img src="~/images/cleaning.jpg" class="card-img-top unified-image" alt="Cleaning">
                 <div class="card-body">
                     <h5 class="card-title">Cleaning</h5>
                     <p class="card-text">Professional cleaning services for your home or office.</p>
@@ -50,8 +66,8 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="~/images/delivery.jpg" class="card-img-top" alt="Delivery">
+            <div class="card mb-4 shadow-lg">
+                <img src="~/images/delivery.jpg" class="card-img-top unified-image" alt="Delivery">
                 <div class="card-body">
                     <h5 class="card-title">Delivery</h5>
                     <p class="card-text">Fast and reliable delivery services for your items.</p>
@@ -59,8 +75,8 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="~/images/moving.jpg" class="card-img-top" alt="Moving">
+            <div class="card mb-4 shadow-lg">
+                <img src="~/images/moving.jpg" class="card-img-top unified-image" alt="Moving">
                 <div class="card-body">
                     <h5 class="card-title">Moving</h5>
                     <p class="card-text">Efficient moving services to help you relocate.</p>
@@ -70,8 +86,8 @@
     </div>
     <div class="row">
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="~/images/handyman.jpg" class="card-img-top" alt="Handyman">
+            <div class="card mb-4 shadow-lg">
+                <img src="~/images/handyman.jpg" class="card-img-top  unified-image" alt="Handyman">
                 <div class="card-body">
                     <h5 class="card-title">Handyman</h5>
                     <p class="card-text">Skilled handyman services for all your repair needs.</p>
@@ -79,8 +95,8 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="~/images/mounting.jpg" class="card-img-top" alt="Mounting">
+            <div class="card mb-4 shadow-lg">
+                <img src="~/images/mounting.jpg" class="card-img-top  unified-image" alt="Mounting">
                 <div class="card-body">
                     <h5 class="card-title">Mounting</h5>
                     <p class="card-text">Professional mounting services for TVs and more.</p>
@@ -88,8 +104,8 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="~/images/furniture.jpg" class="card-img-top" alt="Furniture Assembly">
+            <div class="card mb-4 shadow-lg">
+                <img src="~/images/furniture.jpg" class="card-img-top  unified-image" alt="Furniture Assembly">
                 <div class="card-body">
                     <h5 class="card-title">Furniture Assembly</h5>
                     <p class="card-text">Expert furniture assembly services for your home.</p>
