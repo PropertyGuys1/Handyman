@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Handyman.Controllers
 {
+    [Authorize(Roles ="Provider")]
     public class ProviderController : Controller
     {
         public IActionResult Index()
