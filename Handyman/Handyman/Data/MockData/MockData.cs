@@ -208,9 +208,7 @@ namespace Handyman.Data.MockData
             };
         }
 
-        public static List<Service> GetServices()
-        {
-            return new List<Service>
+        public static List<Service> GetServices() => new List<Service>
             {
                 // Popular tasks
                 new Service
@@ -727,10 +725,6 @@ namespace Handyman.Data.MockData
 
 
             };
-
-
-
-        }
 
         public static List<ProviderService> GetProviderServices()
         {
