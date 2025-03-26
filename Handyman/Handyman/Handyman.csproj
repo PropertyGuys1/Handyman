@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="DotNetEnv" Version="3.1.1" />
+    <PackageReference Include="MailKit" Version="4.11.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.11" />
@@ -25,12 +26,6 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\Customer\Index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Migrations\20250307180144_Testing12345.cs" />
-    <Compile Remove="Migrations\20250307180144_Testing12345.Designer.cs" />
-    <Compile Remove="Migrations\20250308232135_Testing134256.Designer.cs" />
   </ItemGroup>
 
 </Project>

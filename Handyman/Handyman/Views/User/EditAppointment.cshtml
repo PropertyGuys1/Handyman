@@ -1,0 +1,91 @@
+﻿@model Handyman.Data.Entities.Appointment
+
+@{
+    ViewData["Title"] = "Edit Appointment";
+}
+
+<div class="container py-5">
+    <h2>Edit Appointment</h2>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var modelError in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@modelError.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+
+    <form asp-action="EditAppointment" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="ServiceId" />
+        <input type="hidden" asp-for="Service" />
+        <input type="hidden" asp-for="UserId" />
+        <input type="hidden" asp-for="PersonName" />
+        <input type="hidden" asp-for="Status" />
+        <input type="hidden" asp-for="Cost" />
+        <input type="hidden" asp-for="Address" />
+
+        <div class="form-group mb-3">
+            <label class="form-label">Service</label>
+            <input type="text" class="form-control" value="@Model.Service?.Name" readonly />
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="form-label">Address</label>
+            <input type="text" class="form-control" value="@Model.Address" readonly />
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="AppointmentDate" class="form-label">Date</label>
+            <input type="date" class="form-control" asp-for="AppointmentDate" required min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+            <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="AppointmentTime" class="form-label">Time</label>
+            <input type="time" class="form-control" asp-for="AppointmentTime" required />
+            <span asp-validation-for="AppointmentTime" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="notes" class="form-label">Notes</label>
+            <textarea class="form-control" asp-for="notes" rows="3"></textarea>
+            <span asp-validation-for="notes" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mt-4">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a asp-action="Appointments" class="btn btn-secondary">Back to Appointments</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        // Add client-side validation for date
+        document.addEventListener('DOMContentLoaded', function () {
+            var dateInput = document.querySelector('input[type="date"]');
+            var today = new Date().toISOString().split('T')[0];
+            dateInput.setAttribute('min', today);
+            
+            dateInput.addEventListener('change', function() {
+                if (this.value < today) {
+                    this.value = today;
+                    alert('Please select a future date.');
+                }
+            });
+        });
+    </script>
+}

@@ -19,6 +19,7 @@
         public bool Active { get; set; } = true;
         
         public string? Password { get; set; }
+        
 
         // Navigation properties
         public virtual CustomerProfile CustomerProfile { get; set; }
