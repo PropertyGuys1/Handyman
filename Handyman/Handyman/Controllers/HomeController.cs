@@ -251,5 +251,14 @@ namespace Handyman.Controllers
                 Console.WriteLine("Email sending failed: " + ex.Message);
             }
         }
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult Terms()
+        {
+            return View();
+        }
+
     }
 }
