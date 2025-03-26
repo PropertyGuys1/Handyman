@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Handyman.Controllers
 {
-    [Authorize(Roles = "Customer")]
+    //[Authorize(Roles = "Customer")]
     public class UserController : Controller
     {
         private readonly IWebHostEnvironment _hostingEnvironment;
