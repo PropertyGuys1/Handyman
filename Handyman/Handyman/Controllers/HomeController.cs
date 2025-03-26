@@ -8,6 +8,12 @@ using Handyman.Data;
 using Handyman.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Handyman.Helper;
+using System.Net.Mail;
+using System.Net;
+using Microsoft.Extensions.Configuration; // For config settings
+using MimeKit;
+using MailKit.Net.Smtp;
+using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
 namespace Handyman.Controllers
 {
@@ -24,6 +30,7 @@ namespace Handyman.Controllers
         {
             return View();
         }
+
         [HttpGet]
         public async Task<IActionResult> GetServices(string query)
         {
@@ -40,16 +47,16 @@ namespace Handyman.Controllers
 
             return Json(services);
         }
-        
+
 
         public async Task<IActionResult> Services()
         {
             var serviceTypes = await _context.ServiceTypes
                 .Include(st => st.Services)
                 .ToListAsync();
-            
-            
-            
+
+
+
             return View(serviceTypes);
         }
 
@@ -70,14 +77,14 @@ namespace Handyman.Controllers
                 // Get the userId from the authenticated user's claims
                 string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                
+
                 addresses = await _context.Addresses
                     .Where(a => a.userId == userId)
-                    .ToListAsync();  // Use ToListAsync to execute the query asynchronously
+                    .ToListAsync(); // Use ToListAsync to execute the query asynchronously
 
                 payments = await _context.Payments.Where(a => a.UserId == userId).ToListAsync();
             }
-            
+
             // Create and return the view model with service and addresses
             var model = new ServiceDetailsViewModel
             {
@@ -88,16 +95,17 @@ namespace Handyman.Controllers
 
             return View(model);
         }
-        
+
         [HttpPost]
-        public async Task<IActionResult> BookService(int serviceId, int addressId, DateTime date, TimeSpan time, string notes)
+        public async Task<IActionResult> BookService(int serviceId, int addressId, DateTime date, TimeSpan time,
+            string notes)
         {
             // Ensure the user is authenticated
             if (!User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Login", "Account");
             }
-            
+
             if (date.Date < DateTime.Now.Date)
             {
                 // Add error message
@@ -105,8 +113,12 @@ namespace Handyman.Controllers
                 return RedirectToAction("ServiceDetails", new { id = serviceId });
             }
 
+
             // Get the user's ID from the claims
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var user = await _context.Profiles.FirstOrDefaultAsync(u => u.UserId == userId);
+            var userEmail = user?.Email;
 
             // Retrieve the selected address from the database
             var address = await _context.Addresses.FindAsync(addressId);
@@ -118,7 +130,8 @@ namespace Handyman.Controllers
             }
 
             // Retrieve the service details
-            var service = await _context.Services.Include(s => s.ServiceType).FirstOrDefaultAsync(s => s.Id == serviceId);
+            var service = await _context.Services.Include(s => s.ServiceType)
+                .FirstOrDefaultAsync(s => s.Id == serviceId);
             if (service == null)
             {
                 // If the service is not found, return an error
@@ -133,7 +146,7 @@ namespace Handyman.Controllers
                 Address = $"{address.Street}, {address.City}, {address.State}, {address.PostalCode}, {address.Country}",
                 AppointmentDate = date,
                 AppointmentTime = time,
-                Status = "Pending",  // Default status
+                Status = "Pending", // Default status
                 ServiceId = serviceId,
                 Cost = service.Cost,
                 UserId = userId,
@@ -146,6 +159,11 @@ namespace Handyman.Controllers
 
             // Provide feedback to the user
             TempData["Success"] = "Your booking has been confirmed!";
+            Console.WriteLine(userEmail);
+            var ad = $"{address.Street}, {address.City}, {address.State}, {address.PostalCode}, {address.Country}";
+
+            await SendConfirmationEmail(user.FullName, user.Email, date, time, service.Name, ad, service.Cost);
+
 
             // Redirect back to the service details page or a confirmation page
             return RedirectToAction("ServiceDetails", new { id = serviceId });
@@ -179,6 +197,60 @@ namespace Handyman.Controllers
             }
         }
 
+        private async Task SendConfirmationEmail(string userName, string userEmail, DateTime date, TimeSpan time,
+            string serviceName, string serviceAddress, int? serviceCost)
+        {
+            try
+            {
+                // No need to read config if you are hardcoding credentials
+                string smtpServer = "smtp.gmail.com";
+                int smtpPort = 587;
+                string senderEmail = "handyman.ca009@gmail.com"; // Replace with your Gmail
+                string senderPassword = "bdfk ehoa ybym lgnj"; // Use an App Password
+
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("Handyman Services", senderEmail));
+                message.To.Add(new MailboxAddress(userName, userEmail));
+                message.Subject = "🕒 Appointment Pending Confirmation - Handyman Services";
+
+                string emailBody = $@"
+            <div style='font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 8px; padding: 20px; background-color: #f9f9f9;'>
+                <h2 style='color: #007BFF; text-align: center;'>Appointment Pending Confirmation</h2>
+                <p style='font-size: 16px; color: #333;'>Dear <strong>{userName}</strong>,</p>
+                <p style='font-size: 16px; color: #333;'>Thank you for scheduling your appointment for <strong>{serviceName}</strong>.</p>
+                <p style='font-size: 16px; color: #333;'>Your appointment is currently pending confirmation. You will receive a follow-up email shortly once it is confirmed.</p>
+                
+                <div style='background-color: #fff; padding: 15px; border-radius: 5px; border: 1px solid #ddd;'>
+                    <p style='font-size: 16px;'><strong>📅 Date:</strong> {date:dddd, MMMM dd, yyyy}</p>
+                    <p style='font-size: 16px;'><strong>⏰ Time:</strong> {time}</p>
+                    <p style='font-size: 16px;'><strong>📍 Address:</strong> {serviceAddress}</p>
+                    <p style='font-size: 16px;'><strong>💰 Estimated Cost:</strong> ${serviceCost:F2}</p>
+                </div>
+
+                <p style='font-size: 16px; color: #333;'>If you have any questions, feel free to <a href='mailto:handyman.ca009@gmail.com' style='color: #007BFF;'>contact us</a>.</p>
+                <p style='font-size: 16px; color: #333;'>Thank you for choosing Handyman Services!</p>
+                
+                <hr style='border: none; border-top: 1px solid #ddd;' />
+                <p style='text-align: center; font-size: 14px; color: #777;'>Handyman Services &bull; 📍 Toronto, Canada</p>
+            </div>";
+
+                message.Body = new TextPart("html") { Text = emailBody };
+
+                using (var client = new MailKit.Net.Smtp.SmtpClient())
+                {
+                    await client.ConnectAsync(smtpServer, smtpPort, MailKit.Security.SecureSocketOptions.StartTls);
+                    await client.AuthenticateAsync(senderEmail, senderPassword);
+                    await client.SendAsync(message);
+                    await client.DisconnectAsync(true);
+                }
+
+                Console.WriteLine("Email sent successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Email sending failed: " + ex.Message);
+            }
+        }
         public IActionResult Privacy()
         {
             return View();

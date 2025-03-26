@@ -6,8 +6,8 @@
 
 <div class="container py-5">
     <h2>Appointments</h2>
-    <br/>
-    <br/>
+    <br />
+    <br />
 
     @if (Model != null && Model.Any())
     {
@@ -23,6 +23,7 @@
                             <th>Status</th>
                             <th>Notes</th>
                             <th>Cost</th>
+                            <th>Actions</th> <!-- New column for buttons -->
                         </tr>
                     </thead>
                     <tbody>
@@ -53,6 +54,27 @@
                                 </td>
                                 <td>@appointment.notes</td>
                                 <td>@appointment.Cost</td>
+
+                                <!-- Action buttons for canceling and editing -->
+                                <td>
+                                    @if (appointment.Status == "Pending")
+                                    {
+                                        <!-- Cancel Button -->
+                                        <a asp-action="CancelAppointment" asp-controller="User" asp-route-id="@appointment.Id"
+                                           class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to cancel this appointment?');">
+                                           Cancel
+                                        </a>
+                                        <!-- Edit Button -->
+                                        <a asp-action="EditAppointment" asp-controller="User" asp-route-id="@appointment.Id" 
+                                           class="btn btn-warning btn-sm">
+                                           Edit
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Actions disabled for this appointment status.</span>
+                                    }
+                                </td>
                             </tr>
                         }
                     </tbody>
@@ -67,3 +89,4 @@
         </div>
     }
 </div>
+
