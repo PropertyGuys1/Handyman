@@ -9,9 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol;
 using MimeKit;
 using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Handyman.Controllers
 {
+    [Authorize(Roles = "Customer")]
     public class UserController : Controller
     {
         private readonly IWebHostEnvironment _hostingEnvironment;
