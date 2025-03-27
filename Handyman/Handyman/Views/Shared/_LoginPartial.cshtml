@@ -11,6 +11,7 @@
         if (user != null)
         {
             var isAdmin = await UserManager.IsInRoleAsync(user, "Admin");
+            var isProvider = await UserManager.IsInRoleAsync(user, "Provider");
 
             <!-- Admin Button -->
             @if (isAdmin)
@@ -21,9 +22,26 @@
                     </a>
                 </li>
             }
+            @if (isProvider)
+            {
+                <!-- Profile Button -->
+
+                <li class="nav-item ms-2">
+                    <a class="nav-link btn btn-info text-white px-3" asp-area="" asp-controller="Provider" asp-route-Id="@userId" asp-action="Profile">
+                        <i class="bi bi-person"></i> Profile
+                    </a>
+                </li>
+                <!-- Appointment Button -->
+                <li class="nav-item ms-2">
+                    <a class="nav-link btn btn-warning text-dark px-3" asp-area="" asp-controller="Provider" asp-route-Id="@userId" asp-action="Appointments">
+                        <i class="bi bi-calendar-check"></i> Appointments
+                    </a>
+                </li>
+            }
             else
             {
                 <!-- Profile Button -->
+             
                 <li class="nav-item ms-2">
                     <a class="nav-link btn btn-info text-white px-3" asp-area="" asp-controller="User" asp-route-Id="@userId" asp-action="Profile">
                         <i class="bi bi-person"></i> Profile

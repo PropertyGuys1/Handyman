@@ -1,5 +1,27 @@
-﻿@{
-    ViewData["HideNavbar"] = true;
+﻿@using Handyman.Data.Entities
+@model ProviderProfile
+
+@{
+    ViewData["Title"] = "Provider Profile";
 }
 
-<h1>profile</h1>
+<div class="container mt-5">
+    <h1 class="mb-4">Provider Profile</h1>
+    <div class="card">
+        <div class="card-header">
+            <h2>@Model.Profile.FullName</h2>
+        </div>
+        <div class="card-body">
+            <p><strong>Services Offered:</strong> @Model.ServicesOffered</p>
+            <p><strong>Availability:</strong> @Model.Availability</p>
+            <p><strong>Rating:</strong> @Model.Rating</p>
+        </div>
+    </div>
+    <h3 class="mt-4">Services</h3>
+    <ul class="list-group">
+        @foreach (var service in Model.ProviderServices)
+        {
+            <li class="list-group-item">@service.Service</li>
+        }
+    </ul>
+</div>
