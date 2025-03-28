@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Handyman.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250325220236_initial")]
+    [Migration("20250328203336_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -202,23 +202,23 @@ namespace Handyman.Migrations
                         {
                             Id = 1,
                             AppointmentId = 1,
-                            CreatedAt = new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2755),
+                            CreatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(4597),
                             CustomerProfileId = 1,
                             Feedback = "Great service! Very satisfied.",
                             IsApproved = false,
                             Rating = 5,
-                            UpdatedAt = new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2756)
+                            UpdatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(4598)
                         },
                         new
                         {
                             Id = 2,
                             AppointmentId = 2,
-                            CreatedAt = new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2759),
+                            CreatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(4601),
                             CustomerProfileId = 2,
                             Feedback = "Good job, but could be more thorough.",
                             IsApproved = false,
                             Rating = 4,
-                            UpdatedAt = new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2760)
+                            UpdatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(4601)
                         });
                 });
 
@@ -353,13 +353,13 @@ namespace Handyman.Migrations
                             Id = 1,
                             Active = true,
                             Address = "123 Main St, Anytown, USA",
-                            CreatedAt = new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2261),
+                            CreatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(3707),
                             Email = "john.doe@example.com",
                             FullName = "John Doe",
                             Password = "jhon123",
                             PhoneNumber = "123-456-7890",
                             Role = "Customer",
-                            UpdatedAt = new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2263),
+                            UpdatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(3708),
                             UserId = "customer1"
                         },
                         new
@@ -367,13 +367,13 @@ namespace Handyman.Migrations
                             Id = 2,
                             Active = true,
                             Address = "456 Elm St, Othertown, USA",
-                            CreatedAt = new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2267),
+                            CreatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(3713),
                             Email = "jane.smith@example.com",
                             FullName = "Jane Smith",
                             Password = "jane123",
                             PhoneNumber = "987-654-3210",
                             Role = "Customer",
-                            UpdatedAt = new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2267),
+                            UpdatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(3713),
                             UserId = "customer2"
                         },
                         new
@@ -381,13 +381,13 @@ namespace Handyman.Migrations
                             Id = 3,
                             Active = true,
                             Address = "789 Oak St, Sometown, USA",
-                            CreatedAt = new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2269),
+                            CreatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(3715),
                             Email = "mike.johnson@example.com",
                             FullName = "Mike Johnson",
                             Password = "mike123",
                             PhoneNumber = "555-123-4567",
                             Role = "Provider",
-                            UpdatedAt = new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2270),
+                            UpdatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(3716),
                             UserId = "provider1"
                         },
                         new
@@ -395,13 +395,13 @@ namespace Handyman.Migrations
                             Id = 4,
                             Active = true,
                             Address = "321 Pine St, Anothertown, USA",
-                            CreatedAt = new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2271),
+                            CreatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(3717),
                             Email = "emily.davis@example.com",
                             FullName = "Emily Davis",
                             Password = "emily123",
                             PhoneNumber = "555-987-6543",
                             Role = "Provider",
-                            UpdatedAt = new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2272),
+                            UpdatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(3718),
                             UserId = "provider2"
                         });
                 });
@@ -494,22 +494,22 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2708),
+                            CreatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(4502),
                             ImageUrl = "https://example.com/images/lawn_mowing.jpg",
                             Notes = "Experienced in lawn mowing with professional equipment.",
                             ProviderProfileId = 1,
                             ServiceId = 1,
-                            UpdatedAt = new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2709)
+                            UpdatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(4503)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2711),
+                            CreatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(4508),
                             ImageUrl = "https://example.com/images/house_cleaning.jpg",
                             Notes = "Thorough house cleaning services with eco-friendly products.",
                             ProviderProfileId = 2,
                             ServiceId = 3,
-                            UpdatedAt = new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2712)
+                            UpdatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(4508)
                         });
                 });
 
@@ -525,6 +525,9 @@ namespace Handyman.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -549,6 +552,7 @@ namespace Handyman.Migrations
                             Id = 1,
                             Cost = 50,
                             Description = "Lawn care, landscaping, and gardening tasks.",
+                            ImageUrl = "/images/serviceImages/LawnServices.jpg",
                             IsDeleted = false,
                             Name = "Yardwork",
                             ServiceTypeId = 1
@@ -558,6 +562,7 @@ namespace Handyman.Migrations
                             Id = 2,
                             Cost = 75,
                             Description = "Basic home repairs like fixing leaks and broken fixtures.",
+                            ImageUrl = "/images/serviceImages/PlumbingServices.jpg",
                             IsDeleted = false,
                             Name = "Minor Home Repair",
                             ServiceTypeId = 1
@@ -567,6 +572,7 @@ namespace Handyman.Migrations
                             Id = 3,
                             Cost = 100,
                             Description = "Assembling furniture from flat-pack kits.",
+                            ImageUrl = "/images/serviceImages/IKEAServices.jpg",
                             IsDeleted = false,
                             Name = "Furniture Assembly",
                             ServiceTypeId = 1
@@ -576,6 +582,7 @@ namespace Handyman.Migrations
                             Id = 4,
                             Cost = 60,
                             Description = "Clearing snow from driveways, walkways, and roofs.",
+                            ImageUrl = "/images/serviceImages/WinterServices.jpg",
                             IsDeleted = false,
                             Name = "Snow Removal",
                             ServiceTypeId = 1
@@ -585,6 +592,7 @@ namespace Handyman.Migrations
                             Id = 5,
                             Cost = 120,
                             Description = "Mounting your TV on the wall for a clean look.",
+                            ImageUrl = "/images/serviceImages/TVMountingServices.jpg",
                             IsDeleted = false,
                             Name = "TV Mounting",
                             ServiceTypeId = 1
@@ -594,6 +602,7 @@ namespace Handyman.Migrations
                             Id = 6,
                             Cost = 80,
                             Description = "Assisting with moving furniture or boxes.",
+                            ImageUrl = "/images/serviceImages/MovingServices.jpg",
                             IsDeleted = false,
                             Name = "Help Moving",
                             ServiceTypeId = 1
@@ -603,6 +612,7 @@ namespace Handyman.Migrations
                             Id = 7,
                             Cost = 90,
                             Description = "General home repairs and maintenance tasks.",
+                            ImageUrl = "/images/serviceImages/GeneralServices.jpg",
                             IsDeleted = false,
                             Name = "Handyman",
                             ServiceTypeId = 1
@@ -612,6 +622,7 @@ namespace Handyman.Migrations
                             Id = 8,
                             Cost = 150,
                             Description = "Interior and exterior painting services.",
+                            ImageUrl = "/images/serviceImages/PaintingServices.jpg",
                             IsDeleted = false,
                             Name = "Painting",
                             ServiceTypeId = 1
@@ -621,6 +632,7 @@ namespace Handyman.Migrations
                             Id = 9,
                             Cost = 100,
                             Description = "Installing light fixtures and bulbs.",
+                            ImageUrl = "/images/serviceImages/LightingServices.jpg",
                             IsDeleted = false,
                             Name = "Lighting Installation",
                             ServiceTypeId = 1
@@ -630,6 +642,7 @@ namespace Handyman.Migrations
                             Id = 10,
                             Cost = 50,
                             Description = "Hanging artwork or pictures on walls.",
+                            ImageUrl = "/images/serviceImages/PaintingMountingServices.jpg",
                             IsDeleted = false,
                             Name = "Hang Pictures",
                             ServiceTypeId = 1
@@ -639,6 +652,7 @@ namespace Handyman.Migrations
                             Id = 11,
                             Cost = 100,
                             Description = "Assembly and delivery of IKEA furniture.",
+                            ImageUrl = "/images/serviceImages/IKEAServices.jpg",
                             IsDeleted = false,
                             Name = "IKEA Services",
                             ServiceTypeId = 1
@@ -648,6 +662,7 @@ namespace Handyman.Migrations
                             Id = 12,
                             Cost = 60,
                             Description = "Deliver packages or goods to your location.",
+                            ImageUrl = "/images/serviceImages/DeliveryServices.jpg",
                             IsDeleted = false,
                             Name = "Delivery",
                             ServiceTypeId = 2
@@ -657,6 +672,7 @@ namespace Handyman.Migrations
                             Id = 13,
                             Cost = 120,
                             Description = "General home repair services like plumbing, electrical work, etc.",
+                            ImageUrl = "/images/serviceImages/PlumbingServices.jpg",
                             IsDeleted = false,
                             Name = "Home Repairs",
                             ServiceTypeId = 2
@@ -666,6 +682,7 @@ namespace Handyman.Migrations
                             Id = 14,
                             Cost = 80,
                             Description = "Basic home or office cleaning services.",
+                            ImageUrl = "/images/serviceImages/OrganizeOfficeServices.jpg",
                             IsDeleted = false,
                             Name = "General Cleaning",
                             ServiceTypeId = 2
@@ -675,6 +692,7 @@ namespace Handyman.Migrations
                             Id = 15,
                             Cost = 90,
                             Description = "Assembling furniture like desks, chairs, or tables.",
+                            ImageUrl = "/images/serviceImages/IKEAServices.jpg",
                             IsDeleted = false,
                             Name = "Assemble Furniture",
                             ServiceTypeId = 2
@@ -684,6 +702,7 @@ namespace Handyman.Migrations
                             Id = 16,
                             Cost = 100,
                             Description = "Help with moving or hauling large items.",
+                            ImageUrl = "/images/serviceImages/MovingServices.jpg",
                             IsDeleted = false,
                             Name = "Help Moving / Hauling",
                             ServiceTypeId = 2
@@ -693,6 +712,7 @@ namespace Handyman.Migrations
                             Id = 17,
                             Cost = 80,
                             Description = "Lifting and transporting heavy objects.",
+                            ImageUrl = "/images/serviceImages/HeavyLiftingServices.jpg",
                             IsDeleted = false,
                             Name = "Heavy Lifting",
                             ServiceTypeId = 2
@@ -702,6 +722,7 @@ namespace Handyman.Migrations
                             Id = 18,
                             Cost = 100,
                             Description = "Personal errands and assistance for daily tasks.",
+                            ImageUrl = "/images/serviceImages/PersonalAssistantServices.jpg",
                             IsDeleted = false,
                             Name = "Personal Assistant",
                             ServiceTypeId = 2
@@ -711,6 +732,7 @@ namespace Handyman.Migrations
                             Id = 19,
                             Cost = 70,
                             Description = "Outdoor maintenance including lawn mowing and trimming.",
+                            ImageUrl = "/images/serviceImages/LawnServices.jpg",
                             IsDeleted = false,
                             Name = "Yard Work",
                             ServiceTypeId = 2
@@ -720,6 +742,7 @@ namespace Handyman.Migrations
                             Id = 20,
                             Cost = 40,
                             Description = "Waiting in line for tickets, products, or services.",
+                            ImageUrl = "/images/serviceImages/WaitingInQueueServices.jpg",
                             IsDeleted = false,
                             Name = "Queue in Line",
                             ServiceTypeId = 2
@@ -729,6 +752,7 @@ namespace Handyman.Migrations
                             Id = 21,
                             Cost = 80,
                             Description = "Organizing your closet space for a more efficient setup.",
+                            ImageUrl = "/images/serviceImages/OrganizeClosetServices.jpg",
                             IsDeleted = false,
                             Name = "Organize Closet",
                             ServiceTypeId = 2
@@ -738,6 +762,7 @@ namespace Handyman.Migrations
                             Id = 22,
                             Cost = 90,
                             Description = "Office tasks like data entry, document management, etc.",
+                            ImageUrl = "/images/serviceImages/OfficeAdminServices.jpg",
                             IsDeleted = false,
                             Name = "Office Administration",
                             ServiceTypeId = 2
@@ -747,6 +772,7 @@ namespace Handyman.Migrations
                             Id = 23,
                             Cost = 75,
                             Description = "Organizing personal spaces, offices, or garages.",
+                            ImageUrl = "/images/serviceImages/OrganizeOfficeServices.jpg",
                             IsDeleted = false,
                             Name = "Organization",
                             ServiceTypeId = 2
@@ -756,6 +782,7 @@ namespace Handyman.Migrations
                             Id = 24,
                             Cost = 120,
                             Description = "General home repair services like plumbing, electrical work, etc.",
+                            ImageUrl = "/images/serviceImages/CarpentryServices.jpg",
                             IsDeleted = false,
                             Name = "Home Repairs",
                             ServiceTypeId = 3
@@ -765,6 +792,7 @@ namespace Handyman.Migrations
                             Id = 25,
                             Cost = 90,
                             Description = "Assembling furniture like desks, chairs, or tables.",
+                            ImageUrl = "/images/serviceImages/AssemblyServices.jpg",
                             IsDeleted = false,
                             Name = "Assemble Furniture",
                             ServiceTypeId = 3
@@ -774,6 +802,7 @@ namespace Handyman.Migrations
                             Id = 26,
                             Cost = 120,
                             Description = "Mounting your TV on the wall for a clean look.",
+                            ImageUrl = "/images/serviceImages/TVMountingServices.jpg",
                             IsDeleted = false,
                             Name = "TV Mounting",
                             ServiceTypeId = 3
@@ -783,6 +812,7 @@ namespace Handyman.Migrations
                             Id = 27,
                             Cost = 80,
                             Description = "Lifting and transporting heavy objects.",
+                            ImageUrl = "/images/serviceImages/HeavyLiftingServices.jpg",
                             IsDeleted = false,
                             Name = "Heavy Lifting",
                             ServiceTypeId = 3
@@ -792,6 +822,7 @@ namespace Handyman.Migrations
                             Id = 28,
                             Cost = 150,
                             Description = "Interior and exterior painting services.",
+                            ImageUrl = "/images/serviceImages/PaintingServices.jpg",
                             IsDeleted = false,
                             Name = "Painting",
                             ServiceTypeId = 3
@@ -801,6 +832,7 @@ namespace Handyman.Migrations
                             Id = 29,
                             Cost = 130,
                             Description = "General plumbing repairs and installations.",
+                            ImageUrl = "/images/serviceImages/PlumbingServices.jpg",
                             IsDeleted = false,
                             Name = "Plumbing",
                             ServiceTypeId = 3
@@ -810,6 +842,7 @@ namespace Handyman.Migrations
                             Id = 30,
                             Cost = 70,
                             Description = "Outdoor maintenance including lawn mowing and trimming.",
+                            ImageUrl = "/images/serviceImages/LawnServices.jpg",
                             IsDeleted = false,
                             Name = "Yard Work",
                             ServiceTypeId = 3
@@ -819,6 +852,7 @@ namespace Handyman.Migrations
                             Id = 31,
                             Cost = 50,
                             Description = "Hanging artwork or pictures on walls.",
+                            ImageUrl = "/images/serviceImages/PaintingMountainServices.jpg",
                             IsDeleted = false,
                             Name = "Hang Pictures",
                             ServiceTypeId = 3
@@ -828,6 +862,7 @@ namespace Handyman.Migrations
                             Id = 32,
                             Cost = 100,
                             Description = "Mounting shelves on walls for storage and decoration.",
+                            ImageUrl = "/images/serviceImages/ShelfMountingServices.jpg",
                             IsDeleted = false,
                             Name = "Shelf Mounting",
                             ServiceTypeId = 3
@@ -837,6 +872,7 @@ namespace Handyman.Migrations
                             Id = 33,
                             Cost = 100,
                             Description = "Installing light fixtures and bulbs.",
+                            ImageUrl = "/images/serviceImages/LightingServices.jpg",
                             IsDeleted = false,
                             Name = "Light Installation",
                             ServiceTypeId = 3
@@ -846,6 +882,7 @@ namespace Handyman.Migrations
                             Id = 34,
                             Cost = 150,
                             Description = "Electrical installations and repairs.",
+                            ImageUrl = "/images/serviceImages/ElectricalServices.jpg",
                             IsDeleted = false,
                             Name = "Electrical Work",
                             ServiceTypeId = 3
@@ -855,6 +892,7 @@ namespace Handyman.Migrations
                             Id = 35,
                             Cost = 200,
                             Description = "Custom woodwork and carpentry services.",
+                            ImageUrl = "/images/serviceImages/CarpentryServices.jpg",
                             IsDeleted = false,
                             Name = "Carpentry",
                             ServiceTypeId = 3
@@ -864,6 +902,7 @@ namespace Handyman.Migrations
                             Id = 36,
                             Cost = 80,
                             Description = "Child-proofing your home with safety measures.",
+                            ImageUrl = "/images/serviceImages/BabyProofingServices.jpg",
                             IsDeleted = false,
                             Name = "Baby Proofing",
                             ServiceTypeId = 3
@@ -873,6 +912,7 @@ namespace Handyman.Migrations
                             Id = 37,
                             Cost = 180,
                             Description = "Installation of smart devices like thermostats, cameras, etc.",
+                            ImageUrl = "/images/serviceImages/SmartHomeServices.jpg",
                             IsDeleted = false,
                             Name = "Smart Home Installation",
                             ServiceTypeId = 3
@@ -882,6 +922,7 @@ namespace Handyman.Migrations
                             Id = 38,
                             Cost = 100,
                             Description = "Help with moving or hauling large items.",
+                            ImageUrl = "/images/serviceImages/MovingServices.jpg",
                             IsDeleted = false,
                             Name = "Help Moving / Hauling",
                             ServiceTypeId = 4
@@ -891,6 +932,7 @@ namespace Handyman.Migrations
                             Id = 39,
                             Cost = 75,
                             Description = "Moving a single item, like a couch or appliance.",
+                            ImageUrl = "/images/serviceImages/MovingServices.jpg",
                             IsDeleted = false,
                             Name = "One Item Movers",
                             ServiceTypeId = 4
@@ -900,6 +942,7 @@ namespace Handyman.Migrations
                             Id = 40,
                             Cost = 150,
                             Description = "Moving large furniture from one location to another.",
+                            ImageUrl = "/images/serviceImages/MovingServices.jpg",
                             IsDeleted = false,
                             Name = "Furniture Movers",
                             ServiceTypeId = 4
@@ -909,6 +952,7 @@ namespace Handyman.Migrations
                             Id = 41,
                             Cost = 80,
                             Description = "Removal and disposal of unwanted items or junk.",
+                            ImageUrl = "/images/serviceImages/JunkRemovalServices.jpg",
                             IsDeleted = false,
                             Name = "Junk Removal",
                             ServiceTypeId = 4
@@ -918,6 +962,7 @@ namespace Handyman.Migrations
                             Id = 42,
                             Cost = 300,
                             Description = "Complete moving service, including packing, loading, and unloading.",
+                            ImageUrl = "/images/serviceImages/MovingServices.jpg",
                             IsDeleted = false,
                             Name = "Full Service Movers",
                             ServiceTypeId = 4
@@ -927,6 +972,7 @@ namespace Handyman.Migrations
                             Id = 43,
                             Cost = 250,
                             Description = "Packing up your home and moving everything to your new location.",
+                            ImageUrl = "/images/serviceImages/MovingServices.jpg",
                             IsDeleted = false,
                             Name = "Packing and Moving Services",
                             ServiceTypeId = 4
@@ -936,6 +982,7 @@ namespace Handyman.Migrations
                             Id = 44,
                             Cost = 150,
                             Description = "Unpacking boxes and organizing items in your new home.",
+                            ImageUrl = "/images/serviceImages/MovingServices.jpg",
                             IsDeleted = false,
                             Name = "Unpacking Services",
                             ServiceTypeId = 4
@@ -945,6 +992,7 @@ namespace Handyman.Migrations
                             Id = 45,
                             Cost = 80,
                             Description = "Lifting and transporting heavy objects.",
+                            ImageUrl = "/images/serviceImages/HeavyLiftingServices.jpg",
                             IsDeleted = false,
                             Name = "Heavy Lifting",
                             ServiceTypeId = 4
@@ -954,6 +1002,7 @@ namespace Handyman.Migrations
                             Id = 46,
                             Cost = 90,
                             Description = "Removal of old furniture that needs to be disposed of.",
+                            ImageUrl = "/images/serviceImages/MovingServices.jpg",
                             IsDeleted = false,
                             Name = "Furniture Removal",
                             ServiceTypeId = 4
@@ -963,6 +1012,7 @@ namespace Handyman.Migrations
                             Id = 47,
                             Cost = 75,
                             Description = "Removal of an old couch or sofa.",
+                            ImageUrl = "/images/serviceImages/MovingServices.jpg",
                             IsDeleted = false,
                             Name = "Couch Removal",
                             ServiceTypeId = 4
@@ -972,6 +1022,7 @@ namespace Handyman.Migrations
                             Id = 48,
                             Cost = 100,
                             Description = "Assisting in moving furniture up or down stairs.",
+                            ImageUrl = "/images/serviceImages/HeavyLiftingServices.jpg",
                             IsDeleted = false,
                             Name = "Move Furniture Up/Downstairs",
                             ServiceTypeId = 4
@@ -981,6 +1032,7 @@ namespace Handyman.Migrations
                             Id = 49,
                             Cost = 120,
                             Description = "Decorating your home with Christmas lights.",
+                            ImageUrl = "/images/serviceImages/WinterServices.jpg",
                             IsDeleted = false,
                             Name = "Hang Christmas Lights",
                             ServiceTypeId = 5
@@ -990,6 +1042,7 @@ namespace Handyman.Migrations
                             Id = 50,
                             Cost = 80,
                             Description = "Delivery of a Christmas tree to your home.",
+                            ImageUrl = "/images/serviceImages/WinterServices.jpg",
                             IsDeleted = false,
                             Name = "Christmas Tree Delivery",
                             ServiceTypeId = 5
@@ -999,6 +1052,7 @@ namespace Handyman.Migrations
                             Id = 51,
                             Cost = 150,
                             Description = "Decorating your home for the holidays.",
+                            ImageUrl = "/images/serviceImages/ChristmasServices.jpg",
                             IsDeleted = false,
                             Name = "Christmas Decorating",
                             ServiceTypeId = 5
@@ -1008,6 +1062,7 @@ namespace Handyman.Migrations
                             Id = 52,
                             Cost = 100,
                             Description = "Shopping for holiday gifts or groceries.",
+                            ImageUrl = "/images/serviceImages/WinterServices.jpg",
                             IsDeleted = false,
                             Name = "Shopping",
                             ServiceTypeId = 5
@@ -1017,6 +1072,7 @@ namespace Handyman.Migrations
                             Id = 53,
                             Cost = 150,
                             Description = "Complete shopping for the holidays.",
+                            ImageUrl = "/images/serviceImages/ChristmasServices.jpg",
                             IsDeleted = false,
                             Name = "Holiday Shopping",
                             ServiceTypeId = 5
@@ -1026,6 +1082,7 @@ namespace Handyman.Migrations
                             Id = 54,
                             Cost = 50,
                             Description = "Wrapping your holiday gifts.",
+                            ImageUrl = "/images/serviceImages/ChristmasServices.jpg",
                             IsDeleted = false,
                             Name = "Gifts Wrapping",
                             ServiceTypeId = 5
@@ -1035,6 +1092,7 @@ namespace Handyman.Migrations
                             Id = 55,
                             Cost = 80,
                             Description = "Holiday grocery shopping.",
+                            ImageUrl = "/images/serviceImages/ChristmasServices.jpg",
                             IsDeleted = false,
                             Name = "Grocery Shopping",
                             ServiceTypeId = 5
@@ -1044,6 +1102,7 @@ namespace Handyman.Migrations
                             Id = 56,
                             Cost = 100,
                             Description = "Shopping for holiday gifts.",
+                            ImageUrl = "/images/serviceImages/ChristmasServices.jpg",
                             IsDeleted = false,
                             Name = "Gift Shopping",
                             ServiceTypeId = 5
@@ -1053,6 +1112,7 @@ namespace Handyman.Migrations
                             Id = 57,
                             Cost = 90,
                             Description = "Assembling furniture like desks, chairs, or tables.",
+                            ImageUrl = "/images/serviceImages/AssemblyServices.jpg",
                             IsDeleted = false,
                             Name = "Furniture Assembly",
                             ServiceTypeId = 6
@@ -1062,6 +1122,7 @@ namespace Handyman.Migrations
                             Id = 58,
                             Cost = 100,
                             Description = "Assembling IKEA flat-pack furniture.",
+                            ImageUrl = "/images/serviceImages/IKEAServices.jpg",
                             IsDeleted = false,
                             Name = "IKEA Furniture Assembly",
                             ServiceTypeId = 6
@@ -1071,6 +1132,7 @@ namespace Handyman.Migrations
                             Id = 59,
                             Cost = 100,
                             Description = "Assembling kids furniture like cribs, dressers, etc.",
+                            ImageUrl = "/images/serviceImages/AssemblyServices.jpg",
                             IsDeleted = false,
                             Name = "Assembly of Kids Furniture",
                             ServiceTypeId = 6
@@ -1080,6 +1142,7 @@ namespace Handyman.Migrations
                             Id = 60,
                             Cost = 120,
                             Description = "Assembling office furniture like desks and chairs.",
+                            ImageUrl = "/images/serviceImages/AssemblyServices.jpg",
                             IsDeleted = false,
                             Name = "Office Furniture Assembly",
                             ServiceTypeId = 6
@@ -1089,6 +1152,7 @@ namespace Handyman.Migrations
                             Id = 61,
                             Cost = 150,
                             Description = "Assembling outdoor sheds or storage units.",
+                            ImageUrl = "/images/serviceImages/AssemblyServices.jpg",
                             IsDeleted = false,
                             Name = "Shed Assembly",
                             ServiceTypeId = 6
@@ -1098,6 +1162,7 @@ namespace Handyman.Migrations
                             Id = 62,
                             Cost = 60,
                             Description = "Clearing snow from driveways, walkways, and roofs.",
+                            ImageUrl = "/images/serviceImages/WinterServices.jpg",
                             IsDeleted = false,
                             Name = "Snow Removal",
                             ServiceTypeId = 7
@@ -1107,6 +1172,7 @@ namespace Handyman.Migrations
                             Id = 63,
                             Cost = 50,
                             Description = "Applying ice-melting substances to prevent slips and falls.",
+                            ImageUrl = "/images/serviceImages/AssemblyServices.jpg",
                             IsDeleted = false,
                             Name = "Ice Melting",
                             ServiceTypeId = 7
@@ -1116,6 +1182,7 @@ namespace Handyman.Migrations
                             Id = 64,
                             Cost = 150,
                             Description = "Preparing your property for winter by sealing windows, pipes, etc.",
+                            ImageUrl = "/images/serviceImages/AssemblyServices.jpg",
                             IsDeleted = false,
                             Name = "Winterizing Property",
                             ServiceTypeId = 7
@@ -1125,6 +1192,7 @@ namespace Handyman.Migrations
                             Id = 65,
                             Cost = 100,
                             Description = "Cleaning leaves and debris from gutters to prevent blockages.",
+                            ImageUrl = "/images/serviceImages/GeneralServices.jpg",
                             IsDeleted = false,
                             Name = "Gutter Cleaning",
                             ServiceTypeId = 7
@@ -1134,6 +1202,7 @@ namespace Handyman.Migrations
                             Id = 66,
                             Cost = 70,
                             Description = "Shoveling snow off driveways to ensure safe access.",
+                            ImageUrl = "/images/serviceImages/AssemblyServices.jpg",
                             IsDeleted = false,
                             Name = "Shoveling Driveways",
                             ServiceTypeId = 7
@@ -1143,6 +1212,7 @@ namespace Handyman.Migrations
                             Id = 67,
                             Cost = 120,
                             Description = "Protecting pipes from freezing by insulating or draining them.",
+                            ImageUrl = "/images/serviceImages/PlumbingServices.jpg",
                             IsDeleted = false,
                             Name = "Winterizing Plumbing",
                             ServiceTypeId = 7
@@ -1152,6 +1222,7 @@ namespace Handyman.Migrations
                             Id = 68,
                             Cost = 80,
                             Description = "Maintaining your lawn with mowing, fertilization, and watering.",
+                            ImageUrl = "/images/serviceImages/LawnServices.jpg",
                             IsDeleted = false,
                             Name = "Lawn Care",
                             ServiceTypeId = 8
@@ -1161,6 +1232,7 @@ namespace Handyman.Migrations
                             Id = 69,
                             Cost = 120,
                             Description = "Trimming trees and removing dead branches for safety and appearance.",
+                            ImageUrl = "/images/serviceImages/LawnServices.jpg",
                             IsDeleted = false,
                             Name = "Tree Pruning",
                             ServiceTypeId = 8
@@ -1170,6 +1242,7 @@ namespace Handyman.Migrations
                             Id = 70,
                             Cost = 60,
                             Description = "Raking and removing fallen leaves from yards and lawns.",
+                            ImageUrl = "/images/serviceImages/LawnServices.jpg",
                             IsDeleted = false,
                             Name = "Leaf Raking",
                             ServiceTypeId = 8
@@ -1179,6 +1252,7 @@ namespace Handyman.Migrations
                             Id = 71,
                             Cost = 50,
                             Description = "Mowing your lawn to maintain a neat and healthy yard.",
+                            ImageUrl = "/images/serviceImages/LawnServices.jpg",
                             IsDeleted = false,
                             Name = "Lawn Mowing",
                             ServiceTypeId = 8
@@ -1188,6 +1262,7 @@ namespace Handyman.Migrations
                             Id = 72,
                             Cost = 90,
                             Description = "Planting and caring for flowers, shrubs, and vegetable gardens.",
+                            ImageUrl = "/images/serviceImages/LawnServices.jpg",
                             IsDeleted = false,
                             Name = "Gardening",
                             ServiceTypeId = 8
@@ -1197,6 +1272,7 @@ namespace Handyman.Migrations
                             Id = 73,
                             Cost = 100,
                             Description = "Applying mulch to garden beds to retain moisture and suppress weeds.",
+                            ImageUrl = "/images/serviceImages/LawnServices.jpg",
                             IsDeleted = false,
                             Name = "Mulching",
                             ServiceTypeId = 8
@@ -1206,6 +1282,7 @@ namespace Handyman.Migrations
                             Id = 74,
                             Cost = 150,
                             Description = "Thorough cleaning of all surfaces, including hard-to-reach areas.",
+                            ImageUrl = "/images/serviceImages/CleaningServices.jpg",
                             IsDeleted = false,
                             Name = "Deep Cleaning",
                             ServiceTypeId = 9
@@ -1215,6 +1292,7 @@ namespace Handyman.Migrations
                             Id = 75,
                             Cost = 120,
                             Description = "Cleaning office spaces, including desks, floors, and windows.",
+                            ImageUrl = "/images/serviceImages/CleaningServices.jpg",
                             IsDeleted = false,
                             Name = "Office Cleaning",
                             ServiceTypeId = 9
@@ -1224,6 +1302,7 @@ namespace Handyman.Migrations
                             Id = 76,
                             Cost = 100,
                             Description = "Deep cleaning carpets to remove stains, dirt, and odors.",
+                            ImageUrl = "/images/serviceImages/CleaningServices.jpg",
                             IsDeleted = false,
                             Name = "Carpet Cleaning",
                             ServiceTypeId = 9
@@ -1233,6 +1312,7 @@ namespace Handyman.Migrations
                             Id = 77,
                             Cost = 80,
                             Description = "Cleaning both interior and exterior windows for clarity and shine.",
+                            ImageUrl = "/images/serviceImages/CleaningServices.jpg",
                             IsDeleted = false,
                             Name = "Window Cleaning",
                             ServiceTypeId = 9
@@ -1242,6 +1322,7 @@ namespace Handyman.Migrations
                             Id = 78,
                             Cost = 150,
                             Description = "Cleaning a home or apartment when moving in or out.",
+                            ImageUrl = "/images/serviceImages/CleaningServices.jpg",
                             IsDeleted = false,
                             Name = "Move-In/Move-Out Cleaning",
                             ServiceTypeId = 9
@@ -1251,6 +1332,7 @@ namespace Handyman.Migrations
                             Id = 79,
                             Cost = 120,
                             Description = "Using high-pressure water to clean outdoor surfaces like driveways and patios.",
+                            ImageUrl = "/images/serviceImages/CleaningServices.jpg",
                             IsDeleted = false,
                             Name = "Pressure Washing",
                             ServiceTypeId = 9
@@ -1260,6 +1342,7 @@ namespace Handyman.Migrations
                             Id = 80,
                             Cost = 180,
                             Description = "Cleaning up debris, dust, and materials left after construction or renovation.",
+                            ImageUrl = "/images/serviceImages/CleaningServices.jpg",
                             IsDeleted = false,
                             Name = "Post-Construction Cleaning",
                             ServiceTypeId = 9
@@ -1269,6 +1352,7 @@ namespace Handyman.Migrations
                             Id = 81,
                             Cost = 50,
                             Description = "Shopping for groceries and delivering them to your doorstep.",
+                            ImageUrl = "/images/serviceImages/PersonalAssistantServices.jpg",
                             IsDeleted = false,
                             Name = "Grocery Shopping",
                             ServiceTypeId = 10
@@ -1278,6 +1362,7 @@ namespace Handyman.Migrations
                             Id = 82,
                             Cost = 75,
                             Description = "Shopping for gifts based on your preferences and budget.",
+                            ImageUrl = "/images/serviceImages/PersonalAssistantServices.jpg",
                             IsDeleted = false,
                             Name = "Gift Shopping",
                             ServiceTypeId = 10
@@ -1287,6 +1372,7 @@ namespace Handyman.Migrations
                             Id = 83,
                             Cost = 60,
                             Description = "Picking up and delivering packages to your location.",
+                            ImageUrl = "/images/serviceImages/DeliveryServices.jpg",
                             IsDeleted = false,
                             Name = "Package Pickup & Delivery",
                             ServiceTypeId = 10
@@ -1296,6 +1382,7 @@ namespace Handyman.Migrations
                             Id = 84,
                             Cost = 100,
                             Description = "Assisting with shopping for clothes, gifts, or other personal items.",
+                            ImageUrl = "/images/serviceImages/PersonalAssistantServices.jpg",
                             IsDeleted = false,
                             Name = "Personal Shopping Assistant",
                             ServiceTypeId = 10
@@ -1305,6 +1392,7 @@ namespace Handyman.Migrations
                             Id = 85,
                             Cost = 70,
                             Description = "Running errands like picking up dry cleaning or post office trips.",
+                            ImageUrl = "/images/serviceImages/PersonalAssistantServices.jpg",
                             IsDeleted = false,
                             Name = "Errand Running",
                             ServiceTypeId = 10
@@ -1314,6 +1402,7 @@ namespace Handyman.Migrations
                             Id = 86,
                             Cost = 55,
                             Description = "Grocery shopping and delivery without physical interaction.",
+                            ImageUrl = "/images/serviceImages/DeliveryServices.jpg",
                             IsDeleted = false,
                             Name = "Contactless Grocery Shopping",
                             ServiceTypeId = 11
@@ -1323,6 +1412,7 @@ namespace Handyman.Migrations
                             Id = 87,
                             Cost = 95,
                             Description = "Furniture assembly with minimal or no physical contact.",
+                            ImageUrl = "/images/serviceImages/AssemblyServices.jpg",
                             IsDeleted = false,
                             Name = "Contactless Furniture Assembly",
                             ServiceTypeId = 11
@@ -1332,6 +1422,7 @@ namespace Handyman.Migrations
                             Id = 88,
                             Cost = 55,
                             Description = "Delivering packages or groceries without in-person contact.",
+                            ImageUrl = "/images/serviceImages/DeliveryServices.jpg",
                             IsDeleted = false,
                             Name = "Contactless Delivery",
                             ServiceTypeId = 11
@@ -1341,6 +1432,7 @@ namespace Handyman.Migrations
                             Id = 89,
                             Cost = 120,
                             Description = "Cleaning services performed with social distancing and minimal contact.",
+                            ImageUrl = "/images/serviceImages/CleaningServices.jpg",
                             IsDeleted = false,
                             Name = "Contactless Cleaning",
                             ServiceTypeId = 11
@@ -1350,6 +1442,7 @@ namespace Handyman.Migrations
                             Id = 90,
                             Cost = 100,
                             Description = "Assembling IKEA furniture with ease and efficiency.",
+                            ImageUrl = "/images/serviceImages/IKEAServices.jpg",
                             IsDeleted = false,
                             Name = "IKEA Furniture Assembly",
                             ServiceTypeId = 12
@@ -1359,6 +1452,7 @@ namespace Handyman.Migrations
                             Id = 91,
                             Cost = 120,
                             Description = "Picking up and delivering IKEA furniture or products to your home.",
+                            ImageUrl = "/images/serviceImages/IKEAServices.jpg",
                             IsDeleted = false,
                             Name = "IKEA Pickup & Delivery",
                             ServiceTypeId = 12
@@ -1368,6 +1462,7 @@ namespace Handyman.Migrations
                             Id = 92,
                             Cost = 150,
                             Description = "Installing IKEA furniture and home solutions in your space.",
+                            ImageUrl = "/images/serviceImages/IKEAServices.jpg",
                             IsDeleted = false,
                             Name = "IKEA Home Installation",
                             ServiceTypeId = 12
@@ -1377,6 +1472,7 @@ namespace Handyman.Migrations
                             Id = 93,
                             Cost = 120,
                             Description = "Mounting your TV on the wall for a sleek and modern look.",
+                            ImageUrl = "/images/serviceImages/TVMountingServices.jpg",
                             IsDeleted = false,
                             Name = "TV Mounting",
                             ServiceTypeId = 13
@@ -1386,6 +1482,7 @@ namespace Handyman.Migrations
                             Id = 94,
                             Cost = 50,
                             Description = "Hanging artwork, mirrors, or other pictures on your walls.",
+                            ImageUrl = "/images/serviceImages/PaintingMountingServices.jpg",
                             IsDeleted = false,
                             Name = "Picture Hanging",
                             ServiceTypeId = 13
@@ -1395,6 +1492,7 @@ namespace Handyman.Migrations
                             Id = 95,
                             Cost = 100,
                             Description = "Installing shelves to maximize storage space in your home.",
+                            ImageUrl = "/images/serviceImages/ShelfMountingServices.jpg",
                             IsDeleted = false,
                             Name = "Shelving Installation",
                             ServiceTypeId = 13
@@ -1404,6 +1502,7 @@ namespace Handyman.Migrations
                             Id = 96,
                             Cost = 120,
                             Description = "Installing or replacing light fixtures throughout your home.",
+                            ImageUrl = "/images/serviceImages/LightingServices.jpg",
                             IsDeleted = false,
                             Name = "Light Fixture Installation",
                             ServiceTypeId = 13
@@ -1413,6 +1512,7 @@ namespace Handyman.Migrations
                             Id = 97,
                             Cost = 80,
                             Description = "Installing curtain rods for your windows.",
+                            ImageUrl = "/images/serviceImages/AssemblyServices.jpg",
                             IsDeleted = false,
                             Name = "Curtain Rod Installation",
                             ServiceTypeId = 13

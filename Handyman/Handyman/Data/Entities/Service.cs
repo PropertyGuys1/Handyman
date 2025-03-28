@@ -10,6 +10,7 @@ namespace Handyman.Data.Entities
         public string? Description {  get; set; }
         public int? Cost {  get; set; }
         public bool IsDeleted { get; set; }=false;
+        public string? ImageUrl { get; set; }
         // Navigation property
         public virtual ServiceType? ServiceType { get; set; }
         public virtual ICollection<ProviderService>? ProviderServices { get; set; }
