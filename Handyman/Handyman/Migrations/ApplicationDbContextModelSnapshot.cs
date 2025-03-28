@@ -199,23 +199,23 @@ namespace Handyman.Migrations
                         {
                             Id = 1,
                             AppointmentId = 1,
-                            CreatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(4597),
+                            CreatedAt = new DateTime(2025, 3, 28, 23, 47, 4, 54, DateTimeKind.Utc).AddTicks(2121),
                             CustomerProfileId = 1,
                             Feedback = "Great service! Very satisfied.",
                             IsApproved = false,
                             Rating = 5,
-                            UpdatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(4598)
+                            UpdatedAt = new DateTime(2025, 3, 28, 23, 47, 4, 54, DateTimeKind.Utc).AddTicks(2121)
                         },
                         new
                         {
                             Id = 2,
                             AppointmentId = 2,
-                            CreatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(4601),
+                            CreatedAt = new DateTime(2025, 3, 28, 23, 47, 4, 54, DateTimeKind.Utc).AddTicks(2124),
                             CustomerProfileId = 2,
                             Feedback = "Good job, but could be more thorough.",
                             IsApproved = false,
                             Rating = 4,
-                            UpdatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(4601)
+                            UpdatedAt = new DateTime(2025, 3, 28, 23, 47, 4, 54, DateTimeKind.Utc).AddTicks(2125)
                         });
                 });
 
@@ -350,13 +350,13 @@ namespace Handyman.Migrations
                             Id = 1,
                             Active = true,
                             Address = "123 Main St, Anytown, USA",
-                            CreatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(3707),
+                            CreatedAt = new DateTime(2025, 3, 28, 23, 47, 4, 54, DateTimeKind.Utc).AddTicks(1330),
                             Email = "john.doe@example.com",
                             FullName = "John Doe",
                             Password = "jhon123",
                             PhoneNumber = "123-456-7890",
                             Role = "Customer",
-                            UpdatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(3708),
+                            UpdatedAt = new DateTime(2025, 3, 28, 23, 47, 4, 54, DateTimeKind.Utc).AddTicks(1331),
                             UserId = "customer1"
                         },
                         new
@@ -364,13 +364,13 @@ namespace Handyman.Migrations
                             Id = 2,
                             Active = true,
                             Address = "456 Elm St, Othertown, USA",
-                            CreatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(3713),
+                            CreatedAt = new DateTime(2025, 3, 28, 23, 47, 4, 54, DateTimeKind.Utc).AddTicks(1335),
                             Email = "jane.smith@example.com",
                             FullName = "Jane Smith",
                             Password = "jane123",
                             PhoneNumber = "987-654-3210",
                             Role = "Customer",
-                            UpdatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(3713),
+                            UpdatedAt = new DateTime(2025, 3, 28, 23, 47, 4, 54, DateTimeKind.Utc).AddTicks(1336),
                             UserId = "customer2"
                         },
                         new
@@ -378,13 +378,13 @@ namespace Handyman.Migrations
                             Id = 3,
                             Active = true,
                             Address = "789 Oak St, Sometown, USA",
-                            CreatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(3715),
+                            CreatedAt = new DateTime(2025, 3, 28, 23, 47, 4, 54, DateTimeKind.Utc).AddTicks(1338),
                             Email = "mike.johnson@example.com",
                             FullName = "Mike Johnson",
                             Password = "mike123",
                             PhoneNumber = "555-123-4567",
                             Role = "Provider",
-                            UpdatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(3716),
+                            UpdatedAt = new DateTime(2025, 3, 28, 23, 47, 4, 54, DateTimeKind.Utc).AddTicks(1338),
                             UserId = "provider1"
                         },
                         new
@@ -392,13 +392,13 @@ namespace Handyman.Migrations
                             Id = 4,
                             Active = true,
                             Address = "321 Pine St, Anothertown, USA",
-                            CreatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(3717),
+                            CreatedAt = new DateTime(2025, 3, 28, 23, 47, 4, 54, DateTimeKind.Utc).AddTicks(1340),
                             Email = "emily.davis@example.com",
                             FullName = "Emily Davis",
                             Password = "emily123",
                             PhoneNumber = "555-987-6543",
                             Role = "Provider",
-                            UpdatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(3718),
+                            UpdatedAt = new DateTime(2025, 3, 28, 23, 47, 4, 54, DateTimeKind.Utc).AddTicks(1341),
                             UserId = "provider2"
                         });
                 });
@@ -491,22 +491,22 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(4502),
+                            CreatedAt = new DateTime(2025, 3, 28, 23, 47, 4, 54, DateTimeKind.Utc).AddTicks(2055),
                             ImageUrl = "https://example.com/images/lawn_mowing.jpg",
                             Notes = "Experienced in lawn mowing with professional equipment.",
                             ProviderProfileId = 1,
                             ServiceId = 1,
-                            UpdatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(4503)
+                            UpdatedAt = new DateTime(2025, 3, 28, 23, 47, 4, 54, DateTimeKind.Utc).AddTicks(2057)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(4508),
+                            CreatedAt = new DateTime(2025, 3, 28, 23, 47, 4, 54, DateTimeKind.Utc).AddTicks(2061),
                             ImageUrl = "https://example.com/images/house_cleaning.jpg",
                             Notes = "Thorough house cleaning services with eco-friendly products.",
                             ProviderProfileId = 2,
                             ServiceId = 3,
-                            UpdatedAt = new DateTime(2025, 3, 28, 20, 33, 35, 389, DateTimeKind.Utc).AddTicks(4508)
+                            UpdatedAt = new DateTime(2025, 3, 28, 23, 47, 4, 54, DateTimeKind.Utc).AddTicks(2061)
                         });
                 });
 
@@ -1199,7 +1199,7 @@ namespace Handyman.Migrations
                             Id = 66,
                             Cost = 70,
                             Description = "Shoveling snow off driveways to ensure safe access.",
-                            ImageUrl = "/images/serviceImages/AssemblyServices.jpg",
+                            ImageUrl = "/images/serviceImages/WinterServices.jpg",
                             IsDeleted = false,
                             Name = "Shoveling Driveways",
                             ServiceTypeId = 7
@@ -1509,7 +1509,7 @@ namespace Handyman.Migrations
                             Id = 97,
                             Cost = 80,
                             Description = "Installing curtain rods for your windows.",
-                            ImageUrl = "/images/serviceImages/AssemblyServices.jpg",
+                            ImageUrl = "/images/serviceTypeImages/MountingInstallationServiceType.jpg",
                             IsDeleted = false,
                             Name = "Curtain Rod Installation",
                             ServiceTypeId = 13

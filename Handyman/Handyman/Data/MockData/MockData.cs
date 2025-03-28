@@ -619,7 +619,7 @@ namespace Handyman.Data.MockData
                 {
                     Id = 66, Name = "Shoveling Driveways", ServiceTypeId = 7, IsDeleted = false,
                     Description = "Shoveling snow off driveways to ensure safe access.", Cost = 70,
-                    ImageUrl = "/images/serviceImages/AssemblyServices.jpg"
+                    ImageUrl = "/images/serviceImages/WinterServices.jpg"
                 },
                 new Service
                 {
@@ -817,7 +817,7 @@ namespace Handyman.Data.MockData
                 {
                     Id = 97, Name = "Curtain Rod Installation", ServiceTypeId = 13, IsDeleted = false,
                     Description = "Installing curtain rods for your windows.", Cost = 80,
-                    ImageUrl = "/images/serviceImages/AssemblyServices.jpg"
+                    ImageUrl = "/images/serviceTypeImages/MountingInstallationServiceType.jpg"
                 }
 
 
