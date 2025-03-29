@@ -29,4 +29,8 @@
     <_ContentIncludedByDefault Remove="Views\Customer\Index.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Migrations\ApplicationDbContextModelSnapshot.cs" />
+  </ItemGroup>
+
 </Project>

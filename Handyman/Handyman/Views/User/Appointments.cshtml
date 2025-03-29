@@ -5,88 +5,106 @@
 }
 
 <div class="container py-5">
-    <h2>Appointments</h2>
-    <br />
-    <br />
-
-    @if (Model != null && Model.Any())
-    {
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Service</th>
-                            <th>Address</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Status</th>
-                            <th>Notes</th>
-                            <th>Cost</th>
-                            <th>Actions</th> <!-- New column for buttons -->
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var appointment in Model)
-                        {
+    <div class="card shadow-lg border-0 rounded-lg overflow-hidden">
+        <div class="card-header bg-primary text-white text-center py-3">
+            <h2 class="my-2">My Appointments</h2>
+        </div>
+        <div class="card-body p-4">
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered align-middle text-center">
+                        <thead class="table-dark">
                             <tr>
-                                <td>@appointment.Service.Name</td>
-                                <td>@appointment.Address</td>
-                                <td>@appointment.AppointmentDate.ToString("yyyy-MM-dd")</td>
-                                <td>@appointment.AppointmentTime</td>
-                                <td>
-                                    @if (appointment.Status == "Pending")
-                                    {
-                                        <span class="badge text-warning">@appointment.Status</span>
-                                    }
-                                    else if (appointment.Status == "Confirmed")
-                                    {
-                                        <span class="badge text-success">@appointment.Status</span>
-                                    }
-                                    else if (appointment.Status == "Completed")
-                                    {
-                                        <span class="badge text-info">@appointment.Status</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge text-danger">@appointment.Status</span>
-                                    }
-                                </td>
-                                <td>@appointment.notes</td>
-                                <td>@appointment.Cost</td>
-
-                                <!-- Action buttons for canceling and editing -->
-                                <td>
-                                    @if (appointment.Status == "Pending")
-                                    {
-                                        <!-- Cancel Button -->
-                                        <a asp-action="CancelAppointment" asp-controller="User" asp-route-id="@appointment.Id"
-                                           class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to cancel this appointment?');">
-                                           Cancel
-                                        </a>
-                                        <!-- Edit Button -->
-                                        <a asp-action="EditAppointment" asp-controller="User" asp-route-id="@appointment.Id" 
-                                           class="btn btn-warning btn-sm">
-                                           Edit
-                                        </a>
-                                    }
-                                    else
-                                    {
-                                        <span class="text-muted">Actions disabled for this appointment status.</span>
-                                    }
-                                </td>
+                                <th>Service</th>
+                                <th>Address</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Notes</th>
+                                <th>Cost</th>
+                                <th>Actions</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            @foreach (var appointment in Model)
+                            {
+                                <tr>
+                                    <td class="fw-bold">@appointment.Service.Name</td>
+                                    <td>@appointment.Address</td>
+                                    <td>@appointment.AppointmentDate.ToString("yyyy-MM-dd")</td>
+                                    <td>@appointment.AppointmentTime</td>
+                                    <td class="text-center">
+                                        @if (appointment.Status == "Pending")
+                                        {
+                                            <span class="badge bg-warning text-dark"><i class="bi bi-clock"></i> @appointment.Status</span>
+                                        }
+                                        else if (appointment.Status == "Confirmed")
+                                        {
+                                            <span class="badge bg-success"><i class="bi bi-check-circle"></i> @appointment.Status</span>
+                                        }
+                                        else if (appointment.Status == "Completed")
+                                        {
+                                            <span class="badge bg-info"><i class="bi bi-calendar-check"></i> @appointment.Status</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger"><i class="bi bi-x-circle"></i> @appointment.Status</span>
+                                        }
+                                    </td>
+                                    <td>@appointment.notes</td>
+                                    <td class="fw-bold">$@appointment.Cost</td>
+                                    <td class="text-center">
+                                        @if (appointment.Status == "Pending")
+                                        {
+                                            <a asp-action="EditAppointment" asp-controller="User" asp-route-id="@appointment.Id"
+                                               class="btn btn-warning btn-sm mx-1">
+                                                <i class="bi bi-pencil-square"></i> Edit
+                                            </a>
+                                            <a asp-action="CancelAppointment" asp-controller="User" asp-route-id="@appointment.Id"
+                                               class="btn btn-danger btn-sm mx-1"
+                                               onclick="return confirm('Are you sure you want to cancel this appointment?');">
+                                                <i class="bi bi-x-lg"></i> Cancel
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">No actions available</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info text-center">
+                    <i class="bi bi-calendar-x fs-4"></i>
+                    <p class="mt-2">You have no upcoming or pending appointments.</p>
+                </div>
+            }
         </div>
-    }
-    else
-    {
-        <div class="alert alert-info">
-            <p>You have no upcoming or pending appointments.</p>
-        </div>
-    }
+    </div>
 </div>
 
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+}
+
+<style>
+    .card-header {
+        border-top-left-radius: 0.75rem;
+        border-top-right-radius: 0.75rem;
+    }
+    .table th, .table td {
+        vertical-align: middle;
+    }
+    .badge {
+        font-size: 1rem;
+    }
+    .btn-sm {
+        padding: 0.5rem 1rem;
+    }
+</style>

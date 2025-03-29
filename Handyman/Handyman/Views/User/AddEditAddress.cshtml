@@ -1,40 +1,99 @@
 ﻿@model Handyman.Data.Entities.Address
 
 <div class="container py-5">
-    <div class="card shadow-lg p-4">
-        <form asp-action="AddEditAddress" method="post">
-            <input type="hidden" asp-for="userId" value="@Model.userId" />
-            <input type="hidden" asp-for="Id" value="@Model.Id" />
+    <div class="card shadow-lg border-0 rounded-lg">
+        <div class="card-body p-4">
+            <form asp-action="AddEditAddress" method="post">
+                <input type="hidden" asp-for="userId" value="@Model.userId" />
+                <input type="hidden" asp-for="Id" value="@Model.Id" />
 
+                <div class="row">
+                    <!-- Street Address -->
+                    <div class="col-md-6 mb-4">
+                        <label asp-for="Street" class="form-label font-weight-bold">Street Address</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-house-door"></i></span>
+                            <input asp-for="Street" class="form-control form-control-lg" placeholder="Enter street address" data-val="true" data-val-required="Street address is required." />
+                        </div>
+                        <span asp-validation-for="Street" class="text-danger"></span>
+                    </div>
 
-            <div class="form-group mb-3">
-                <label asp-for="Street" class="control-label font-weight-bold"></label>
-                <input asp-for="Street" class="form-control form-control-lg" placeholder="Enter street address" />
-                <span asp-validation-for="Street" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="City" class="control-label font-weight-bold"></label>
-                <input asp-for="City" class="form-control form-control-lg" placeholder="Enter city" />
-                <span asp-validation-for="City" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="State" class="control-label font-weight-bold"></label>
-                <input asp-for="State" class="form-control form-control-lg" placeholder="Enter state" />
-                <span asp-validation-for="State" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="PostalCode" class="control-label font-weight-bold"></label>
-                <input asp-for="PostalCode" class="form-control form-control-lg" placeholder="Enter postal code" />
-                <span asp-validation-for="PostalCode" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="Country" class="control-label font-weight-bold"></label>
-                <input asp-for="Country" class="form-control form-control-lg" placeholder="Enter country" />
-                <span asp-validation-for="Country" class="text-danger"></span>
-            </div>
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary btn-lg">Save Address</button>
-            </div>
-        </form>
+                    <!-- City -->
+                    <div class="col-md-6 mb-4">
+                        <label asp-for="City" class="form-label font-weight-bold">City</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-building"></i></span>
+                            <input asp-for="City" class="form-control form-control-lg" placeholder="Enter city" data-val="true" data-val-required="City is required." />
+                        </div>
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Province -->
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label font-weight-bold">Province</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-geo-alt"></i></span>
+                            <select asp-for="State" class="form-select form-select-lg" asp-items="@(new List<SelectListItem>
+                                                                                                  {
+                                                                                                      new SelectListItem { Value = "AB", Text = "Alberta" },
+                                                                                                      new SelectListItem { Value = "BC", Text = "British Columbia" },
+                                                                                                      new SelectListItem { Value = "MB", Text = "Manitoba" },
+                                                                                                      new SelectListItem { Value = "NB", Text = "New Brunswick" },
+                                                                                                      new SelectListItem { Value = "NL", Text = "Newfoundland and Labrador" },
+                                                                                                      new SelectListItem { Value = "NS", Text = "Nova Scotia" },
+                                                                                                      new SelectListItem { Value = "ON", Text = "Ontario" },
+                                                                                                      new SelectListItem { Value = "PE", Text = "Prince Edward Island" },
+                                                                                                      new SelectListItem { Value = "QC", Text = "Quebec" },
+                                                                                                      new SelectListItem { Value = "SK", Text = "Saskatchewan" },
+                                                                                                      new SelectListItem { Value = "NT", Text = "Northwest Territories" },
+                                                                                                      new SelectListItem { Value = "NU", Text = "Nunavut" },
+                                                                                                      new SelectListItem { Value = "YT", Text = "Yukon" }
+                                                                                                  })"
+                                    data-val="true" data-val-required="Province is required.">
+                            </select>
+                        </div>
+                        <span asp-validation-for="State" class="text-danger"></span>
+                    </div>
+
+                    <!-- Postal Code -->
+                    <div class="col-md-6 mb-4">
+                        <label asp-for="PostalCode" class="form-label font-weight-bold">Postal Code</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-envelope"></i></span>
+                            <input asp-for="PostalCode"
+                                   class="form-control form-control-lg"
+                                   placeholder="Enter postal code"
+                                   data-val="true"
+                                   data-val-required="Postal code is required."
+                                   data-val-pattern="Postal code must be in the format A1A 1A1."
+                                   data-val-pattern-regex="^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$" />
+                        </div>
+                        <span asp-validation-for="PostalCode" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <!-- Country (Read-only) -->
+                <div class="form-group mb-4">
+                    <label asp-for="Country" class="form-label font-weight-bold">Country</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="bi bi-globe"></i></span>
+                        <input asp-for="Country" class="form-control form-control-lg" value="Canada" readonly />
+                    </div>
+                    <span asp-validation-for="Country" class="text-danger"></span>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-lg px-5">Save Address</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+
+<!-- Include Bootstrap icons -->
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+}

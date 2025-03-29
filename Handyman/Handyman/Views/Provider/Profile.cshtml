@@ -1,9 +1,64 @@
-﻿@using Handyman.Data.Entities
+﻿
+
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@using Handyman.Data.Entities
 @model Profile
 
 @{
+    ViewData["HideNavbar"] = true;
+    var providerId = UserManager.GetUserId(User);
     ViewData["Title"] = "Provider Profile";
+
 }
+
+<nav class="navbar navbar-expand-sm navbar-light bg-black border-bottom shadow-sm mb-3">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav  ms-auto">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    var userId = UserManager.GetUserId(User);
+
+                    <!-- Profile Button -->
+                    <li class="nav-item">
+                        <a asp-controller="Provider" asp-action="Profile" asp-route-userId="@userId" class="nav-link btn btn-primary text-white px-3">
+                            Profile
+                        </a>
+                    </li>
+
+                    <!-- Appointment Button -->
+                    <li class="nav-item ms-2">
+                        <a asp-controller="Provider" asp-action="Appointment" asp-route-providerId="@userId" class="nav-link btn btn-warning text-dark px-3">
+                            View Appointments
+                        </a>
+
+                    </li>
+
+                    <!-- Logout Button -->
+                    <li class="nav-item ms-2">
+                        <form method="post" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home")">
+                            <button type="submit" class="btn btn-danger text-white px-3">
+                                Logout
+                            </button>
+                        </form>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item ms-2">
+                        <a class="nav-link btn btn-danger text-white px-3" asp-area="Identity" asp-page="/Account/Login">
+                            Login
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
 
 <div class="container mt-5">
     <h1 class="mb-4">Provider Profile</h1>
