@@ -7,12 +7,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Handyman.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-Env.Load();
-
+//Env.Load();
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 
 // Add services to the container.

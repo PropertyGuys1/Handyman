@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Handyman.Controllers
 {
-    //[Authorize(Roles ="Provider")]
+    [Authorize(Roles ="Provider")]
     public class ProviderController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -19,11 +19,12 @@ namespace Handyman.Controllers
             return View();
         }
 
-        public IActionResult Appointment(string id)
+        [HttpGet]
+        public IActionResult Appointments(string id)
         {
             var appointments = _context.Appointments
-                .Include(a => a.Address)
-                .Include(a => a.notes)
+                //.Include(a => a.Address)
+                //.Include(a => a.notes)
                 .ToArray();
                 
             return View(appointments);  
