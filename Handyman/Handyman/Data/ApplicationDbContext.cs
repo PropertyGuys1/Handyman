@@ -104,8 +104,8 @@ namespace Handyman.Data
             modelBuilder.Entity<ServiceType>().HasData(MockData.MockData.GetServiceTypes());
             modelBuilder.Entity<Service>().HasData(MockData.MockData.GetServices());
             modelBuilder.Entity<ProviderService>().HasData(MockData.MockData.GetProviderServices());
-            modelBuilder.Entity<Appointment>().HasData(MockData.MockData.GetAppointments());
-            modelBuilder.Entity<AppointmentFeedback>().HasData(MockData.MockData.GetAppointmentFeedbacks());
+            //modelBuilder.Entity<Appointment>().HasData(MockData.MockData.GetAppointments());
+            //modelBuilder.Entity<AppointmentFeedback>().HasData(MockData.MockData.GetAppointmentFeedbacks());
             /*
             modelBuilder.Entity<Address>().HasData(MockData.MockData.GetAddresses());
             */

@@ -149,6 +149,7 @@ namespace Handyman.Controllers
                 AppointmentTime = time,
                 Status = "Pending", // Default status
                 ServiceId = serviceId,
+                Service = service,
                 Cost = service.Cost,
                 UserId = userId,
                 notes = notes

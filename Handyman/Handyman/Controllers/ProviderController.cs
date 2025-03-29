@@ -52,15 +52,33 @@ namespace Handyman.Controllers
                 .Where(a => a.ProviderId == providerId && a.Status == "Accepted")
                 .ToListAsync();
 
+            foreach(var item in appointments)
+            {
+                var service = await _context.Services.Where(a => a.Id == item.ServiceId).SingleOrDefaultAsync();
+                item.Service = service;
+            }
+
             var inProgressAppointments = await _context.Appointments
                 .Where(a => a.ProviderId == providerId && a.Status == "InProgress")
                 .OrderBy(a => a.AppointmentTime)
                 .ToListAsync();
 
+            foreach (var item in inProgressAppointments)
+            {
+                var service = await _context.Services.Where(a => a.Id == item.ServiceId).SingleOrDefaultAsync();
+                item.Service = service;
+            }
+
             var completedAppointments = await _context.Appointments
                 .Where(a => a.ProviderId == providerId && a.Status == "Completed")
                 .OrderByDescending(a => a.AppointmentTime)
                 .ToListAsync();
+
+            foreach (var item in completedAppointments)
+            {
+                var service = await _context.Services.Where(a => a.Id == item.ServiceId).SingleOrDefaultAsync();
+                item.Service = service;
+            }
 
             // Create the ViewModel for the provider
             var viewModel = new ProviderAppointmentsViewModel
@@ -181,6 +199,22 @@ namespace Handyman.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> StartAppointment(int appointmentId)
+        {
+            var appointment = await _context.Appointments.FindAsync(appointmentId);
+
+            if (appointment != null)
+            {
+                // Change status to "InProgress"
+                appointment.Status = "InProgress"; // Optionally set the start time
+                await _context.SaveChangesAsync();
+            }
+
+            // Redirect back to the appointment list
+            return RedirectToAction("Appointment", "Provider", appointment.ProviderId);
+        }
+
 
         [HttpPost("EditProfile")]
         public async Task<IActionResult> EditProfile(ProviderProfileViewModel model)
@@ -213,6 +247,34 @@ namespace Handyman.Controllers
             return RedirectToAction("Profile");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CompleteAppointment(int appointmentId, IFormFile appointmentImage, string appointmentDetails)
+        {
+            var appointment = await _context.Appointments.FindAsync(appointmentId);
+
+            if (appointment == null)
+            {
+                return NotFound();
+            }
+
+            // Save Image as byte array
+            if (appointmentImage != null && appointmentImage.Length > 0)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await appointmentImage.CopyToAsync(memoryStream);
+                    appointment.AppointmentImage = memoryStream.ToArray();  // Convert image to byte array
+                }
+            }
+
+            // Update appointment details
+            appointment.Status = "Completed";
+            appointment.ProviderNote = appointmentDetails;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Appointment","Provider", appointment.ProviderId);
+        }
 
 
     }

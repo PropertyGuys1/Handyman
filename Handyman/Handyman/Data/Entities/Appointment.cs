@@ -16,7 +16,9 @@
         public string UserId { get; set; }  // The user who booked the service
         
         public string? ProviderId { get; set; }
+        public byte[]? AppointmentImage { get; set; }
         public string? notes { get; set; }
+        public string? ProviderNote { get; set; }
 
     }
 }
