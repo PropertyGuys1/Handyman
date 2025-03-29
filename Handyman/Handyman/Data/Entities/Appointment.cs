@@ -15,6 +15,7 @@
         public Service Service { get; set; }  // Navigation property to Service
         public string UserId { get; set; }  // The user who booked the service
         
+        public string? ProviderId { get; set; }
         public string? notes { get; set; }
 
     }

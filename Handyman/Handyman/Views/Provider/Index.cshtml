@@ -1,14 +1,17 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
-    ViewData["HideNavbar"] = true;
-}
+
 
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@model IEnumerable<Handyman.Data.Entities.Appointment>
 
+@{
+    ViewData["HideNavbar"] = true;
+    var providerId = UserManager.GetUserId(User);
+}
 <nav class="navbar navbar-expand-sm navbar-light bg-black border-bottom shadow-sm mb-3">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -19,16 +22,17 @@
 
                     <!-- Profile Button -->
                     <li class="nav-item">
-                        <a class="nav-link btn btn-primary text-white px-3" asp-controller="Provider" asp-action="Profile" asp-route-Id="@userId" asp-action="Profile">
+                        <a asp-controller="Provider" asp-action="Profile" asp-route-userId="@userId" class="nav-link btn btn-primary text-white px-3">
                             Profile
                         </a>
                     </li>
 
                     <!-- Appointment Button -->
                     <li class="nav-item ms-2">
-                        <a class="nav-link btn btn-warning text-dark px-3" asp-controller="Provider" asp-action="Appointment" asp-route-Id="@userId" asp-action="Appointment">
-                            Appointments
+                        <a asp-controller="Provider" asp-action="Appointment" asp-route-providerId="@userId" class="nav-link btn btn-warning text-dark px-3">
+                            View Appointments
                         </a>
+
                     </li>
 
                     <!-- Logout Button -->
@@ -53,43 +57,40 @@
     </div>
 </nav>
 
+<h2>Available Appointments</h2>
 
-<div class="container py-4">
-    <h2 class="mb-4 text-center">Upcoming Appointments</h2>
-       @if (Model == null)
-                {
-                    <tr>
-                        <td>No Appointment</td>
-                    </tr>
-                }
-                else
-                {
-
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-            <thead class="table-dark">
-                <tr>
-                    <th>Customer</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Service</th>
-                </tr>
-            </thead>
-            <tbody>             
-                    @foreach (var appointment in Model)
-                    {
-                        <tr>
-                            <td>@appointment.UserId</td>
-                            <td>@appointment.AppointmentDate.ToString("g")</td>
-                            <td>@appointment.AppointmentTime</td>
-                            <td>@appointment.Service</td>
-                            <td>@appointment.Status</td>
-                        </tr>
-                    }               
-            </tbody>
-            </table> 
-    </div>
-   
-    }
-</div>
+<table class="table" id="appointmentsTable">
+    <thead>
+        <tr>
+            <th>Customer</th>
+            <th>Address</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Notes</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="appointmentBody">
+        @foreach (var item in Model)
+        {
+            <tr id="row-@item.Id">
+                <td>@item.PersonName</td>
+                <td>@item.Address</td>
+                <td>@item.AppointmentDate.ToString("yyyy-MM-dd")</td>
+                <td>@item.AppointmentTime</td>
+                <td>@item.notes</td>
+                <td>@item.Status</td>
+                <td>
+                    <form method="post" asp-action="AcceptAppointment">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="appointmentId" value="@item.Id" />
+                        <input type="hidden" name="providerId" value="@providerId" />
+                        <button type="submit" class="btn btn-success">Accept</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 

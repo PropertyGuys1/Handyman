@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Handyman.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class init123 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -76,7 +76,7 @@ namespace Handyman.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -91,6 +91,7 @@ namespace Handyman.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Profiles", x => x.Id);
+                    table.UniqueConstraint("AK_Profiles_UserId", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -242,7 +243,7 @@ namespace Handyman.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProfileId = table.Column<int>(type: "int", nullable: false),
+                    ProfileId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ServicesOffered = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Availability = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rating = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
@@ -254,7 +255,7 @@ namespace Handyman.Migrations
                         name: "FK_ProviderProfiles_Profiles_ProfileId",
                         column: x => x.ProfileId,
                         principalTable: "Profiles",
-                        principalColumn: "Id",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -371,6 +372,7 @@ namespace Handyman.Migrations
                     ServiceId = table.Column<int>(type: "int", nullable: false),
                     Cost = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProviderId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CustomerProfileId = table.Column<int>(type: "int", nullable: true),
                     ProviderServiceId = table.Column<int>(type: "int", nullable: true)
@@ -432,10 +434,10 @@ namespace Handyman.Migrations
                 columns: new[] { "Id", "Active", "Address", "CreatedAt", "Email", "FullName", "Password", "PhoneNumber", "ProfileImage", "Role", "UpdatedAt", "UserId" },
                 values: new object[,]
                 {
-                    { 1, true, "123 Main St, Anytown, USA", new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2261), "john.doe@example.com", "John Doe", "jhon123", "123-456-7890", null, "Customer", new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2263), "customer1" },
-                    { 2, true, "456 Elm St, Othertown, USA", new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2267), "jane.smith@example.com", "Jane Smith", "jane123", "987-654-3210", null, "Customer", new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2267), "customer2" },
-                    { 3, true, "789 Oak St, Sometown, USA", new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2269), "mike.johnson@example.com", "Mike Johnson", "mike123", "555-123-4567", null, "Provider", new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2270), "provider1" },
-                    { 4, true, "321 Pine St, Anothertown, USA", new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2271), "emily.davis@example.com", "Emily Davis", "emily123", "555-987-6543", null, "Provider", new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2272), "provider2" }
+                    { 1, true, "123 Main St, Anytown, USA", new DateTime(2025, 3, 29, 0, 18, 47, 535, DateTimeKind.Utc).AddTicks(2516), "john.doe@example.com", "John Doe", "jhon123", "123-456-7890", null, "Customer", new DateTime(2025, 3, 29, 0, 18, 47, 535, DateTimeKind.Utc).AddTicks(2518), "customer1" },
+                    { 2, true, "456 Elm St, Othertown, USA", new DateTime(2025, 3, 29, 0, 18, 47, 535, DateTimeKind.Utc).AddTicks(2523), "jane.smith@example.com", "Jane Smith", "jane123", "987-654-3210", null, "Customer", new DateTime(2025, 3, 29, 0, 18, 47, 535, DateTimeKind.Utc).AddTicks(2523), "customer2" },
+                    { 3, true, "789 Oak St, Sometown, USA", new DateTime(2025, 3, 29, 0, 18, 47, 535, DateTimeKind.Utc).AddTicks(2525), "mike.johnson@example.com", "Mike Johnson", "mike123", "555-123-4567", null, "Provider", new DateTime(2025, 3, 29, 0, 18, 47, 535, DateTimeKind.Utc).AddTicks(2526), "provider1" },
+                    { 4, true, "321 Pine St, Anothertown, USA", new DateTime(2025, 3, 29, 0, 18, 47, 535, DateTimeKind.Utc).AddTicks(2527), "emily.davis@example.com", "Emily Davis", "emily123", "555-987-6543", null, "Provider", new DateTime(2025, 3, 29, 0, 18, 47, 535, DateTimeKind.Utc).AddTicks(2528), "provider2" }
                 });
 
             migrationBuilder.InsertData(
@@ -472,8 +474,8 @@ namespace Handyman.Migrations
                 columns: new[] { "Id", "Availability", "ProfileId", "Rating", "ServicesOffered" },
                 values: new object[,]
                 {
-                    { 1, "Mon-Fri 9am-5pm", 3, 4.5m, "Lawn Mowing, Hedge Trimming" },
-                    { 2, "Sat-Sun 10am-4pm", 4, 4.8m, "House Cleaning, Carpet Cleaning" }
+                    { 1, "Mon-Fri 9am-5pm", "provider1", 4.5m, "Lawn Mowing, Hedge Trimming" },
+                    { 2, "Sat-Sun 10am-4pm", "provider2", 4.8m, "House Cleaning, Carpet Cleaning" }
                 });
 
             migrationBuilder.InsertData(
@@ -582,11 +584,11 @@ namespace Handyman.Migrations
 
             migrationBuilder.InsertData(
                 table: "Appointments",
-                columns: new[] { "Id", "Address", "AppointmentDate", "AppointmentTime", "Cost", "CustomerProfileId", "PersonName", "ProviderServiceId", "ServiceId", "Status", "UserId", "notes" },
+                columns: new[] { "Id", "Address", "AppointmentDate", "AppointmentTime", "Cost", "CustomerProfileId", "PersonName", "ProviderId", "ProviderServiceId", "ServiceId", "Status", "UserId", "notes" },
                 values: new object[,]
                 {
-                    { 1, "123 Main St, Springfield, IL", new DateTime(2025, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 10, 0, 0, 0), null, null, "John Doe", null, 1, "Pending", "user1", "Customer requested a quick repair of the sink." },
-                    { 2, "456 Elm St, Springfield, IL", new DateTime(2025, 3, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 14, 30, 0, 0), null, null, "Jane Smith", null, 2, "Confirmed", "user2", "Routine maintenance of air conditioning system." }
+                    { 1, "123 Main St, Springfield, IL", new DateTime(2025, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 10, 0, 0, 0), null, null, "John Doe", null, null, 1, "Pending", "user1", "Customer requested a quick repair of the sink." },
+                    { 2, "456 Elm St, Springfield, IL", new DateTime(2025, 3, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 14, 30, 0, 0), null, null, "Jane Smith", null, null, 2, "Confirmed", "user2", "Routine maintenance of air conditioning system." }
                 });
 
             migrationBuilder.InsertData(
@@ -594,8 +596,8 @@ namespace Handyman.Migrations
                 columns: new[] { "Id", "CreatedAt", "ImageUrl", "Notes", "ProviderProfileId", "ServiceId", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2708), "https://example.com/images/lawn_mowing.jpg", "Experienced in lawn mowing with professional equipment.", 1, 1, new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2709) },
-                    { 2, new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2711), "https://example.com/images/house_cleaning.jpg", "Thorough house cleaning services with eco-friendly products.", 2, 3, new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2712) }
+                    { 1, new DateTime(2025, 3, 29, 0, 18, 47, 535, DateTimeKind.Utc).AddTicks(2952), "https://example.com/images/lawn_mowing.jpg", "Experienced in lawn mowing with professional equipment.", 1, 1, new DateTime(2025, 3, 29, 0, 18, 47, 535, DateTimeKind.Utc).AddTicks(2953) },
+                    { 2, new DateTime(2025, 3, 29, 0, 18, 47, 535, DateTimeKind.Utc).AddTicks(2956), "https://example.com/images/house_cleaning.jpg", "Thorough house cleaning services with eco-friendly products.", 2, 3, new DateTime(2025, 3, 29, 0, 18, 47, 535, DateTimeKind.Utc).AddTicks(2956) }
                 });
 
             migrationBuilder.InsertData(
@@ -603,8 +605,8 @@ namespace Handyman.Migrations
                 columns: new[] { "Id", "AppointmentId", "CreatedAt", "CustomerProfileId", "Feedback", "IsApproved", "Rating", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2755), 1, "Great service! Very satisfied.", false, 5, new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2756) },
-                    { 2, 2, new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2759), 2, "Good job, but could be more thorough.", false, 4, new DateTime(2025, 3, 25, 22, 2, 35, 689, DateTimeKind.Utc).AddTicks(2760) }
+                    { 1, 1, new DateTime(2025, 3, 29, 0, 18, 47, 535, DateTimeKind.Utc).AddTicks(3017), 1, "Great service! Very satisfied.", false, 5, new DateTime(2025, 3, 29, 0, 18, 47, 535, DateTimeKind.Utc).AddTicks(3017) },
+                    { 2, 2, new DateTime(2025, 3, 29, 0, 18, 47, 535, DateTimeKind.Utc).AddTicks(3020), 2, "Good job, but could be more thorough.", false, 4, new DateTime(2025, 3, 29, 0, 18, 47, 535, DateTimeKind.Utc).AddTicks(3021) }
                 });
 
             migrationBuilder.CreateIndex(

@@ -33,10 +33,13 @@ namespace Handyman.Data
                .WithOne(cp => cp.Profile)
                .HasForeignKey<CustomerProfile>(cp => cp.ProfileId);
 
-            modelBuilder.Entity<Profile>()
-                .HasOne(p => p.ProviderProfile)
-                .WithOne(pp => pp.Profile)
-                .HasForeignKey<ProviderProfile>(pp => pp.ProfileId);
+            modelBuilder.Entity<ProviderProfile>()
+                .HasOne(p => p.Profile)
+                .WithOne(p => p.ProviderProfile)
+                .HasForeignKey<ProviderProfile>(p => p.ProfileId)  // Use string as the foreign key
+                .HasPrincipalKey<Profile>(p => p.UserId)  // Link ProfileId (string) to UserId (string)
+                .OnDelete(DeleteBehavior.Cascade);
+
 
             modelBuilder.Entity<Service>()
                 .HasOne(s => s.ServiceType)

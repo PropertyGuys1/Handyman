@@ -94,7 +94,7 @@ namespace Handyman.Data.MockData
                 new ProviderProfile
                 {
                     Id = 1,
-                    ProfileId = 3,
+                    ProfileId = "provider1",
                     ServicesOffered = "Lawn Mowing, Hedge Trimming",
                     Availability = "Mon-Fri 9am-5pm",
                     Rating = 4.5m
@@ -102,7 +102,7 @@ namespace Handyman.Data.MockData
                 new ProviderProfile
                 {
                     Id = 2,
-                    ProfileId = 4,
+                    ProfileId = "provider2",
                     ServicesOffered = "House Cleaning, Carpet Cleaning",
                     Availability = "Sat-Sun 10am-4pm",
                     Rating = 4.8m

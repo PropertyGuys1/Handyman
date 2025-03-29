@@ -1,5 +1,5 @@
 ﻿@using Handyman.Data.Entities
-@model ProviderProfile
+@model Profile
 
 @{
     ViewData["Title"] = "Provider Profile";
@@ -9,19 +9,19 @@
     <h1 class="mb-4">Provider Profile</h1>
     <div class="card">
         <div class="card-header">
-            <h2>@Model.Profile.FullName</h2>
+            <h2>@Model.FullName</h2>
         </div>
         <div class="card-body">
-            <p><strong>Services Offered:</strong> @Model.ServicesOffered</p>
-            <p><strong>Availability:</strong> @Model.Availability</p>
-            <p><strong>Rating:</strong> @Model.Rating</p>
+            <p><strong>Email:</strong> @Model.Email</p>
+            <p><strong>Role:</strong> @Model.Role</p>
+            <p><strong>Phone Number:</strong> @Model.PhoneNumber</p>
         </div>
     </div>
     <h3 class="mt-4">Services</h3>
-    <ul class="list-group">
-        @foreach (var service in Model.ProviderServices)
+    @* <ul class="list-group">
+        @foreach (var service in Model.ProviderProfile.ProviderServices)
         {
             <li class="list-group-item">@service.Service</li>
         }
-    </ul>
+    </ul> *@
 </div>
