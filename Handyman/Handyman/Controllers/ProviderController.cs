@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Handyman.Controllers
 {
-    //[Authorize(Roles ="Provider")]
+    [Authorize(Roles ="Provider")]
     public class ProviderController : Controller
     {
         private readonly ApplicationDbContext _context;

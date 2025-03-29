@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration; // For config settings
 using MimeKit;
 using MailKit.Net.Smtp;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Handyman.Controllers
 {
@@ -95,7 +96,7 @@ namespace Handyman.Controllers
 
             return View(model);
         }
-
+        [Authorize(Roles = "Customer")]
         [HttpPost]
         public async Task<IActionResult> BookService(int serviceId, int addressId, DateTime date, TimeSpan time,
             string notes)
