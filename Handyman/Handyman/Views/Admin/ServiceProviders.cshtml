@@ -44,7 +44,8 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Active</th>
-                        <th>Action</th>
+                        <th>Address</th>
+                        <th>Created Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,22 +56,8 @@
                             <td>@user.FullName</td>
                             <td>@user.Email</td>
                             <td>@user.Active</td>
-                            <td>
-                                @if(user.Active == true)
-                                {
-                                    <!-- Delete button inside a form to use POST -->
-                                    <form asp-action="DeleteProfile" asp-route-id="@user.Id" method="post" onsubmit="return confirm('Are you sure you want to delete this provider?');">
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
-                                }
-                                else
-                                {
-                                    <!-- Delete button inside a form to use POST -->
-                                    <form asp-action="ActiveProfile" asp-route-id="@user.Id" method="post" onsubmit="return confirm('Are you sure you want to activate this provider?');">
-                                        <button type="submit" class="btn btn-danger">Active</button>
-                                    </form>
-                                }
-                            </td>
+                            <td>@user.Address</td>
+                            <td>@user.CreatedAt</td>
                         </tr>
                     }
                 </tbody>

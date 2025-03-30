@@ -1,57 +1,157 @@
-﻿@model Handyman.Models.ProviderProfileViewModel
-
-<h2>Edit Profile</h2>
-
-<form asp-action="EditProfile" method="post">
-    <input type="hidden" asp-for="UserId" />
-    
-    <div class="form-group">
-        <label asp-for="FullName"></label>
-        <input asp-for="FullName" class="form-control" required />
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" type="email" required />
-    </div>
-
-    <div class="form-group">
-        <label asp-for="PhoneNumber"></label>
-        <input asp-for="PhoneNumber" class="form-control" required />
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Address"></label>
-        <input asp-for="Address" class="form-control" required />
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Availability"></label>
-        <select asp-for="Availability" class="form-control">
-            @foreach (var option in Model.AvailabilityOptions)
-            {
-                // Check if the option is selected
-                var isSelected = option == Model.Availability ? "selected" : "";
-
-                <option value="@option" isSelected>@option</option>
-            }
-        </select>
-    </div>
-
-
-    <div class="form-group">
-        <label>Services Offered</label>
-        <div>
-            @foreach (var service in Model.ServiceOptions)
-            {
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="ServicesOffered" value="@service.Id"
-                    @(Model.ServicesOffered.Contains(service.Id.ToString()) ? "checked" : "") />
-                    <label class="form-check-label">@service.Name</label>
+﻿<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="text-center font-weight-bold my-2">Edit Profile</h3>
                 </div>
-            }
+                <div class="card-body p-4">
+                    <form method="post" enctype="multipart/form-data" asp-controller="Provider" asp-action="EditProfile" id="profileForm">
+                        <!-- Profile Image Preview -->
+                        <div class="text-center mb-4">
+                            <div class="position-relative d-inline-block">
+                                <img id="profilePreview" src="/images/defaultpic.jpg" alt="Profile" class="rounded-circle img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
+                                <div class="position-absolute bottom-0 end-0">
+                                    <label for="ProfileImage" class="btn btn-sm btn-primary rounded-circle">
+                                        <i class="bi bi-camera-fill"></i>
+                                    </label>
+                                    <input type="file" class="d-none" id="ProfileImage" name="ProfileImage" accept="image/png, image/jpeg" />
+                                </div>
+                            </div>
+                            <span class="text-danger d-block mt-2" id="fileError"></span>
+                        </div>
+
+                        <div class="row">
+                            <!-- Full Name -->
+                            <div class="col-md-12 mb-4">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="FullName" name="FullName" value="@Model.FullName" placeholder="Full Name" />
+                                    <label for="FullName">Full Name</label>
+                                </div>
+                                <span class="text-danger small" id="fullNameError"></span>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="col-md-6 mb-4">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" placeholder="Email" />
+                                    <label for="Email">Email</label>
+                                </div>
+                                <span class="text-danger small" id="emailError"></span>
+                            </div>
+
+                            <!-- Phone Number -->
+                            <div class="col-md-6 mb-4">
+                                <div class="form-floating">
+                                    <input type="tel" class="form-control" id="PhoneNumber" name="PhoneNumber" value="@Model.PhoneNumber" placeholder="Phone Number" />
+                                    <label for="PhoneNumber">Phone Number</label>
+                                </div>
+                                <span class="text-danger small" id="phoneError"></span>
+                            </div>
+                        </div>
+
+                        <!-- Preferences Section -->
+                        <div class="mb-4">
+                            <h5 class="card-title mb-3">Services you offer (You are interested to work in!)</h5>
+                            <div class="row" id="preferences-container">
+                                @foreach (var preference in new List<string> { "Popular Tasks", "Featured Tasks", "Handyman Services", "Moving Services", "Holiday Help", "Furniture Assembly", "Winter Tasks", "Yard Work", "Cleaning", "Shopping & Delivery", "Contactless Tasks", "IKEA Services", "Mounting & Installation" })
+                                {
+                                    <div class="col-md-6 col-lg-4 mb-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="pref_@preference.Replace(" ", "_")" name="Preferences" value="@preference"
+                                            @(Model.Preferences != null && Model.Preferences.Contains(preference) ? "checked" : "") />
+                                            <label class="form-check-label" for="pref_@preference.Replace(" ", "_")">@preference</label>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <span class="text-danger small" id="preferencesError"></span>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
+</div>
 
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-</form>
+<!-- Bootstrap Icons CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+
+<script>
+    // Profile Image Preview
+    document.getElementById("ProfileImage").addEventListener("change", function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById("profilePreview").src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Form Validation
+    document.getElementById("profileForm").addEventListener("submit", function (event) {
+        let isValid = true;
+
+        // Full Name Validation (Min 3 characters, Max 50)
+        let fullName = document.getElementById("FullName").value.trim();
+        let fullNameError = document.getElementById("fullNameError");
+        if (fullName.length < 3 || fullName.length > 50) {
+            fullNameError.textContent = "Full Name must be between 3 and 50 characters.";
+            isValid = false;
+        } else {
+            fullNameError.textContent = "";
+        }
+
+        // Phone Number Validation (Check for empty and length)
+        let phoneNumber = document.getElementById("PhoneNumber").value.trim();
+        let phoneError = document.getElementById("phoneError");
+        if (phoneNumber.length !== 10 || isNaN(phoneNumber)) {
+            phoneError.textContent = "Phone Number must be exactly 10 digits.";
+            isValid = false;
+        } else {
+            phoneError.textContent = "";
+        }
+
+        // Preferences Validation (At least one required)
+        let checkboxes = document.querySelectorAll("input[name='Preferences']:checked");
+        let preferencesError = document.getElementById("preferencesError");
+        if (checkboxes.length === 0) {
+            preferencesError.textContent = "Please select at least one preference.";
+            isValid = false;
+        } else {
+            preferencesError.textContent = "";
+        }
+
+        // Profile Image Validation (Only JPG/PNG, Max 2MB)
+        let file = document.getElementById("ProfileImage").files[0];
+        let fileError = document.getElementById("fileError");
+        if (file) {
+            let validExtensions = ["image/jpeg", "image/png"];
+            if (!validExtensions.includes(file.type)) {
+                fileError.textContent = "Only JPG and PNG files are allowed.";
+                isValid = false;
+            } else if (file.size > 2 * 1024 * 1024) { // 2MB limit
+                fileError.textContent = "File size must be less than 2MB.";
+                isValid = false;
+            } else {
+                fileError.textContent = "";
+            }
+        }
+
+        if (!isValid) {
+            event.preventDefault();
+            // Highlight the form with an error style
+            document.querySelector('.card').classList.add('border-danger');
+            setTimeout(() => {
+                document.querySelector('.card').classList.remove('border-danger');
+            }, 3000);
+        }
+    });
+</script>

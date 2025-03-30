@@ -88,6 +88,14 @@ namespace Handyman.Data
                 .HasMany(cp => cp.Addresses)
                 .WithMany();
 
+            modelBuilder.Entity<AppointmentFeedback>()
+                .HasOne(af => af.ProviderProfile)
+                .WithMany(pp => pp.AppointmentFeedbacks)
+                .HasForeignKey(af => af.ProviderProfileId)
+                .OnDelete(DeleteBehavior.Restrict); // Prevent cascading delete
+
+
+
             /*modelBuilder.Entity<Payment>()
                 .HasOne(p => p.CustomerProfile)
                 .WithMany(cp => cp.Payments)
