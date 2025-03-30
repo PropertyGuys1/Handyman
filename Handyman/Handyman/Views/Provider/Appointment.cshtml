@@ -60,7 +60,6 @@
 <div class="container mt-5">
     <h1 class="mb-4">Your Appointments</h1>
 
-    <!-- Upcoming Appointments -->
     <div class="card mb-4">
         <div class="card-header">
             <h4>Upcoming Appointments</h4>
@@ -77,6 +76,7 @@
                             <strong>@appointment.PersonName</strong><br />
                             Service: @appointment.Service.Name<br />
                             Appointment Time: @appointment.AppointmentTime.ToString("g")<br />
+                            Appointment Amount: $@appointment.Cost <br />
                             @if (canCancel)
                             {
                                 <form asp-action="CancelAppointment" asp-route-appointmentId="@appointment.Id" method="post">
@@ -104,7 +104,6 @@
         </div>
     </div>
 
-    <!-- In-Progress Appointments -->
     <div class="card mb-4">
         <div class="card-header">
             <h4>In Progress Appointments</h4>
@@ -119,6 +118,7 @@
                             <strong>@appointment.PersonName</strong><br />
                             Service: @appointment.Service.Name<br />
                             Appointment Time: @appointment.AppointmentTime.ToString("g")<br />
+                            Appointment Amount: $@appointment.Cost <br />
                             <span class="badge badge-warning">In Progress</span>
                             <!-- Button to open modal -->
                             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#completeModal-@appointment.Id">
@@ -168,8 +168,6 @@
             }
         </div>
     </div>
-
-    <!-- Completed Appointments -->
     <div class="card mb-4">
         <div class="card-header">
             <h4>Completed Appointments</h4>
@@ -184,6 +182,7 @@
                             <strong>@appointment.PersonName</strong><br />
                             Service: @appointment.Service.Name<br />
                             Appointment Time: @appointment.AppointmentTime.ToString("g")<br />
+                            Appointment Amount: $@appointment.Cost <br />
                             <span class="badge badge-success">Completed</span>
                         </li>
                     }
