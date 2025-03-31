@@ -1,10 +1,13 @@
 ﻿using Handyman.Data;
 using Handyman.Data.Entities;
 using Handyman.Models;
+using MailKit.Net.Smtp;
+using MailKit.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
 using Org.BouncyCastle.Bcpg;
 
 namespace Handyman.Controllers
@@ -26,32 +29,131 @@ namespace Handyman.Controllers
         }
         public async Task<ActionResult> Index()
         {
-            var appointments = await _context.Appointments
-            .Where(a => a.Status == "Pending")
-            .OrderBy(a => a.AppointmentDate)
-            .ThenBy(a => a.AppointmentTime)
-            .ToListAsync();
+            var userId = _userManager.GetUserId(User);
 
+            if (string.IsNullOrEmpty(userId))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var provider = await _context.Profiles.FirstOrDefaultAsync(p => p.UserId == userId);
+
+            bool isProfileComplete = provider != null && 
+                                     !string.IsNullOrEmpty(provider.FullName) && 
+                                     !string.IsNullOrEmpty(provider.PhoneNumber);
+
+            var appointments = isProfileComplete 
+                ? await _context.Appointments
+                    .Where(a => a.Status == "Pending")
+                    .OrderBy(a => a.AppointmentDate)
+                    .ThenBy(a => a.AppointmentTime)
+                    .ToListAsync() 
+                : new List<Appointment>(); // Return empty list if profile is incomplete
+
+            ViewBag.IsProfileComplete = isProfileComplete;
             return View(appointments);
-
         }
-        // Accept an appointment
+
+
         [HttpPost]
         public async Task<ActionResult> AcceptAppointment(int appointmentId, string ProviderId)
         {
-            var appointment = await _context.Appointments.FindAsync(appointmentId);
-            if (appointment != null)
-            {
-                appointment.Status = "Accepted";
-                appointment.ProviderId = ProviderId; // Assign to logged-in provider
-                await _context.SaveChangesAsync();
+            var appointment = await _context.Appointments
+                .Include(a => a.Service) // Ensure Service is loaded
+                .FirstOrDefaultAsync(a => a.Id == appointmentId);
 
-                
-                return RedirectToAction("Index");
+            if (appointment == null)
+            {
+                return RedirectToAction("Index"); // Handle invalid appointment
             }
+
+            var user = await _context.Profiles
+                .Where(u => u.UserId == appointment.UserId)
+                .FirstOrDefaultAsync();
+
+            var provider = await _context.Profiles
+                .Where(p => p.UserId == ProviderId)
+                .FirstOrDefaultAsync(); // Get provider's profile
+
+            if (user == null || provider == null)
+            {
+                return RedirectToAction("Index"); // Handle missing user or provider
+            }
+
+            // Update the appointment
+            appointment.Status = "Accepted";
+            appointment.ProviderId = ProviderId; // Assign provider ID
+            await _context.SaveChangesAsync();
+
+            // Send notification email with provider details
+            await SendAppointmentAcceptedEmail(
+                user.FullName,
+                user.Email,
+                appointment.Service.Name,
+                appointment.AppointmentDate,
+                provider.FullName,
+                provider.PhoneNumber
+            );
 
             return RedirectToAction("Index");
         }
+
+// Updated email method to include provider's details
+        private async Task SendAppointmentAcceptedEmail(string? userName, string userEmail, string serviceName,
+            DateTime appointmentDate, string providerName, string providerPhone)
+        {
+            try
+            {
+                string smtpServer = "smtp.gmail.com";
+                int smtpPort = 587;
+                string senderEmail = "handyman.ca009@gmail.com";
+                string senderPassword = "bdfk ehoa ybym lgnj";
+
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("HandyMan", senderEmail));
+                message.To.Add(new MailboxAddress(userName, userEmail));
+                message.Subject = "✅ Appointment Confirmed";
+                
+                string emailBody = $@"
+                    <div style='font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 8px; padding: 20px; background-color: #f9f9f9;'>
+                        <h2 style='color: #28a745; text-align: center;'>Appointment Confirmation</h2>
+                        <p style='font-size: 16px; color: #333;'>Dear <strong>{userName}</strong>,</p>
+                        <p style='font-size: 16px; color: #333;'>Your appointment for <strong>{serviceName}</strong> has been <span style='color: #28a745; font-weight: bold;'>Accepted</span>.</p>
+
+                        <div style='background-color: #fff; padding: 15px; border-radius: 5px; border: 1px solid #ddd; margin: 15px 0;'>
+                            <h3 style='color: #007BFF;'>Appointment Details:</h3>
+                            <p style='font-size: 16px;'><strong>📅 Date & Time:</strong> {appointmentDate:dddd, MMMM d, yyyy hh:mm tt}</p>
+                        </div>
+
+                        <div style='background-color: #fff; padding: 15px; border-radius: 5px; border: 1px solid #ddd; margin: 15px 0;'>
+                            <h3 style='color: #007BFF;'>Provider Details:</h3>
+                            <p style='font-size: 16px;'><strong>👤 Name:</strong> {providerName}</p>
+                            <p style='font-size: 16px;'><strong>📞 Contact:</strong> {providerPhone}</p>
+                        </div>
+
+                        <p style='font-size: 16px; color: #333;'>We look forward to seeing you soon!</p>
+                        <p style='font-size: 16px; color: #333;'>Thank you for choosing our services.</p>
+
+                        <hr style='border: none; border-top: 1px solid #ddd;' />
+                        <p style='text-align: center; font-size: 14px; color: #777;'>Your Company Name &bull; 📍 Your Location</p>
+                    </div>";
+
+                message.Body = new TextPart("html") { Text = emailBody };
+
+                using (var client = new SmtpClient())
+                {
+                    await client.ConnectAsync(smtpServer, smtpPort, SecureSocketOptions.StartTls);
+                    await client.AuthenticateAsync(senderEmail, senderPassword);
+                    await client.SendAsync(message);
+                    await client.DisconnectAsync(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Email sending failed: " + ex.Message);
+            }
+        }
+
 
         public async Task<ActionResult> Appointment(string providerId)
         {
@@ -100,7 +202,9 @@ namespace Handyman.Controllers
 
         public async Task<IActionResult> CancelAppointment(int appointmentId)
         {
-            var appointment = await _context.Appointments.FindAsync(appointmentId);
+            var appointment = await _context.Appointments
+                .Include(a => a.Service)
+                .FirstOrDefaultAsync(a => a.Id == appointmentId);
 
             if (appointment == null)
             {
@@ -113,34 +217,87 @@ namespace Handyman.Controllers
                 return BadRequest("Cannot cancel an appointment within 24 hours of the scheduled time.");
             }
 
-            // Update status and remove provider assignment
+            var user = await _context.Profiles
+                .Where(u => u.UserId == appointment.UserId)
+                .FirstOrDefaultAsync();
+
+            var provider = await _context.Profiles
+                .Where(p => p.UserId == appointment.ProviderId)
+                .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            // Update appointment status and remove provider
             appointment.Status = "Pending";
             appointment.ProviderId = null;
-
             await _context.SaveChangesAsync();
+
+            // Send cancellation email to user and provider (if assigned)
+            await SendAppointmentCancellationEmail(user.FullName, user.Email, appointment.Service.Name, appointment.AppointmentDate, provider?.FullName, provider?.Email);
 
             return RedirectToAction("Index");
         }
 
 
-        //public async Task<IActionResult> Profile(string userId)
-        //{
-        //    if (string.IsNullOrWhiteSpace(userId))
-        //    {
-        //        return BadRequest("User ID is required.");
-        //    }
+        private async Task SendAppointmentCancellationEmail(string? userName, string userEmail, string serviceName,
+            DateTime appointmentDate, string? providerName, string? providerEmail)
+        {
+            try
+            {
+                string smtpServer = "smtp.gmail.com";
+                int smtpPort = 587;
+                string senderEmail = "handyman.ca009@gmail.com";
+                string senderPassword = "bdfk ehoa ybym lgnj";
 
-        //    var userProfile = await _context.Profiles.FirstOrDefaultAsync(p => p.UserId == userId);
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("HandyMan", senderEmail));
+                message.To.Add(new MailboxAddress(userName, userEmail));
+                if (!string.IsNullOrEmpty(providerEmail))
+                {
+                    message.Cc.Add(new MailboxAddress(providerName, providerEmail)); // Notify provider if assigned
+                }
 
-        //    if (userProfile == null)
-        //    {
-        //        return NotFound("User profile not found.");
-        //    }
+                message.Subject = "❌ Appointment Canceled";
 
-        //    return View(userProfile); // ✅ Returns a single Profile object instead of a list
-        //}
+                string emailBody = $@"
+                    <div style='font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 8px; padding: 20px; background-color: #f9f9f9;'>
+                        <h2 style='color: #dc3545; text-align: center;'>Appointment Cancellation</h2>
+                        <p style='font-size: 16px; color: #333;'>Dear <strong>{userName}</strong>,</p>
+                        <p style='font-size: 16px; color: #333;'>Your appointment for <strong>{serviceName}</strong> has been <span style='color: #dc3545; font-weight: bold;'>canceled</span>.</p>
 
-        public async Task<IActionResult> Profile(string userId)
+                        <div style='background-color: #fff; padding: 15px; border-radius: 5px; border: 1px solid #ddd; margin: 15px 0;'>
+                            <h3 style='color: #007BFF;'>Appointment Details:</h3>
+                            <p style='font-size: 16px;'><strong>📅 Date & Time:</strong> {appointmentDate:dddd, MMMM d, yyyy hh:mm tt}</p>
+                        </div>
+
+                        <p style='font-size: 16px; color: #333;'>We apologize for any inconvenience caused.</p>
+                        <p style='font-size: 16px; color: #333;'>You can reschedule anytime by booking a new appointment.</p>
+
+                        <hr style='border: none; border-top: 1px solid #ddd;' />
+                        <p style='text-align: center; font-size: 14px; color: #777;'>Your Company Name &bull; 📍 Your Location</p>
+                    </div>";
+
+                message.Body = new TextPart("html") { Text = emailBody };
+
+                using (var client = new SmtpClient())
+                {
+                    await client.ConnectAsync(smtpServer, smtpPort, SecureSocketOptions.StartTls);
+                    await client.AuthenticateAsync(senderEmail, senderPassword);
+                    await client.SendAsync(message);
+                    await client.DisconnectAsync(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Email sending failed: " + ex.Message);
+            }
+        }
+
+
+        public async Task<IActionResult> Profile(string id)
         {
             var profile = await _context.Profiles
                 .Include(p => p.ProviderProfile)
@@ -148,18 +305,20 @@ namespace Handyman.Controllers
                 .Include(p => p.ProviderProfile.Payments)
                 .Include(p => p.ProviderProfile.Appointments)
                 .Include(p => p.ProviderProfile.AppointmentFeedbacks)
-                .FirstOrDefaultAsync(p => p.UserId == userId); // Use the correct ID type
+                .FirstOrDefaultAsync(p => p.UserId == id); // Use the correct ID type
 
-            var address = _context.Addresses.Where(a => a.userId == userId);
-            var payments = _context.Payments.Where(a => a.UserId == userId);
-            var appoinments = _context.Appointments.Where(a => a.ProviderId == userId && a.Status == "Completed");
+            var address = _context.Addresses.Where(a => a.userId == id);
+            var payments = _context.Payments.Where(a => a.UserId == id);
+            var appoinments = _context.Appointments.Where(a => a.ProviderId == id && a.Status == "Completed");
+            
             var totalbalance = 0;
+            
             if (profile == null)
                 return NotFound();
 
             foreach(var item in appoinments)
             {
-                totalbalance = totalbalance + item.Cost;
+                totalbalance += item.Cost;
             }
 
             var viewModel = new UserProfileViewModel
@@ -177,18 +336,18 @@ namespace Handyman.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> EditProfile(string userId)
+        [HttpGet]
+        public IActionResult EditProfile(string Id)
         {
             var userProfile = _context.Profiles
                 .Include(p => p.ProviderProfile)
-                .FirstOrDefault(p => p.UserId == userId);
+                .FirstOrDefault(p => p.UserId == Id);
 
             if (userProfile == null)
             {
                 return NotFound();
             }
 
-            // Populate the model for editing (create a ViewModel if necessary)
             var model = new UserProfileEditViewModel
             {
                 FullName = userProfile.FullName,
@@ -206,6 +365,7 @@ namespace Handyman.Controllers
             if (ModelState.IsValid)
             {
                 var profile = await _context.Profiles
+                    .Include(p => p.ProviderProfile)
                     .FirstOrDefaultAsync(p => p.UserId == model.Id);
 
                 if (profile != null)
@@ -259,7 +419,6 @@ namespace Handyman.Controllers
                     Console.WriteLine("Error: " + error.ErrorMessage);
                 }
             }
-
             return View(model);
         }
 
@@ -278,38 +437,7 @@ namespace Handyman.Controllers
             // Redirect back to the appointment list
             return RedirectToAction("Appointment", "Provider",new{ providerId = appointment.ProviderId});
         }
-
-
-        //[HttpPost]
-        //public async Task<IActionResult> EditProfile(ProviderProfileViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-
-        //    var profile = await _context.Profiles.FirstOrDefaultAsync(p => p.UserId == model.UserId);
-        //    var providerProfile = await _context.ProviderProfiles.FirstOrDefaultAsync(p => p.ProfileId == model.UserId);
-
-        //    if (profile == null || providerProfile == null)
-        //    {
-        //        return NotFound("Profile not found.");
-        //    }
-
-        //    // Update Profile details
-        //    profile.FullName = model.FullName;
-        //    profile.Email = model.Email;
-        //    profile.PhoneNumber = model.PhoneNumber;
-        //    profile.Address = model.Address;
-        //    providerProfile.Availability = model.Availability;
-
-        //    // Save selected services as a comma-separated string
-        //    providerProfile.ServicesOffered = string.Join(",", model.ServicesOffered);
-
-        //    await _context.SaveChangesAsync();
-
-        //    return RedirectToAction("Profile");
-        //}
+        
 
         [HttpPost]
         public async Task<IActionResult> CompleteAppointment(int appointmentId, IFormFile appointmentImage, string appointmentDetails)

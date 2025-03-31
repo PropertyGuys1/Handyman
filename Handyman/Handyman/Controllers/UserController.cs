@@ -403,8 +403,7 @@ namespace Handyman.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Profile", new { id = userProfileId }); // Redirect using the stored UserProfileId
-
-
+            
         }
 
 
@@ -422,7 +421,7 @@ namespace Handyman.Controllers
 
             return View(appointments);
         }
-
+        
         public async Task<IActionResult> CancelAppointment(int id)
         {
             var appointment = await _context.Appointments

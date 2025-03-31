@@ -1,4 +1,67 @@
-﻿<div class="container py-5">
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["HideNavbar"] = true;
+    var providerId = UserManager.GetUserId(User);
+}
+<nav class="navbar navbar-expand-sm navbar-light bg-black border-bottom shadow-sm mb-3">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav  ms-auto">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    var userId = UserManager.GetUserId(User);
+
+                    
+                    <!-- Home Button -->
+                    <li class="nav-item">
+                        <a asp-controller="Provider" asp-action="Index" asp-route-Id="@userId" class="nav-link btn btn-primary text-white px-3">
+                            Home
+                        </a>
+                    </li>
+                    
+                    <!-- Profile Button -->
+                    <li class="nav-item ms-2">
+                        <a asp-controller="Provider" asp-action="Profile" asp-route-Id="@userId" class="nav-link btn btn-primary text-white px-3">
+                            Profile
+                        </a>
+                    </li>
+
+                    <!-- Appointment Button -->
+                    <li class="nav-item ms-2">
+                        <a asp-controller="Provider" asp-action="Appointment" asp-route-providerId="@userId" class="nav-link btn btn-warning text-dark px-3">
+                            View Appointments
+                        </a>
+
+                    </li>
+
+                    <!-- Logout Button -->
+                    <li class="nav-item ms-2">
+                        <form method="post" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home")">
+                            <button type="submit" class="btn btn-danger text-white px-3">
+                                Logout
+                            </button>
+                        </form>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item ms-2">
+                        <a class="nav-link btn btn-danger text-white px-3" asp-area="Identity" asp-page="/Account/Login">
+                            Login
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+<div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card shadow-lg border-0 rounded-lg">
@@ -6,7 +69,7 @@
                     <h3 class="text-center font-weight-bold my-2">Edit Profile</h3>
                 </div>
                 <div class="card-body p-4">
-                    <form method="post" enctype="multipart/form-data" asp-controller="Provider" asp-action="EditProfile" id="profileForm">
+                    <form method="post" enctype="multipart/form-data"  asp-controller="Provider" asp-action="EditProfile"  id="profileForm">
                         <!-- Profile Image Preview -->
                         <div class="text-center mb-4">
                             <div class="position-relative d-inline-block">

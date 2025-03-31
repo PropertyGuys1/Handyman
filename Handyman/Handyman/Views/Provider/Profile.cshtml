@@ -7,43 +7,52 @@
     ViewData["HideNavbar"] = true;
     var providerId = UserManager.GetUserId(User);
 }
-<nav class="navbar navbar-expand-sm navbar-light bg-black border-bottom shadow-sm mb-3">
-    <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav  ms-auto">
+
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm mb-4">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#">Handyman Services</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
                 @if (SignInManager.IsSignedIn(User))
                 {
                     var userId = UserManager.GetUserId(User);
 
-                    <!-- Profile Button -->
                     <li class="nav-item">
-                        <a asp-controller="Provider" asp-action="Profile" asp-route-userId="@userId" class="nav-link btn btn-primary text-white px-3">
-                            Profile
+                        <a asp-controller="Provider" asp-action="Index" asp-route-Id="@userId" class="nav-link btn btn-outline-primary mx-2 px-4">
+                            <i class="bi bi-house-door"></i> Home
                         </a>
                     </li>
 
-                    <!-- Appointment Button -->
-                    <li class="nav-item ms-2">
-                        <a asp-controller="Provider" asp-action="Appointment" asp-route-providerId="@userId" class="nav-link btn btn-warning text-dark px-3">
-                            View Appointments
+                    <li class="nav-item">
+                        <a asp-controller="Provider" asp-action="Profile" asp-route-Id="@userId" class="nav-link btn btn-outline-primary mx-2 px-4">
+                            <i class="bi bi-person-circle"></i> Profile
                         </a>
-
                     </li>
 
-                    <!-- Logout Button -->
-                    <li class="nav-item ms-2">
+                    <li class="nav-item">
+                        <a asp-controller="Provider" asp-action="Appointment" asp-route-providerId="@userId" class="nav-link btn btn-outline-warning text-dark mx-2 px-4">
+                            <i class="bi bi-calendar-check"></i> View Appointments
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <form method="post" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home")">
-                            <button type="submit" class="btn btn-danger text-white px-3">
-                                Logout
+                            <button type="submit" class="btn btn-outline-danger mx-2 px-4">
+                                <i class="bi bi-box-arrow-right"></i> Logout
                             </button>
                         </form>
                     </li>
                 }
                 else
                 {
-                    <li class="nav-item ms-2">
-                        <a class="nav-link btn btn-danger text-white px-3" asp-area="Identity" asp-page="/Account/Login">
-                            Login
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-danger mx-2 px-4" asp-area="Identity" asp-page="/Account/Login">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
                         </a>
                     </li>
                 }
@@ -51,6 +60,8 @@
         </div>
     </div>
 </nav>
+
+
 <div class="container py-5">
     <div class="row g-4">
         <!-- Left Column: Profile Info and Actions -->
@@ -91,7 +102,7 @@
                     </div>
 
                     <div class="d-flex flex-column gap-2 mt-4">
-                        <a class="btn btn-outline-primary rounded-pill" asp-controller="Provider" asp-action="EditProfile" asp-route-userId="@Model.Profile.UserId">
+                        <a class="btn btn-outline-primary rounded-pill" asp-action="EditProfile" asp-controller="Provider"  asp-route-id="@Model.Profile.UserId">
                             <i class="fas fa-user-edit me-2"></i>Edit Profile
                         </a>
                         <form asp-controller="Provider" asp-action="DeleteProfile" asp-route-id="@Model.Profile.UserId" method="post">
@@ -223,7 +234,7 @@
                                     <div class="mb-3">
                                         <i class="fas fa-map-marked-alt fa-4x text-muted"></i>
                                     </div>
-                                    <h5>No addresses available</h5>
+                                    <h5>Address required to view Appointments</h5>
                                     <p class="text-muted">Add an address to manage your service locations</p>
                                 </div>
                             }
