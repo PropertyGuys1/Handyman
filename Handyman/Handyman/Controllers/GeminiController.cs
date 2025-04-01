@@ -1,52 +1,58 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 
-[Route("api/gemini")]
-[ApiController]
-public class GeminiController : ControllerBase
+namespace Handyman.Controllers
 {
-    private readonly HttpClient _httpClient;
-    private readonly string _apiKey;
-    private readonly string _apiUrl = "https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent";
-
-    public GeminiController(IConfiguration configuration)
+    [Route("Gemini")]
+    [ApiController]
+    public class GeminiController : Controller
     {
-        _httpClient = new HttpClient();
-        _apiKey = configuration["Gemini:ApiKey"]; // Load API key from appsettings.json
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
+
+        public GeminiController(IHttpClientFactory httpClientFactory, IConfiguration configuration)
+        {
+            _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
+        }
+
+        [HttpPost("Chat")]
+        public async Task<IActionResult> Chat([FromBody] ChatRequest request)
+        {
+            string response = await GetGeminiResponse(request.Prompt);
+            return Json(new { response });
+        }
+
+        private async Task<string> GetGeminiResponse(string prompt)
+        {
+            var apiKey = _configuration["Gemini:ApiKey"];
+            var apiUrl = $"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={apiKey}";
+
+            var requestBody = new
+            {
+                contents = new[]
+                {
+                    new { parts = new[] { new { text = prompt } } }
+                }
+            };
+
+            var json = JsonSerializer.Serialize(requestBody);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            using var client = _httpClientFactory.CreateClient();
+            var response = await client.PostAsync(apiUrl, content);
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            return responseBody;
+        }
     }
 
-    [HttpPost("chat")]
-    public async Task<IActionResult> Chat([FromBody] GeminiRequest request)
+    public class ChatRequest
     {
-        if (string.IsNullOrEmpty(request.Message))
-        {
-            return BadRequest(new { error = "Message cannot be empty" });
-        }
-
-        var requestBody = new
-        {
-            contents = new[]
-            {
-                new { parts = new[] { new { text = request.Message } } }
-            }
-        };
-
-        var jsonRequest = JsonSerializer.Serialize(requestBody);
-        var httpContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-
-        var response = await _httpClient.PostAsync($"{_apiUrl}?key={_apiKey}", httpContent);
-        if (!response.IsSuccessStatusCode)
-        {
-            return StatusCode((int)response.StatusCode, new { error = "Failed to connect to Gemini AI" });
-        }
-
-        var responseJson = await response.Content.ReadAsStringAsync();
-        var geminiResponse = JsonSerializer.Deserialize<GeminiResponse>(responseJson);
-
-        return Ok(new { reply = geminiResponse?.Candidates?[0]?.Content ?? "No response from AI" });
+        public string Prompt { get; set; }
     }
 }
