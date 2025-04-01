@@ -4,6 +4,9 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Text.Json.Nodes;
+using Handyman.Data;
+using System.Linq;
 
 namespace Handyman.Controllers
 {
@@ -13,24 +16,31 @@ namespace Handyman.Controllers
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _configuration;
+        private readonly ApplicationDbContext _dbContext;
 
-        public GeminiController(IHttpClientFactory httpClientFactory, IConfiguration configuration)
+        public GeminiController(IHttpClientFactory httpClientFactory, IConfiguration configuration, ApplicationDbContext dbContext)
         {
             _httpClientFactory = httpClientFactory;
             _configuration = configuration;
+            _dbContext = dbContext;
         }
 
         [HttpPost("Chat")]
         public async Task<IActionResult> Chat([FromBody] ChatRequest request)
         {
-            string response = await GetGeminiResponse(request.Prompt);
-            return Json(new { response });
+            string serviceInfo = GetServiceDescriptions();
+            string fullPrompt = BuildPrompt(request.Prompt, serviceInfo);
+
+            string rawResponse = await GetGeminiResponse(fullPrompt);
+            string extractedResponse = ExtractTextFromResponse(rawResponse);
+
+            return Json(new { response = extractedResponse });
         }
 
         private async Task<string> GetGeminiResponse(string prompt)
         {
             var apiKey = _configuration["Gemini:ApiKey"];
-            var apiUrl = $"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={apiKey}";
+            var apiUrl = $"https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key={apiKey}";
 
             var requestBody = new
             {
@@ -45,9 +55,45 @@ namespace Handyman.Controllers
 
             using var client = _httpClientFactory.CreateClient();
             var response = await client.PostAsync(apiUrl, content);
-            var responseBody = await response.Content.ReadAsStringAsync();
+            return await response.Content.ReadAsStringAsync();
+        }
 
-            return responseBody;
+        private string ExtractTextFromResponse(string jsonResponse)
+        {
+            try
+            {
+                var parsedJson = JsonNode.Parse(jsonResponse);
+                return parsedJson?["candidates"]?[0]?["content"]?["parts"]?[0]?["text"]?.ToString() ?? "No response";
+            }
+            catch
+            {
+                return "Error processing response";
+            }
+        }
+
+        private string GetServiceDescriptions()
+        {
+            var services = _dbContext.Services
+                .Select(s => $"{s.Name}: {s.Description}")
+                .ToList();
+
+            return string.Join("\n", services);
+        }
+
+        private string BuildPrompt(string userInput, string serviceInfo)
+        {
+            return $"""
+            You are a helpful AI assistant for a handyman service.
+            You provide customers with information about the available services.
+
+            Here are the services currently offered:
+            {serviceInfo}
+
+            When answering, ensure that you provide only relevant information based on the listed services. 
+            Unless addressing a specific question, keep your response under 15 words.
+
+            User: {userInput}
+            """;
         }
     }
 
