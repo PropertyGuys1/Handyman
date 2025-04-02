@@ -74,7 +74,7 @@ namespace Handyman.Controllers
         private string GetServiceDescriptions()
         {
             var services = _dbContext.Services
-                .Select(s => $"{s.Name}: {s.Description}")
+                .Select(s => $"{s.Name}: {s.Description}. Price: ${s.Cost}")
                 .ToList();
 
             return string.Join("\n", services);
@@ -83,14 +83,17 @@ namespace Handyman.Controllers
         private string BuildPrompt(string userInput, string serviceInfo)
         {
             return $"""
-            You are a helpful AI assistant for a handyman service.
-            You provide customers with information about the available services.
+            You are a helpful and professional AI assistant for a handyman company.
+            You provide customers with useful information about the available services.
 
             Here are the services currently offered:
             {serviceInfo}
 
-            When answering, ensure that you provide only relevant information based on the listed services. 
-            Unless addressing a specific question, keep your response under 15 words.
+            When answering, ensure that you provide only relevant information based on the listed services.
+            Do not make up services.
+            Take some limited liberty to explain what the service would include.
+            If asked for more details about a specific service, you may use common knowledge about the specific service.
+            Unless addressing a specific question or for the sake of politeness/professionalism, keep your response under 20 words.
 
             User: {userInput}
             """;
