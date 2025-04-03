@@ -127,6 +127,21 @@ public class RegisterModel : PageModel
             if (result.Succeeded)
             {
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                await _userManager.AddToRoleAsync(user, Input.Role);
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                // Create and save the Profile
+                var profile = new Profile
+                {
+                    UserId = user.Id,
+                    Email = user.Email,
+                    Role = Input.Role,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow
+                };
+
+                _context.Profiles.Add(profile);
+                await _context.SaveChangesAsync();
+
                 var callbackUrl = Url.Page(
                     "/Account/ConfirmEmail",
                     pageHandler: null,
