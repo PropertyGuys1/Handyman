@@ -6,8 +6,18 @@
 
 }
 
-<h1>@ViewData["Title"]</h1>
-<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h1 class="display-4 text-center">@ViewData["Title"]</h1>
+                    <partial name="_StatusMessage" model="Model.StatusMessage" />
+                    <p class="lead text-center mt-4">Your email has been confirmed. You can now <a asp-page="/Account/Login" class="btn btn-primary">log in</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<p>Your email has been confirmed. You can now <a asp-page="/Account/Login">log in</a>.</p>
 
