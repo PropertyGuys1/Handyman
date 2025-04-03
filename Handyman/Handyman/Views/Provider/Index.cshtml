@@ -61,7 +61,7 @@
 </nav>
 
 
-@if (!ViewBag.IsProfileComplete)
+@if (ViewData["IsProfileComplete"] != null && !(bool)ViewData["IsProfileComplete"])
 {
     <div class="alert alert-warning">
         Please complete your profile before viewing appointments.
