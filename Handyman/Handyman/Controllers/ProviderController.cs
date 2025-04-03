@@ -16,8 +16,6 @@ namespace Handyman.Controllers
     public class ProviderController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         public ProviderController(ApplicationDbContext context, UserManager<IdentityUser> userManager,

@@ -42,10 +42,21 @@ namespace Handyman.Areas.Identity.Pages.Account
                 return NotFound($"Unable to load user with ID '{userId}'.");
             }
 
-            code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+
             var result = await _userManager.ConfirmEmailAsync(user, code);
-            StatusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";
-            return Page();
+            if (result.Succeeded)
+            {
+                return Page();
+            }
+            else
+            {
+                return BadRequest("Error confirming your email.");
+            }
+
+            //code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+            //var result = await _userManager.ConfirmEmailAsync(user, code);
+            //StatusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";
+            //return Page();
         }
     }
 }
