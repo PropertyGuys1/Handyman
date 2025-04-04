@@ -21,6 +21,7 @@ Env.Load();
 
 // Add services to the container.
 builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.AddTransient<IEmailHelper, EmailHelper>();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );

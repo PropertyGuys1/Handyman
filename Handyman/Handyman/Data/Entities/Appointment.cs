@@ -10,7 +10,7 @@
         public string Status { get; set; }  // E.g., "Pending", "Confirmed", etc.
         public int ServiceId { get; set; }
         
-        public int Cost  { get; set; }
+        public decimal? Cost  { get; set; }
         
         public Service Service { get; set; }  // Navigation property to Service
         public string UserId { get; set; }  // The user who booked the service

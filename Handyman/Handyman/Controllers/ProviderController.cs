@@ -46,9 +46,10 @@ namespace Handyman.Controllers
                     .OrderBy(a => a.AppointmentDate)
                     .ThenBy(a => a.AppointmentTime)
                     .ToListAsync() 
-                : new List<Appointment>(); // Return empty list if profile is incomplete
+                : new List<Appointment>();
 
-            ViewBag.IsProfileComplete = isProfileComplete;
+            //ViewBag.IsProfileComplete = isProfileComplete;
+            ViewData["IsProfileComplete"] = isProfileComplete;
             return View(appointments);
         }
 
@@ -309,7 +310,7 @@ namespace Handyman.Controllers
             var payments = _context.Payments.Where(a => a.UserId == id);
             var appoinments = _context.Appointments.Where(a => a.ProviderId == id && a.Status == "Completed");
             
-            var totalbalance = 0;
+            decimal? totalbalance = 0.0m;
             
             if (profile == null)
                 return NotFound();
@@ -430,12 +431,16 @@ namespace Handyman.Controllers
                 // Change status to "InProgress"
                 appointment.Status = "InProgress"; // Optionally set the start time
                 await _context.SaveChangesAsync();
+
+                // Redirect back to the appointment list
+                return RedirectToAction("Appointment", "Provider", new { providerId = appointment.ProviderId });
             }
 
-            // Redirect back to the appointment list
-            return RedirectToAction("Appointment", "Provider",new{ providerId = appointment.ProviderId});
+            // Redirect back to the appointment list with a null providerId
+            return RedirectToAction("Appointment", "Provider");
         }
-        
+
+
 
         [HttpPost]
         public async Task<IActionResult> CompleteAppointment(int appointmentId, IFormFile appointmentImage, string appointmentDetails)

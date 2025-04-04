@@ -9,7 +9,7 @@ public class UserProfileViewModel
     public Address Address { get; set; }
     */
 
-    public int? Balance {  get; set; }
+    public decimal? Balance {  get; set; }
     
     public string Preferences { get; set; }
     public IEnumerable<Address> Addresses { get; set; } // Collection of addresses

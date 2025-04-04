@@ -1,19 +1,11 @@
 using Handyman.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using System.Net;
-using System.Net.Mail;
 using System.Security.Claims;
 using Handyman.Data;
 using Handyman.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Handyman.Helper;
-using System.Net.Mail;
-using System.Net;
-using Microsoft.Extensions.Configuration; // For config settings
 using MimeKit;
-using MailKit.Net.Smtp;
-using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Handyman.Controllers
@@ -21,10 +13,12 @@ namespace Handyman.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IEmailHelper _emailHelper;
 
-        public HomeController(ApplicationDbContext context)
+        public HomeController(ApplicationDbContext context, IEmailHelper emailHelper)
         {
             _context = context;
+            _emailHelper = emailHelper;
         }
 
         public IActionResult Index()
@@ -41,7 +35,7 @@ namespace Handyman.Controllers
             }
 
             var services = await _context.Services
-                .Where(s => s.Name.ToLower().Contains(query.ToLower()))
+                .Where(s => s.Name!.ToLower().Contains(query.ToLower()))
                 .OrderBy(s => s.Name)
                 .Select(s => new { s.Id, s.Name }) // Select both ID and Name
                 .ToListAsync();
@@ -55,9 +49,6 @@ namespace Handyman.Controllers
             var serviceTypes = await _context.ServiceTypes
                 .Include(st => st.Services)
                 .ToListAsync();
-
-
-
             return View(serviceTypes);
         }
 
@@ -188,7 +179,7 @@ namespace Handyman.Controllers
 
             try
             {
-                await EmailHelper.SendEmailAsync(model.Name!, model.Email!, model.Subject!, model.Message!);
+                await _emailHelper.SendEmailAsync(model.Name!, model.Email!, model.Subject!, model.Message!);
                 ViewBag.Message = "Thank you for contacting us!";
                 return View();
             }
@@ -200,7 +191,7 @@ namespace Handyman.Controllers
         }
 
         private async Task SendConfirmationEmail(string userName, string userEmail, DateTime date, TimeSpan time,
-            string serviceName, string serviceAddress, int? serviceCost)
+            string serviceName, string serviceAddress, decimal? serviceCost)
         {
             try
             {
