@@ -3,50 +3,45 @@ using System.Net;
 
 namespace Handyman.Helper
 {
-    public class EmailHelper: IEmailHelper
+    public class EmailHelper : IEmailHelper
     {
-        public  async Task SendEmailAsync(string name, string email, string subject, string message)
-        {
-            // Retrieve environment variables
-            var smtpUsername = Environment.GetEnvironmentVariable("EMAIL_USERNAME");
-            var smtpPassword = Environment.GetEnvironmentVariable("EMAIL_PASSWORD");
-            var smtpServer = Environment.GetEnvironmentVariable("SMTP_SERVER");
-            var smtpPort = Environment.GetEnvironmentVariable("SMTP_PORT");
+        private readonly IConfiguration _configuration;
 
-            // Validate environment variables
-            if (string.IsNullOrEmpty(smtpUsername) || string.IsNullOrEmpty(smtpPassword) ||
-                string.IsNullOrEmpty(smtpServer) || string.IsNullOrEmpty(smtpPort))
+        public EmailHelper(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        public async Task SendEmailAsync(string name, string email, string subject, string message)
+        {
+            var smtpServer = _configuration["EmailSettings:SmtpServer"];
+            var smtpPort = int.Parse(_configuration["EmailSettings:SmtpPort"]);
+            var senderEmail = _configuration["EmailSettings:SenderEmail"];
+            var senderPassword = _configuration["EmailSettings:SenderPassword"];
+
+            if (string.IsNullOrEmpty(smtpServer) || string.IsNullOrEmpty(senderEmail) ||
+                string.IsNullOrEmpty(senderPassword))
             {
                 throw new Exception("SMTP configuration is missing. Please ensure all environment variables are set.");
             }
 
-            // Validate email parameter
-            if (string.IsNullOrEmpty(email))
+            var mail = new MailMessage
             {
-                throw new ArgumentException("Email cannot be null or empty.", nameof(email));
-            }
-
-            // Parse SMTP Port
-            if (!int.TryParse(smtpPort, out var port))
-            {
-                throw new Exception("Invalid SMTP port value.");
-            }
-
-            var mailMessage = new MailMessage
-            {
-                From = new MailAddress(email),
+                From = new MailAddress(senderEmail),
                 Subject = subject,
                 Body = $"From: {name} ({email})\n\n{message}",
                 IsBodyHtml = false
             };
-            mailMessage.To.Add(smtpUsername); // Replace with your email
 
-            using (var smtp = new SmtpClient(smtpServer, port))
+            mail.To.Add(senderEmail); // send it to yourself
+
+            using (var smtp = new SmtpClient(smtpServer, smtpPort))
             {
-                smtp.Credentials = new NetworkCredential(smtpUsername, smtpPassword);
+                smtp.Credentials = new NetworkCredential(senderEmail, senderPassword);
                 smtp.EnableSsl = true;
-                await smtp.SendMailAsync(mailMessage);
+                await smtp.SendMailAsync(mail);
             }
         }
     }
+
 }
