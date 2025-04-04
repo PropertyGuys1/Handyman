@@ -1,6 +1,6 @@
 ﻿@model Handyman.Data.Entities.ServiceDetailsViewModel
 @{
-    ViewData["Title"] = $"{Model.Service.Name} - Details";
+    ViewData["Title"] = $"{Model.Service?.Name} - Details";
 }
 
 <div class="container py-5">
@@ -60,8 +60,35 @@
                     </div>
                 </div>
             </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (User.IsInRole("Customer"))
+                {
+                    <form asp-action="BookService" method="post">
+                        <input type="hidden" name="serviceId" value="@Model.Service.Id" />
+                        <button type="button" class="btn btn-primary btn-lg w-100 p-3 shadow rounded-pill fw-bold" id="openBookingModal">
+                            <i class="fas fa-calendar-check me-2"></i> Book This Service Now
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <p style="color: #d9534f; background-color: #f2dede; padding: 10px; border-radius: 5px; border: 1px solid #ebccd1; text-align: center; font-weight: bold;">
+                        Only the customer can book a service!
+                    </p>
+                }
+            }
+            else
+            {
+                <div class="alert alert-info text-center shadow-sm rounded-lg p-4">
+                    <i class="fas fa-user-lock fa-2x mb-3 text-info"></i>
+                    <p class="mb-2 lead">Ready to book this service?</p>
+                    <p class="mb-3">Please <a href="/Identity/Account/Login?returnUrl=@Uri.EscapeDataString(Context.Request.Path + "?name=" + Model.Service.Name)" class="text-primary fw-bold">login</a> to continue with your booking.</p>
+                    <a href="/Identity/Account/Register" class="btn btn-outline-primary rounded-pill">New user? Create an account</a>
+                </div>
+            }
 
-            @if (User.Identity.IsAuthenticated )
+         @*    @if (User.Identity.IsAuthenticated )
             {
                 @if (User.IsInRole("Customer"))
                 {
@@ -73,7 +100,10 @@
                     </form>
                 }
                 else{
-                    <p>Only the customer can book a service!</p>
+                    <p style="color: #d9534f; background-color: #f2dede; padding: 10px; border-radius: 5px; border: 1px solid #ebccd1; text-align: center; font-weight: bold;">
+                        Only the customer can book a service!
+                    </p>
+
                 }
             }
             else
@@ -84,7 +114,7 @@
                     <p class="mb-3">Please <a href="/Identity/Account/Login?returnUrl=@Uri.EscapeDataString(Context.Request.Path+"?name="+Model.Service.Name)" class="text-primary fw-bold">login</a> to continue with your booking.</p>
                     <a href="/Identity/Account/Register" class="btn btn-outline-primary rounded-pill">New user? Create an account</a>
                 </div>
-            }
+            } *@
         </div>
 
         <div class="col-lg-4">

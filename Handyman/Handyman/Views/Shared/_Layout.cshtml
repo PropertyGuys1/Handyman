@@ -56,6 +56,10 @@
         <main role="main" class="content pb-3">
             @RenderBody()
         </main>
+
+        <!-- Chatbot Partial View -->
+        @await Html.PartialAsync("_Chatbot")
+
         <footer>
             <partial name="_Footer" />
         </footer>

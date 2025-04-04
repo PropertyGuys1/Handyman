@@ -310,7 +310,7 @@ namespace Handyman.Controllers
             var payments = _context.Payments.Where(a => a.UserId == id);
             var appoinments = _context.Appointments.Where(a => a.ProviderId == id && a.Status == "Completed");
             
-            var totalbalance = 0;
+            decimal? totalbalance = 0.0m;
             
             if (profile == null)
                 return NotFound();

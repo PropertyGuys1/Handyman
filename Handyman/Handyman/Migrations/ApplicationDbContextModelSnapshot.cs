@@ -57,6 +57,9 @@ namespace Handyman.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ProviderProfileId")
+                        .HasColumnType("int");
+
                     b.Property<string>("State")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -70,6 +73,8 @@ namespace Handyman.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProviderProfileId");
 
                     b.ToTable("Addresses");
                 });
@@ -89,11 +94,14 @@ namespace Handyman.Migrations
                     b.Property<DateTime>("AppointmentDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<byte[]>("AppointmentImage")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<TimeSpan>("AppointmentTime")
                         .HasColumnType("time");
 
-                    b.Property<int?>("Cost")
-                        .HasColumnType("int");
+                    b.Property<decimal?>("Cost")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("CustomerProfileId")
                         .HasColumnType("int");
@@ -101,6 +109,15 @@ namespace Handyman.Migrations
                     b.Property<string>("PersonName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProviderId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProviderNote")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProviderProfileId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("ProviderServiceId")
                         .HasColumnType("int");
@@ -123,37 +140,13 @@ namespace Handyman.Migrations
 
                     b.HasIndex("CustomerProfileId");
 
+                    b.HasIndex("ProviderProfileId");
+
                     b.HasIndex("ProviderServiceId");
 
                     b.HasIndex("ServiceId");
 
                     b.ToTable("Appointments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "123 Main St, Springfield, IL",
-                            AppointmentDate = new DateTime(2025, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AppointmentTime = new TimeSpan(0, 10, 0, 0, 0),
-                            PersonName = "John Doe",
-                            ServiceId = 1,
-                            Status = "Pending",
-                            UserId = "user1",
-                            notes = "Customer requested a quick repair of the sink."
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "456 Elm St, Springfield, IL",
-                            AppointmentDate = new DateTime(2025, 3, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AppointmentTime = new TimeSpan(0, 14, 30, 0, 0),
-                            PersonName = "Jane Smith",
-                            ServiceId = 2,
-                            Status = "Confirmed",
-                            UserId = "user2",
-                            notes = "Routine maintenance of air conditioning system."
-                        });
                 });
 
             modelBuilder.Entity("Handyman.Data.Entities.AppointmentFeedback", b =>
@@ -180,6 +173,9 @@ namespace Handyman.Migrations
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
 
+                    b.Property<int>("ProviderProfileId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
@@ -192,31 +188,9 @@ namespace Handyman.Migrations
 
                     b.HasIndex("CustomerProfileId");
 
-                    b.ToTable("AppointmentFeedbacks");
+                    b.HasIndex("ProviderProfileId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AppointmentId = 1,
-                            CreatedAt = new DateTime(2025, 3, 29, 13, 45, 21, 816, DateTimeKind.Utc).AddTicks(172),
-                            CustomerProfileId = 1,
-                            Feedback = "Great service! Very satisfied.",
-                            IsApproved = false,
-                            Rating = 5,
-                            UpdatedAt = new DateTime(2025, 3, 29, 13, 45, 21, 816, DateTimeKind.Utc).AddTicks(173)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AppointmentId = 2,
-                            CreatedAt = new DateTime(2025, 3, 29, 13, 45, 21, 816, DateTimeKind.Utc).AddTicks(176),
-                            CustomerProfileId = 2,
-                            Feedback = "Good job, but could be more thorough.",
-                            IsApproved = false,
-                            Rating = 4,
-                            UpdatedAt = new DateTime(2025, 3, 29, 13, 45, 21, 816, DateTimeKind.Utc).AddTicks(177)
-                        });
+                    b.ToTable("AppointmentFeedbacks");
                 });
 
             modelBuilder.Entity("Handyman.Data.Entities.CustomerProfile", b =>
@@ -275,11 +249,13 @@ namespace Handyman.Migrations
 
                     b.Property<string>("CardHolderName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("CardNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
                     b.Property<int?>("CustomerProfileId")
                         .HasColumnType("int");
@@ -288,6 +264,9 @@ namespace Handyman.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ProviderProfileId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -295,6 +274,8 @@ namespace Handyman.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerProfileId");
+
+                    b.HasIndex("ProviderProfileId");
 
                     b.ToTable("Payments");
                 });
@@ -338,7 +319,8 @@ namespace Handyman.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -350,13 +332,13 @@ namespace Handyman.Migrations
                             Id = 1,
                             Active = true,
                             Address = "123 Main St, Anytown, USA",
-                            CreatedAt = new DateTime(2025, 3, 29, 13, 45, 21, 815, DateTimeKind.Utc).AddTicks(9568),
+                            CreatedAt = new DateTime(2025, 4, 3, 23, 29, 16, 122, DateTimeKind.Utc).AddTicks(1657),
                             Email = "john.doe@example.com",
                             FullName = "John Doe",
                             Password = "jhon123",
                             PhoneNumber = "123-456-7890",
                             Role = "Customer",
-                            UpdatedAt = new DateTime(2025, 3, 29, 13, 45, 21, 815, DateTimeKind.Utc).AddTicks(9570),
+                            UpdatedAt = new DateTime(2025, 4, 3, 23, 29, 16, 122, DateTimeKind.Utc).AddTicks(1659),
                             UserId = "customer1"
                         },
                         new
@@ -364,13 +346,13 @@ namespace Handyman.Migrations
                             Id = 2,
                             Active = true,
                             Address = "456 Elm St, Othertown, USA",
-                            CreatedAt = new DateTime(2025, 3, 29, 13, 45, 21, 815, DateTimeKind.Utc).AddTicks(9575),
+                            CreatedAt = new DateTime(2025, 4, 3, 23, 29, 16, 122, DateTimeKind.Utc).AddTicks(1661),
                             Email = "jane.smith@example.com",
                             FullName = "Jane Smith",
                             Password = "jane123",
                             PhoneNumber = "987-654-3210",
                             Role = "Customer",
-                            UpdatedAt = new DateTime(2025, 3, 29, 13, 45, 21, 815, DateTimeKind.Utc).AddTicks(9575),
+                            UpdatedAt = new DateTime(2025, 4, 3, 23, 29, 16, 122, DateTimeKind.Utc).AddTicks(1662),
                             UserId = "customer2"
                         },
                         new
@@ -378,13 +360,13 @@ namespace Handyman.Migrations
                             Id = 3,
                             Active = true,
                             Address = "789 Oak St, Sometown, USA",
-                            CreatedAt = new DateTime(2025, 3, 29, 13, 45, 21, 815, DateTimeKind.Utc).AddTicks(9578),
+                            CreatedAt = new DateTime(2025, 4, 3, 23, 29, 16, 122, DateTimeKind.Utc).AddTicks(1664),
                             Email = "mike.johnson@example.com",
                             FullName = "Mike Johnson",
                             Password = "mike123",
                             PhoneNumber = "555-123-4567",
                             Role = "Provider",
-                            UpdatedAt = new DateTime(2025, 3, 29, 13, 45, 21, 815, DateTimeKind.Utc).AddTicks(9578),
+                            UpdatedAt = new DateTime(2025, 4, 3, 23, 29, 16, 122, DateTimeKind.Utc).AddTicks(1664),
                             UserId = "provider1"
                         },
                         new
@@ -392,13 +374,13 @@ namespace Handyman.Migrations
                             Id = 4,
                             Active = true,
                             Address = "321 Pine St, Anothertown, USA",
-                            CreatedAt = new DateTime(2025, 3, 29, 13, 45, 21, 815, DateTimeKind.Utc).AddTicks(9580),
+                            CreatedAt = new DateTime(2025, 4, 3, 23, 29, 16, 122, DateTimeKind.Utc).AddTicks(1666),
                             Email = "emily.davis@example.com",
                             FullName = "Emily Davis",
                             Password = "emily123",
                             PhoneNumber = "555-987-6543",
                             Role = "Provider",
-                            UpdatedAt = new DateTime(2025, 3, 29, 13, 45, 21, 815, DateTimeKind.Utc).AddTicks(9581),
+                            UpdatedAt = new DateTime(2025, 4, 3, 23, 29, 16, 122, DateTimeKind.Utc).AddTicks(1666),
                             UserId = "provider2"
                         });
                 });
@@ -412,13 +394,16 @@ namespace Handyman.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Availability")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProfileId")
+                    b.Property<int?>("Balance")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Rating")
+                    b.Property<string>("ProfileId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal?>("Rating")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ServicesOffered")
@@ -437,7 +422,8 @@ namespace Handyman.Migrations
                         {
                             Id = 1,
                             Availability = "Mon-Fri 9am-5pm",
-                            ProfileId = 3,
+                            Balance = 0,
+                            ProfileId = "provider1",
                             Rating = 4.5m,
                             ServicesOffered = "Lawn Mowing, Hedge Trimming"
                         },
@@ -445,7 +431,8 @@ namespace Handyman.Migrations
                         {
                             Id = 2,
                             Availability = "Sat-Sun 10am-4pm",
-                            ProfileId = 4,
+                            Balance = 0,
+                            ProfileId = "provider2",
                             Rating = 4.8m,
                             ServicesOffered = "House Cleaning, Carpet Cleaning"
                         });
@@ -491,22 +478,22 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 3, 29, 13, 45, 21, 816, DateTimeKind.Utc).AddTicks(100),
+                            CreatedAt = new DateTime(2025, 4, 3, 23, 29, 16, 122, DateTimeKind.Utc).AddTicks(2057),
                             ImageUrl = "https://example.com/images/lawn_mowing.jpg",
                             Notes = "Experienced in lawn mowing with professional equipment.",
                             ProviderProfileId = 1,
                             ServiceId = 1,
-                            UpdatedAt = new DateTime(2025, 3, 29, 13, 45, 21, 816, DateTimeKind.Utc).AddTicks(101)
+                            UpdatedAt = new DateTime(2025, 4, 3, 23, 29, 16, 122, DateTimeKind.Utc).AddTicks(2058)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 3, 29, 13, 45, 21, 816, DateTimeKind.Utc).AddTicks(105),
+                            CreatedAt = new DateTime(2025, 4, 3, 23, 29, 16, 122, DateTimeKind.Utc).AddTicks(2060),
                             ImageUrl = "https://example.com/images/house_cleaning.jpg",
                             Notes = "Thorough house cleaning services with eco-friendly products.",
                             ProviderProfileId = 2,
                             ServiceId = 3,
-                            UpdatedAt = new DateTime(2025, 3, 29, 13, 45, 21, 816, DateTimeKind.Utc).AddTicks(105)
+                            UpdatedAt = new DateTime(2025, 4, 3, 23, 29, 16, 122, DateTimeKind.Utc).AddTicks(2060)
                         });
                 });
 
@@ -518,8 +505,8 @@ namespace Handyman.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("Cost")
-                        .HasColumnType("int");
+                    b.Property<decimal?>("Cost")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -531,7 +518,6 @@ namespace Handyman.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ServiceTypeId")
@@ -547,7 +533,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 1,
-                            Cost = 50,
+                            Cost = 50.0m,
                             Description = "Lawn care, landscaping, and gardening tasks.",
                             ImageUrl = "/images/serviceImages/LawnServices.jpg",
                             IsDeleted = false,
@@ -557,7 +543,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 2,
-                            Cost = 75,
+                            Cost = 75.0m,
                             Description = "Basic home repairs like fixing leaks and broken fixtures.",
                             ImageUrl = "/images/serviceImages/PlumbingServices.jpg",
                             IsDeleted = false,
@@ -567,7 +553,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 3,
-                            Cost = 100,
+                            Cost = 100.0m,
                             Description = "Assembling furniture from flat-pack kits.",
                             ImageUrl = "/images/serviceImages/IKEAServices.jpg",
                             IsDeleted = false,
@@ -577,7 +563,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 4,
-                            Cost = 60,
+                            Cost = 60.0m,
                             Description = "Clearing snow from driveways, walkways, and roofs.",
                             ImageUrl = "/images/serviceImages/WinterServices.jpg",
                             IsDeleted = false,
@@ -587,7 +573,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 5,
-                            Cost = 120,
+                            Cost = 120.0m,
                             Description = "Mounting your TV on the wall for a clean look.",
                             ImageUrl = "/images/serviceImages/TVMountingServices.jpg",
                             IsDeleted = false,
@@ -597,7 +583,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 6,
-                            Cost = 80,
+                            Cost = 80.0m,
                             Description = "Assisting with moving furniture or boxes.",
                             ImageUrl = "/images/serviceImages/MovingServices.jpg",
                             IsDeleted = false,
@@ -607,7 +593,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 7,
-                            Cost = 90,
+                            Cost = 90.0m,
                             Description = "General home repairs and maintenance tasks.",
                             ImageUrl = "/images/serviceImages/GeneralServices.jpg",
                             IsDeleted = false,
@@ -617,7 +603,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 8,
-                            Cost = 150,
+                            Cost = 150.0m,
                             Description = "Interior and exterior painting services.",
                             ImageUrl = "/images/serviceImages/PaintingServices.jpg",
                             IsDeleted = false,
@@ -627,7 +613,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 9,
-                            Cost = 100,
+                            Cost = 100.0m,
                             Description = "Installing light fixtures and bulbs.",
                             ImageUrl = "/images/serviceImages/LightingServices.jpg",
                             IsDeleted = false,
@@ -637,7 +623,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 10,
-                            Cost = 50,
+                            Cost = 50.0m,
                             Description = "Hanging artwork or pictures on walls.",
                             ImageUrl = "/images/serviceImages/PaintingMountingServices.jpg",
                             IsDeleted = false,
@@ -647,7 +633,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 11,
-                            Cost = 100,
+                            Cost = 100.0m,
                             Description = "Assembly and delivery of IKEA furniture.",
                             ImageUrl = "/images/serviceImages/IKEAServices.jpg",
                             IsDeleted = false,
@@ -657,7 +643,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 12,
-                            Cost = 60,
+                            Cost = 60.0m,
                             Description = "Deliver packages or goods to your location.",
                             ImageUrl = "/images/serviceImages/DeliveryServices.jpg",
                             IsDeleted = false,
@@ -667,7 +653,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 13,
-                            Cost = 120,
+                            Cost = 120.0m,
                             Description = "General home repair services like plumbing, electrical work, etc.",
                             ImageUrl = "/images/serviceImages/PlumbingServices.jpg",
                             IsDeleted = false,
@@ -677,7 +663,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 14,
-                            Cost = 80,
+                            Cost = 80.0m,
                             Description = "Basic home or office cleaning services.",
                             ImageUrl = "/images/serviceImages/OrganizeOfficeServices.jpg",
                             IsDeleted = false,
@@ -687,7 +673,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 15,
-                            Cost = 90,
+                            Cost = 90.0m,
                             Description = "Assembling furniture like desks, chairs, or tables.",
                             ImageUrl = "/images/serviceImages/IKEAServices.jpg",
                             IsDeleted = false,
@@ -697,7 +683,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 16,
-                            Cost = 100,
+                            Cost = 100.0m,
                             Description = "Help with moving or hauling large items.",
                             ImageUrl = "/images/serviceImages/MovingServices.jpg",
                             IsDeleted = false,
@@ -707,7 +693,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 17,
-                            Cost = 80,
+                            Cost = 80.0m,
                             Description = "Lifting and transporting heavy objects.",
                             ImageUrl = "/images/serviceImages/HeavyLiftingServices.jpg",
                             IsDeleted = false,
@@ -717,7 +703,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 18,
-                            Cost = 100,
+                            Cost = 100.0m,
                             Description = "Personal errands and assistance for daily tasks.",
                             ImageUrl = "/images/serviceImages/PersonalAssistantServices.jpg",
                             IsDeleted = false,
@@ -727,7 +713,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 19,
-                            Cost = 70,
+                            Cost = 70.0m,
                             Description = "Outdoor maintenance including lawn mowing and trimming.",
                             ImageUrl = "/images/serviceImages/LawnServices.jpg",
                             IsDeleted = false,
@@ -737,7 +723,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 20,
-                            Cost = 40,
+                            Cost = 40.0m,
                             Description = "Waiting in line for tickets, products, or services.",
                             ImageUrl = "/images/serviceImages/WaitingInQueueServices.jpg",
                             IsDeleted = false,
@@ -747,7 +733,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 21,
-                            Cost = 80,
+                            Cost = 80.0m,
                             Description = "Organizing your closet space for a more efficient setup.",
                             ImageUrl = "/images/serviceImages/OrganizeClosetServices.jpg",
                             IsDeleted = false,
@@ -757,7 +743,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 22,
-                            Cost = 90,
+                            Cost = 90.0m,
                             Description = "Office tasks like data entry, document management, etc.",
                             ImageUrl = "/images/serviceImages/OfficeAdminServices.jpg",
                             IsDeleted = false,
@@ -767,7 +753,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 23,
-                            Cost = 75,
+                            Cost = 75.0m,
                             Description = "Organizing personal spaces, offices, or garages.",
                             ImageUrl = "/images/serviceImages/OrganizeOfficeServices.jpg",
                             IsDeleted = false,
@@ -777,7 +763,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 24,
-                            Cost = 120,
+                            Cost = 120.0m,
                             Description = "General home repair services like plumbing, electrical work, etc.",
                             ImageUrl = "/images/serviceImages/CarpentryServices.jpg",
                             IsDeleted = false,
@@ -787,7 +773,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 25,
-                            Cost = 90,
+                            Cost = 90.0m,
                             Description = "Assembling furniture like desks, chairs, or tables.",
                             ImageUrl = "/images/serviceImages/AssemblyServices.jpg",
                             IsDeleted = false,
@@ -797,7 +783,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 26,
-                            Cost = 120,
+                            Cost = 120.0m,
                             Description = "Mounting your TV on the wall for a clean look.",
                             ImageUrl = "/images/serviceImages/TVMountingServices.jpg",
                             IsDeleted = false,
@@ -807,7 +793,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 27,
-                            Cost = 80,
+                            Cost = 80.0m,
                             Description = "Lifting and transporting heavy objects.",
                             ImageUrl = "/images/serviceImages/HeavyLiftingServices.jpg",
                             IsDeleted = false,
@@ -817,7 +803,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 28,
-                            Cost = 150,
+                            Cost = 150.0m,
                             Description = "Interior and exterior painting services.",
                             ImageUrl = "/images/serviceImages/PaintingServices.jpg",
                             IsDeleted = false,
@@ -827,7 +813,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 29,
-                            Cost = 130,
+                            Cost = 130.0m,
                             Description = "General plumbing repairs and installations.",
                             ImageUrl = "/images/serviceImages/PlumbingServices.jpg",
                             IsDeleted = false,
@@ -837,7 +823,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 30,
-                            Cost = 70,
+                            Cost = 70.0m,
                             Description = "Outdoor maintenance including lawn mowing and trimming.",
                             ImageUrl = "/images/serviceImages/LawnServices.jpg",
                             IsDeleted = false,
@@ -847,7 +833,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 31,
-                            Cost = 50,
+                            Cost = 50.0m,
                             Description = "Hanging artwork or pictures on walls.",
                             ImageUrl = "/images/serviceImages/PaintingMountainServices.jpg",
                             IsDeleted = false,
@@ -857,7 +843,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 32,
-                            Cost = 100,
+                            Cost = 100.0m,
                             Description = "Mounting shelves on walls for storage and decoration.",
                             ImageUrl = "/images/serviceImages/ShelfMountingServices.jpg",
                             IsDeleted = false,
@@ -867,7 +853,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 33,
-                            Cost = 100,
+                            Cost = 100.0m,
                             Description = "Installing light fixtures and bulbs.",
                             ImageUrl = "/images/serviceImages/LightingServices.jpg",
                             IsDeleted = false,
@@ -877,7 +863,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 34,
-                            Cost = 150,
+                            Cost = 150.0m,
                             Description = "Electrical installations and repairs.",
                             ImageUrl = "/images/serviceImages/ElectricalServices.jpg",
                             IsDeleted = false,
@@ -887,7 +873,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 35,
-                            Cost = 200,
+                            Cost = 200.0m,
                             Description = "Custom woodwork and carpentry services.",
                             ImageUrl = "/images/serviceImages/CarpentryServices.jpg",
                             IsDeleted = false,
@@ -897,7 +883,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 36,
-                            Cost = 80,
+                            Cost = 80.0m,
                             Description = "Child-proofing your home with safety measures.",
                             ImageUrl = "/images/serviceImages/BabyProofingServices.jpg",
                             IsDeleted = false,
@@ -907,7 +893,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 37,
-                            Cost = 180,
+                            Cost = 180.0m,
                             Description = "Installation of smart devices like thermostats, cameras, etc.",
                             ImageUrl = "/images/serviceImages/SmartHomeServices.jpg",
                             IsDeleted = false,
@@ -917,7 +903,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 38,
-                            Cost = 100,
+                            Cost = 100.0m,
                             Description = "Help with moving or hauling large items.",
                             ImageUrl = "/images/serviceImages/MovingServices.jpg",
                             IsDeleted = false,
@@ -927,7 +913,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 39,
-                            Cost = 75,
+                            Cost = 75.0m,
                             Description = "Moving a single item, like a couch or appliance.",
                             ImageUrl = "/images/serviceImages/MovingServices.jpg",
                             IsDeleted = false,
@@ -937,7 +923,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 40,
-                            Cost = 150,
+                            Cost = 150.0m,
                             Description = "Moving large furniture from one location to another.",
                             ImageUrl = "/images/serviceImages/MovingServices.jpg",
                             IsDeleted = false,
@@ -947,7 +933,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 41,
-                            Cost = 80,
+                            Cost = 80.0m,
                             Description = "Removal and disposal of unwanted items or junk.",
                             ImageUrl = "/images/serviceImages/JunkRemovalServices.jpg",
                             IsDeleted = false,
@@ -957,7 +943,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 42,
-                            Cost = 300,
+                            Cost = 300.0m,
                             Description = "Complete moving service, including packing, loading, and unloading.",
                             ImageUrl = "/images/serviceImages/MovingServices.jpg",
                             IsDeleted = false,
@@ -967,7 +953,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 43,
-                            Cost = 250,
+                            Cost = 250.0m,
                             Description = "Packing up your home and moving everything to your new location.",
                             ImageUrl = "/images/serviceImages/MovingServices.jpg",
                             IsDeleted = false,
@@ -977,7 +963,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 44,
-                            Cost = 150,
+                            Cost = 150.0m,
                             Description = "Unpacking boxes and organizing items in your new home.",
                             ImageUrl = "/images/serviceImages/MovingServices.jpg",
                             IsDeleted = false,
@@ -987,7 +973,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 45,
-                            Cost = 80,
+                            Cost = 80.0m,
                             Description = "Lifting and transporting heavy objects.",
                             ImageUrl = "/images/serviceImages/HeavyLiftingServices.jpg",
                             IsDeleted = false,
@@ -997,7 +983,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 46,
-                            Cost = 90,
+                            Cost = 90.0m,
                             Description = "Removal of old furniture that needs to be disposed of.",
                             ImageUrl = "/images/serviceImages/MovingServices.jpg",
                             IsDeleted = false,
@@ -1007,7 +993,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 47,
-                            Cost = 75,
+                            Cost = 75.0m,
                             Description = "Removal of an old couch or sofa.",
                             ImageUrl = "/images/serviceImages/MovingServices.jpg",
                             IsDeleted = false,
@@ -1017,7 +1003,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 48,
-                            Cost = 100,
+                            Cost = 100.0m,
                             Description = "Assisting in moving furniture up or down stairs.",
                             ImageUrl = "/images/serviceImages/HeavyLiftingServices.jpg",
                             IsDeleted = false,
@@ -1027,7 +1013,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 49,
-                            Cost = 120,
+                            Cost = 120.0m,
                             Description = "Decorating your home with Christmas lights.",
                             ImageUrl = "/images/serviceImages/WinterServices.jpg",
                             IsDeleted = false,
@@ -1037,7 +1023,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 50,
-                            Cost = 80,
+                            Cost = 80.0m,
                             Description = "Delivery of a Christmas tree to your home.",
                             ImageUrl = "/images/serviceImages/WinterServices.jpg",
                             IsDeleted = false,
@@ -1047,7 +1033,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 51,
-                            Cost = 150,
+                            Cost = 150.0m,
                             Description = "Decorating your home for the holidays.",
                             ImageUrl = "/images/serviceImages/ChristmasServices.jpg",
                             IsDeleted = false,
@@ -1057,7 +1043,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 52,
-                            Cost = 100,
+                            Cost = 100.0m,
                             Description = "Shopping for holiday gifts or groceries.",
                             ImageUrl = "/images/serviceImages/WinterServices.jpg",
                             IsDeleted = false,
@@ -1067,7 +1053,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 53,
-                            Cost = 150,
+                            Cost = 150.0m,
                             Description = "Complete shopping for the holidays.",
                             ImageUrl = "/images/serviceImages/ChristmasServices.jpg",
                             IsDeleted = false,
@@ -1077,7 +1063,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 54,
-                            Cost = 50,
+                            Cost = 50.0m,
                             Description = "Wrapping your holiday gifts.",
                             ImageUrl = "/images/serviceImages/ChristmasServices.jpg",
                             IsDeleted = false,
@@ -1087,7 +1073,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 55,
-                            Cost = 80,
+                            Cost = 80.0m,
                             Description = "Holiday grocery shopping.",
                             ImageUrl = "/images/serviceImages/ChristmasServices.jpg",
                             IsDeleted = false,
@@ -1097,7 +1083,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 56,
-                            Cost = 100,
+                            Cost = 100.0m,
                             Description = "Shopping for holiday gifts.",
                             ImageUrl = "/images/serviceImages/ChristmasServices.jpg",
                             IsDeleted = false,
@@ -1107,7 +1093,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 57,
-                            Cost = 90,
+                            Cost = 90.0m,
                             Description = "Assembling furniture like desks, chairs, or tables.",
                             ImageUrl = "/images/serviceImages/AssemblyServices.jpg",
                             IsDeleted = false,
@@ -1117,7 +1103,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 58,
-                            Cost = 100,
+                            Cost = 100.0m,
                             Description = "Assembling IKEA flat-pack furniture.",
                             ImageUrl = "/images/serviceImages/IKEAServices.jpg",
                             IsDeleted = false,
@@ -1127,7 +1113,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 59,
-                            Cost = 100,
+                            Cost = 100.0m,
                             Description = "Assembling kids furniture like cribs, dressers, etc.",
                             ImageUrl = "/images/serviceImages/AssemblyServices.jpg",
                             IsDeleted = false,
@@ -1137,7 +1123,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 60,
-                            Cost = 120,
+                            Cost = 120.0m,
                             Description = "Assembling office furniture like desks and chairs.",
                             ImageUrl = "/images/serviceImages/AssemblyServices.jpg",
                             IsDeleted = false,
@@ -1147,7 +1133,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 61,
-                            Cost = 150,
+                            Cost = 150.0m,
                             Description = "Assembling outdoor sheds or storage units.",
                             ImageUrl = "/images/serviceImages/AssemblyServices.jpg",
                             IsDeleted = false,
@@ -1157,7 +1143,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 62,
-                            Cost = 60,
+                            Cost = 60.0m,
                             Description = "Clearing snow from driveways, walkways, and roofs.",
                             ImageUrl = "/images/serviceImages/WinterServices.jpg",
                             IsDeleted = false,
@@ -1167,7 +1153,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 63,
-                            Cost = 50,
+                            Cost = 50.0m,
                             Description = "Applying ice-melting substances to prevent slips and falls.",
                             ImageUrl = "/images/serviceImages/AssemblyServices.jpg",
                             IsDeleted = false,
@@ -1177,7 +1163,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 64,
-                            Cost = 150,
+                            Cost = 150.0m,
                             Description = "Preparing your property for winter by sealing windows, pipes, etc.",
                             ImageUrl = "/images/serviceImages/AssemblyServices.jpg",
                             IsDeleted = false,
@@ -1187,7 +1173,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 65,
-                            Cost = 100,
+                            Cost = 100.0m,
                             Description = "Cleaning leaves and debris from gutters to prevent blockages.",
                             ImageUrl = "/images/serviceImages/GeneralServices.jpg",
                             IsDeleted = false,
@@ -1197,7 +1183,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 66,
-                            Cost = 70,
+                            Cost = 70.0m,
                             Description = "Shoveling snow off driveways to ensure safe access.",
                             ImageUrl = "/images/serviceImages/WinterServices.jpg",
                             IsDeleted = false,
@@ -1207,7 +1193,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 67,
-                            Cost = 120,
+                            Cost = 120.0m,
                             Description = "Protecting pipes from freezing by insulating or draining them.",
                             ImageUrl = "/images/serviceImages/PlumbingServices.jpg",
                             IsDeleted = false,
@@ -1217,7 +1203,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 68,
-                            Cost = 80,
+                            Cost = 80.0m,
                             Description = "Maintaining your lawn with mowing, fertilization, and watering.",
                             ImageUrl = "/images/serviceImages/LawnServices.jpg",
                             IsDeleted = false,
@@ -1227,7 +1213,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 69,
-                            Cost = 120,
+                            Cost = 120.0m,
                             Description = "Trimming trees and removing dead branches for safety and appearance.",
                             ImageUrl = "/images/serviceImages/LawnServices.jpg",
                             IsDeleted = false,
@@ -1237,7 +1223,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 70,
-                            Cost = 60,
+                            Cost = 60.0m,
                             Description = "Raking and removing fallen leaves from yards and lawns.",
                             ImageUrl = "/images/serviceImages/LawnServices.jpg",
                             IsDeleted = false,
@@ -1247,7 +1233,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 71,
-                            Cost = 50,
+                            Cost = 50.0m,
                             Description = "Mowing your lawn to maintain a neat and healthy yard.",
                             ImageUrl = "/images/serviceImages/LawnServices.jpg",
                             IsDeleted = false,
@@ -1257,7 +1243,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 72,
-                            Cost = 90,
+                            Cost = 90.0m,
                             Description = "Planting and caring for flowers, shrubs, and vegetable gardens.",
                             ImageUrl = "/images/serviceImages/LawnServices.jpg",
                             IsDeleted = false,
@@ -1267,7 +1253,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 73,
-                            Cost = 100,
+                            Cost = 100.0m,
                             Description = "Applying mulch to garden beds to retain moisture and suppress weeds.",
                             ImageUrl = "/images/serviceImages/LawnServices.jpg",
                             IsDeleted = false,
@@ -1277,7 +1263,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 74,
-                            Cost = 150,
+                            Cost = 150.0m,
                             Description = "Thorough cleaning of all surfaces, including hard-to-reach areas.",
                             ImageUrl = "/images/serviceImages/CleaningServices.jpg",
                             IsDeleted = false,
@@ -1287,7 +1273,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 75,
-                            Cost = 120,
+                            Cost = 120.0m,
                             Description = "Cleaning office spaces, including desks, floors, and windows.",
                             ImageUrl = "/images/serviceImages/CleaningServices.jpg",
                             IsDeleted = false,
@@ -1297,7 +1283,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 76,
-                            Cost = 100,
+                            Cost = 100.0m,
                             Description = "Deep cleaning carpets to remove stains, dirt, and odors.",
                             ImageUrl = "/images/serviceImages/CleaningServices.jpg",
                             IsDeleted = false,
@@ -1307,7 +1293,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 77,
-                            Cost = 80,
+                            Cost = 80.0m,
                             Description = "Cleaning both interior and exterior windows for clarity and shine.",
                             ImageUrl = "/images/serviceImages/CleaningServices.jpg",
                             IsDeleted = false,
@@ -1317,7 +1303,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 78,
-                            Cost = 150,
+                            Cost = 150.0m,
                             Description = "Cleaning a home or apartment when moving in or out.",
                             ImageUrl = "/images/serviceImages/CleaningServices.jpg",
                             IsDeleted = false,
@@ -1327,7 +1313,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 79,
-                            Cost = 120,
+                            Cost = 120.0m,
                             Description = "Using high-pressure water to clean outdoor surfaces like driveways and patios.",
                             ImageUrl = "/images/serviceImages/CleaningServices.jpg",
                             IsDeleted = false,
@@ -1337,7 +1323,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 80,
-                            Cost = 180,
+                            Cost = 180.0m,
                             Description = "Cleaning up debris, dust, and materials left after construction or renovation.",
                             ImageUrl = "/images/serviceImages/CleaningServices.jpg",
                             IsDeleted = false,
@@ -1347,7 +1333,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 81,
-                            Cost = 50,
+                            Cost = 50.0m,
                             Description = "Shopping for groceries and delivering them to your doorstep.",
                             ImageUrl = "/images/serviceImages/PersonalAssistantServices.jpg",
                             IsDeleted = false,
@@ -1357,7 +1343,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 82,
-                            Cost = 75,
+                            Cost = 75.0m,
                             Description = "Shopping for gifts based on your preferences and budget.",
                             ImageUrl = "/images/serviceImages/PersonalAssistantServices.jpg",
                             IsDeleted = false,
@@ -1367,7 +1353,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 83,
-                            Cost = 60,
+                            Cost = 60.0m,
                             Description = "Picking up and delivering packages to your location.",
                             ImageUrl = "/images/serviceImages/DeliveryServices.jpg",
                             IsDeleted = false,
@@ -1377,7 +1363,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 84,
-                            Cost = 100,
+                            Cost = 100.0m,
                             Description = "Assisting with shopping for clothes, gifts, or other personal items.",
                             ImageUrl = "/images/serviceImages/PersonalAssistantServices.jpg",
                             IsDeleted = false,
@@ -1387,7 +1373,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 85,
-                            Cost = 70,
+                            Cost = 70.0m,
                             Description = "Running errands like picking up dry cleaning or post office trips.",
                             ImageUrl = "/images/serviceImages/PersonalAssistantServices.jpg",
                             IsDeleted = false,
@@ -1397,7 +1383,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 86,
-                            Cost = 55,
+                            Cost = 55.0m,
                             Description = "Grocery shopping and delivery without physical interaction.",
                             ImageUrl = "/images/serviceImages/DeliveryServices.jpg",
                             IsDeleted = false,
@@ -1407,7 +1393,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 87,
-                            Cost = 95,
+                            Cost = 95.0m,
                             Description = "Furniture assembly with minimal or no physical contact.",
                             ImageUrl = "/images/serviceImages/AssemblyServices.jpg",
                             IsDeleted = false,
@@ -1417,7 +1403,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 88,
-                            Cost = 55,
+                            Cost = 55.0m,
                             Description = "Delivering packages or groceries without in-person contact.",
                             ImageUrl = "/images/serviceImages/DeliveryServices.jpg",
                             IsDeleted = false,
@@ -1427,7 +1413,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 89,
-                            Cost = 120,
+                            Cost = 120.0m,
                             Description = "Cleaning services performed with social distancing and minimal contact.",
                             ImageUrl = "/images/serviceImages/CleaningServices.jpg",
                             IsDeleted = false,
@@ -1437,7 +1423,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 90,
-                            Cost = 100,
+                            Cost = 100.0m,
                             Description = "Assembling IKEA furniture with ease and efficiency.",
                             ImageUrl = "/images/serviceImages/IKEAServices.jpg",
                             IsDeleted = false,
@@ -1447,7 +1433,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 91,
-                            Cost = 120,
+                            Cost = 120.0m,
                             Description = "Picking up and delivering IKEA furniture or products to your home.",
                             ImageUrl = "/images/serviceImages/IKEAServices.jpg",
                             IsDeleted = false,
@@ -1457,7 +1443,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 92,
-                            Cost = 150,
+                            Cost = 150.0m,
                             Description = "Installing IKEA furniture and home solutions in your space.",
                             ImageUrl = "/images/serviceImages/IKEAServices.jpg",
                             IsDeleted = false,
@@ -1467,7 +1453,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 93,
-                            Cost = 120,
+                            Cost = 120.0m,
                             Description = "Mounting your TV on the wall for a sleek and modern look.",
                             ImageUrl = "/images/serviceImages/TVMountingServices.jpg",
                             IsDeleted = false,
@@ -1477,7 +1463,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 94,
-                            Cost = 50,
+                            Cost = 50.0m,
                             Description = "Hanging artwork, mirrors, or other pictures on your walls.",
                             ImageUrl = "/images/serviceImages/PaintingMountingServices.jpg",
                             IsDeleted = false,
@@ -1487,7 +1473,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 95,
-                            Cost = 100,
+                            Cost = 100.0m,
                             Description = "Installing shelves to maximize storage space in your home.",
                             ImageUrl = "/images/serviceImages/ShelfMountingServices.jpg",
                             IsDeleted = false,
@@ -1497,7 +1483,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 96,
-                            Cost = 120,
+                            Cost = 120.0m,
                             Description = "Installing or replacing light fixtures throughout your home.",
                             ImageUrl = "/images/serviceImages/LightingServices.jpg",
                             IsDeleted = false,
@@ -1507,7 +1493,7 @@ namespace Handyman.Migrations
                         new
                         {
                             Id = 97,
-                            Cost = 80,
+                            Cost = 80.0m,
                             Description = "Installing curtain rods for your windows.",
                             ImageUrl = "/images/serviceTypeImages/MountingInstallationServiceType.jpg",
                             IsDeleted = false,
@@ -1853,11 +1839,22 @@ namespace Handyman.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Handyman.Data.Entities.Address", b =>
+                {
+                    b.HasOne("Handyman.Data.Entities.ProviderProfile", null)
+                        .WithMany("Addresses")
+                        .HasForeignKey("ProviderProfileId");
+                });
+
             modelBuilder.Entity("Handyman.Data.Entities.Appointment", b =>
                 {
                     b.HasOne("Handyman.Data.Entities.CustomerProfile", null)
                         .WithMany("Appointments")
                         .HasForeignKey("CustomerProfileId");
+
+                    b.HasOne("Handyman.Data.Entities.ProviderProfile", null)
+                        .WithMany("Appointments")
+                        .HasForeignKey("ProviderProfileId");
 
                     b.HasOne("Handyman.Data.Entities.ProviderService", null)
                         .WithMany("Appointments")
@@ -1886,9 +1883,17 @@ namespace Handyman.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Handyman.Data.Entities.ProviderProfile", "ProviderProfile")
+                        .WithMany("AppointmentFeedbacks")
+                        .HasForeignKey("ProviderProfileId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Appointment");
 
                     b.Navigation("CustomerProfile");
+
+                    b.Navigation("ProviderProfile");
                 });
 
             modelBuilder.Entity("Handyman.Data.Entities.CustomerProfile", b =>
@@ -1907,6 +1912,10 @@ namespace Handyman.Migrations
                     b.HasOne("Handyman.Data.Entities.CustomerProfile", null)
                         .WithMany("Payments")
                         .HasForeignKey("CustomerProfileId");
+
+                    b.HasOne("Handyman.Data.Entities.ProviderProfile", null)
+                        .WithMany("Payments")
+                        .HasForeignKey("ProviderProfileId");
                 });
 
             modelBuilder.Entity("Handyman.Data.Entities.ProviderProfile", b =>
@@ -1914,6 +1923,7 @@ namespace Handyman.Migrations
                     b.HasOne("Handyman.Data.Entities.Profile", "Profile")
                         .WithOne("ProviderProfile")
                         .HasForeignKey("Handyman.Data.Entities.ProviderProfile", "ProfileId")
+                        .HasPrincipalKey("Handyman.Data.Entities.Profile", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2019,6 +2029,14 @@ namespace Handyman.Migrations
 
             modelBuilder.Entity("Handyman.Data.Entities.ProviderProfile", b =>
                 {
+                    b.Navigation("Addresses");
+
+                    b.Navigation("AppointmentFeedbacks");
+
+                    b.Navigation("Appointments");
+
+                    b.Navigation("Payments");
+
                     b.Navigation("ProviderServices");
                 });
 

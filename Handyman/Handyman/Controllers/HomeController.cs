@@ -200,7 +200,7 @@ namespace Handyman.Controllers
         }
 
         private async Task SendConfirmationEmail(string userName, string userEmail, DateTime date, TimeSpan time,
-            string serviceName, string serviceAddress, int? serviceCost)
+            string serviceName, string serviceAddress, decimal? serviceCost)
         {
             try
             {

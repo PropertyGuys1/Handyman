@@ -682,7 +682,7 @@ namespace Handyman.Controllers
 
 
         private async Task SendAppointmentUpdateEmail(string userName, string userEmail, DateTime newDate, TimeSpan newTime, 
-            string serviceName, string serviceAddress, int? serviceCost, DateTime originalDate, TimeSpan originalTime)
+            string serviceName, string serviceAddress, decimal? serviceCost, DateTime originalDate, TimeSpan originalTime)
         {
             try
             {
