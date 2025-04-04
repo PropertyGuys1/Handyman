@@ -3,9 +3,9 @@ using System.Net;
 
 namespace Handyman.Helper
 {
-    public class EmailHelper
+    public class EmailHelper: IEmailHelper
     {
-        public static async Task SendEmailAsync(string name, string email, string subject, string message)
+        public  async Task SendEmailAsync(string name, string email, string subject, string message)
         {
             // Retrieve environment variables
             var smtpUsername = Environment.GetEnvironmentVariable("EMAIL_USERNAME");
