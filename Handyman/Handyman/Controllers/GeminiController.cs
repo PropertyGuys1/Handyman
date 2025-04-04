@@ -71,7 +71,7 @@ namespace Handyman.Controllers
             }
         }
 
-        private string GetServiceDescriptions()
+        public string GetServiceDescriptions()
         {
             var services = _dbContext.Services
                 .Select(s => $"{s.Name}: {s.Description}. Price: ${s.Cost}")

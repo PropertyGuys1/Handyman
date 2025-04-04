@@ -32,7 +32,7 @@ namespace Handyman.test
         [Fact]
         public async Task Index_ReturnsViewWithCustomers_ReturnsOk()
         {
-            // Arrange: Add a new customer with a unique UserId
+            //Arrange
             var newCustomer = new Profile
             {
                 UserId = Guid.NewGuid().ToString(), // Ensure a unique ID
@@ -43,10 +43,10 @@ namespace Handyman.test
             _context.Profiles.Add(newCustomer);
             _context.SaveChanges();
 
-            // Act: Call the controller action
+            //Act
             var result = await _controller.Index();
 
-            // Assert: Ensure the test-specific customer is present
+            //Assert
             var viewResult = Assert.IsType<ViewResult>(result);
             var model = Assert.IsAssignableFrom<List<Profile>>(viewResult.Model);
 
@@ -56,10 +56,10 @@ namespace Handyman.test
         [Fact]
         public async Task Index_ReturnsViewWithInvalidCustomer_ReturnsNotOk()
         {
-            // Arrange: Create an invalid customer (missing UserId)
+            //Arrange
             var invalidCustomer = new Profile
             {
-                UserId = null, // Invalid because UserId is an alternate key
+                UserId = null,
                 Role = "Customer",
                 Email = "invalid@example.com"
             };
@@ -67,16 +67,14 @@ namespace Handyman.test
             try
             {
                 _context.Profiles.Add(invalidCustomer);
-                await _context.SaveChangesAsync(); // Should fail here
+                await _context.SaveChangesAsync(); 
             }
             catch (InvalidOperationException ex)
             {
-                // Test passes because the expected exception occurred
                 Assert.Contains("Unable to track an entity of type 'Profile' because alternate key property 'UserId' is null", ex.Message);
-                return; // Exit the test successfully
+                return;
             }
 
-            // If SaveChangesAsync() succeeds, the test should fail
             Assert.True(false, "Test failed: Invalid customer was added to the database.");
         }
 
