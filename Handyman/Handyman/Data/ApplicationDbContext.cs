@@ -33,10 +33,13 @@ namespace Handyman.Data
                .WithOne(cp => cp.Profile)
                .HasForeignKey<CustomerProfile>(cp => cp.ProfileId);
 
-            modelBuilder.Entity<Profile>()
-                .HasOne(p => p.ProviderProfile)
-                .WithOne(pp => pp.Profile)
-                .HasForeignKey<ProviderProfile>(pp => pp.ProfileId);
+            modelBuilder.Entity<ProviderProfile>()
+                .HasOne(p => p.Profile)
+                .WithOne(p => p.ProviderProfile)
+                .HasForeignKey<ProviderProfile>(p => p.ProfileId)  // Use string as the foreign key
+                .HasPrincipalKey<Profile>(p => p.UserId)  // Link ProfileId (string) to UserId (string)
+                .OnDelete(DeleteBehavior.Cascade);
+
 
             modelBuilder.Entity<Service>()
                 .HasOne(s => s.ServiceType)
@@ -85,6 +88,14 @@ namespace Handyman.Data
                 .HasMany(cp => cp.Addresses)
                 .WithMany();
 
+            modelBuilder.Entity<AppointmentFeedback>()
+                .HasOne(af => af.ProviderProfile)
+                .WithMany(pp => pp.AppointmentFeedbacks)
+                .HasForeignKey(af => af.ProviderProfileId)
+                .OnDelete(DeleteBehavior.Restrict); // Prevent cascading delete
+
+
+
             /*modelBuilder.Entity<Payment>()
                 .HasOne(p => p.CustomerProfile)
                 .WithMany(cp => cp.Payments)
@@ -101,8 +112,8 @@ namespace Handyman.Data
             modelBuilder.Entity<ServiceType>().HasData(MockData.MockData.GetServiceTypes());
             modelBuilder.Entity<Service>().HasData(MockData.MockData.GetServices());
             modelBuilder.Entity<ProviderService>().HasData(MockData.MockData.GetProviderServices());
-            modelBuilder.Entity<Appointment>().HasData(MockData.MockData.GetAppointments());
-            modelBuilder.Entity<AppointmentFeedback>().HasData(MockData.MockData.GetAppointmentFeedbacks());
+            //modelBuilder.Entity<Appointment>().HasData(MockData.MockData.GetAppointments());
+            //modelBuilder.Entity<AppointmentFeedback>().HasData(MockData.MockData.GetAppointmentFeedbacks());
             /*
             modelBuilder.Entity<Address>().HasData(MockData.MockData.GetAddresses());
             */

@@ -1,6 +1,6 @@
 ﻿@model Handyman.Data.Entities.ServiceDetailsViewModel
 @{
-    ViewData["Title"] = $"{Model.Service.Name} - Details";
+    ViewData["Title"] = $"{Model.Service?.Name} - Details";
 }
 
 <div class="container py-5">
@@ -10,6 +10,7 @@
             <div class="bg-light rounded-lg p-4 mb-4 shadow-sm position-relative overflow-hidden">
                 <div class="position-relative z-index-1">
                     <h1 class="display-4 fw-bold text-primary mb-2">@Model.Service.Name</h1>
+                    <img src="@Model.Service.ImageUrl" alt="Service Image" class="img-fluid rounded shadow-sm" style="max-height: 300px; object-fit: cover;">
                     <p class="lead text-muted mb-4">Professional services tailored to your needs</p>
                     <div class="d-flex align-items-center mb-3">
                         <span class="badge bg-primary me-2 p-2">@Model.Service.ServiceType.Name</span>
@@ -17,14 +18,14 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="card shadow border-0 mb-4 rounded-lg">
                 <div class="card-body p-4">
                     <h4 class="card-title border-bottom pb-3 mb-3 text-primary">
                         <i class="fas fa-info-circle me-2"></i>Service Description
                     </h4>
                     <p class="card-text lead">@Model.Service.Description</p>
-                    
+
                     <div class="alert alert-light border-left border-primary mt-4">
                         <i class="fas fa-lightbulb text-warning me-2"></i>
                         <span class="fw-bold">Pro Tip:</span> Booking in advance ensures you get your preferred time slot.
@@ -59,15 +60,51 @@
                     </div>
                 </div>
             </div>
-
             @if (User.Identity.IsAuthenticated)
             {
-                <form asp-action="BookService" method="post">
-                    <input type="hidden" name="serviceId" value="@Model.Service.Id" />
-                    <button type="button" class="btn btn-primary btn-lg w-100 p-3 shadow rounded-pill fw-bold" id="openBookingModal">
-                        <i class="fas fa-calendar-check me-2"></i> Book This Service Now
-                    </button>
-                </form>
+                @if (User.IsInRole("Customer"))
+                {
+                    <form asp-action="BookService" method="post">
+                        <input type="hidden" name="serviceId" value="@Model.Service.Id" />
+                        <button type="button" class="btn btn-primary btn-lg w-100 p-3 shadow rounded-pill fw-bold" id="openBookingModal">
+                            <i class="fas fa-calendar-check me-2"></i> Book This Service Now
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <p style="color: #d9534f; background-color: #f2dede; padding: 10px; border-radius: 5px; border: 1px solid #ebccd1; text-align: center; font-weight: bold;">
+                        Only the customer can book a service!
+                    </p>
+                }
+            }
+            else
+            {
+                <div class="alert alert-info text-center shadow-sm rounded-lg p-4">
+                    <i class="fas fa-user-lock fa-2x mb-3 text-info"></i>
+                    <p class="mb-2 lead">Ready to book this service?</p>
+                    <p class="mb-3">Please <a href="/Identity/Account/Login?returnUrl=@Uri.EscapeDataString(Context.Request.Path + "?name=" + Model.Service.Name)" class="text-primary fw-bold">login</a> to continue with your booking.</p>
+                    <a href="/Identity/Account/Register" class="btn btn-outline-primary rounded-pill">New user? Create an account</a>
+                </div>
+            }
+
+         @*    @if (User.Identity.IsAuthenticated )
+            {
+                @if (User.IsInRole("Customer"))
+                {
+                    <form asp-action="BookService" method="post">
+                        <input type="hidden" name="serviceId" value="@Model.Service.Id" />
+                        <button type="button" class="btn btn-primary btn-lg w-100 p-3 shadow rounded-pill fw-bold" id="openBookingModal">
+                            <i class="fas fa-calendar-check me-2"></i> Book This Service Now
+                        </button>
+                    </form>
+                }
+                else{
+                    <p style="color: #d9534f; background-color: #f2dede; padding: 10px; border-radius: 5px; border: 1px solid #ebccd1; text-align: center; font-weight: bold;">
+                        Only the customer can book a service!
+                    </p>
+
+                }
             }
             else
             {
@@ -77,7 +114,7 @@
                     <p class="mb-3">Please <a href="/Identity/Account/Login?returnUrl=@Uri.EscapeDataString(Context.Request.Path+"?name="+Model.Service.Name)" class="text-primary fw-bold">login</a> to continue with your booking.</p>
                     <a href="/Identity/Account/Register" class="btn btn-outline-primary rounded-pill">New user? Create an account</a>
                 </div>
-            }
+            } *@
         </div>
 
         <div class="col-lg-4">
@@ -108,7 +145,7 @@
                             </span>
                         </li>
                     </ul>
-                    
+
                     <div class="mt-4">
                         <div class="alert alert-light border-left border-warning mb-0">
                             <h6 class="text-warning mb-2">

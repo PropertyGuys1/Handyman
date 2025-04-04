@@ -9,9 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol;
 using MimeKit;
 using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Handyman.Controllers
 {
+    [Authorize(Roles = "Customer")]
     public class UserController : Controller
     {
         private readonly IWebHostEnvironment _hostingEnvironment;
@@ -256,7 +258,10 @@ namespace Handyman.Controllers
                 return View(model);
             }
 
-            if (model.Id == 0) // Create new address if Id is not set
+            string lastFourDigits = model.CardNumber.Substring(model.CardNumber.Length - 4);
+            string cardType = model.CardNumber; // Implement this method if not already done
+
+            if (model.Id == 0) // Create new payment if Id is not set
             {
                 _context.Payments.Add(model);
             }
@@ -269,12 +274,19 @@ namespace Handyman.Controllers
                     existingPayment.CardHolderName = model.CardHolderName;
                     existingPayment.CVV = model.CVV;
                     existingPayment.ExpiryDate = model.ExpiryDate;
-
                     _context.Payments.Update(existingPayment);
                 }
             }
 
             await _context.SaveChangesAsync();
+
+            // Send email notification
+            var user = await _context.Profiles.FirstOrDefaultAsync(p => p.UserId == model.UserId);
+            if (user != null)
+            {
+                await SendPaymentUpdateEmail(user.FullName, user.Email, lastFourDigits, cardType, model.ExpiryDate);
+            }
+
             return RedirectToAction("Profile", new { id = model.UserId });
         }
 
@@ -343,6 +355,9 @@ namespace Handyman.Controllers
                 return View(model);
             }
 
+            string oldAddress = string.Empty;
+            string newAddress = $"{model.Street}, {model.City}, {model.State} {model.PostalCode}, {model.Country}";
+
             if (model.Id == 0) // Create new address if Id is not set
             {
                 _context.Addresses.Add(model);
@@ -352,6 +367,8 @@ namespace Handyman.Controllers
                 var existingAddress = await _context.Addresses.FindAsync(model.Id);
                 if (existingAddress != null)
                 {
+                    oldAddress = $"{existingAddress.Street}, {existingAddress.City}, {existingAddress.State} {existingAddress.PostalCode}, {existingAddress.Country}";
+
                     existingAddress.Street = model.Street;
                     existingAddress.City = model.City;
                     existingAddress.State = model.State;
@@ -362,6 +379,14 @@ namespace Handyman.Controllers
             }
 
             await _context.SaveChangesAsync();
+
+            // Send email notification
+            var user = await _context.Profiles.FirstOrDefaultAsync(p => p.UserId == model.userId);
+            if (user != null)
+            {
+                await SendAddressUpdateEmail(user.FullName, user.Email, oldAddress, newAddress);
+            }
+
             return RedirectToAction("Profile", new { id = model.userId });
         }
 
@@ -378,8 +403,7 @@ namespace Handyman.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Profile", new { id = userProfileId }); // Redirect using the stored UserProfileId
-
-
+            
         }
 
 
@@ -397,7 +421,7 @@ namespace Handyman.Controllers
 
             return View(appointments);
         }
-
+        
         public async Task<IActionResult> CancelAppointment(int id)
         {
             var appointment = await _context.Appointments
@@ -548,8 +572,117 @@ namespace Handyman.Controllers
             return _context.Appointments.Any(e => e.Id == id);
         }
 
+        private async Task SendAddressUpdateEmail(string userName, string userEmail, string oldAddress,
+            string newAddress)
+        {
+            try
+            {
+                string smtpServer = "smtp.gmail.com";
+                int smtpPort = 587;
+                string senderEmail = "handyman.ca009@gmail.com";
+                string senderPassword = "bdfk ehoa ybym lgnj";
+
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("Handyman Services", senderEmail));
+                message.To.Add(new MailboxAddress(userName, userEmail));
+                message.Subject = "📍 Address Update Notification - Handyman Services";
+
+                string emailBody = $@"
+        <div style='font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 8px; padding: 20px; background-color: #f9f9f9;'>
+            <h2 style='color: #007BFF; text-align: center;'>Address Update Notification</h2>
+            <p style='font-size: 16px; color: #333;'>Dear <strong>{userName}</strong>,</p>
+            <p style='font-size: 16px; color: #333;'>Your address has been successfully updated.</p>
+            
+            <div style='background-color: #fff; padding: 15px; border-radius: 5px; border: 1px solid #ddd; margin: 15px 0;'>
+                <h3 style='color: #dc3545;'>Previous Address:</h3>
+                <p style='font-size: 16px;'><strong>📍 {oldAddress}</strong></p>
+            </div>
+
+            <div style='background-color: #fff; padding: 15px; border-radius: 5px; border: 1px solid #ddd;'>
+                <h3 style='color: #28a745;'>New Address:</h3>
+                <p style='font-size: 16px;'><strong>📍 {newAddress}</strong></p>
+            </div>
+
+            <p style='font-size: 16px; color: #333;'>If this change was not made by you, please contact us immediately.</p>
+            <p style='font-size: 16px; color: #333;'>Thank you for choosing Handyman Services!</p>
+
+            <hr style='border: none; border-top: 1px solid #ddd;' />
+            <p style='text-align: center; font-size: 14px; color: #777;'>Handyman Services &bull; 📍 Toronto, Canada</p>
+        </div>";
+
+                message.Body = new TextPart("html") { Text = emailBody };
+
+                using (var client = new SmtpClient())
+                {
+                    await client.ConnectAsync(smtpServer, smtpPort, MailKit.Security.SecureSocketOptions.StartTls);
+                    await client.AuthenticateAsync(senderEmail, senderPassword);
+                    await client.SendAsync(message);
+                    await client.DisconnectAsync(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Email sending failed: " + ex.Message);
+            }
+        }
+
+
+
+        private async Task SendPaymentUpdateEmail(string userName, string userEmail, string lastFourDigits,
+            string newCardType, string expiryDate)
+        {
+            try
+            {
+                string smtpServer = "smtp.gmail.com";
+                int smtpPort = 587;
+                string senderEmail = "handyman.ca009@gmail.com";
+                string senderPassword = "bdfk ehoa ybym lgnj";
+
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("Handyman Services", senderEmail));
+                message.To.Add(new MailboxAddress(userName, userEmail));
+                message.Subject = "💳 Payment Method Update - Handyman Services";
+
+                string emailBody = $@"
+        <div style='font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 8px; padding: 20px; background-color: #f9f9f9;'>
+            <h2 style='color: #007BFF; text-align: center;'>Payment Method Update</h2>
+            <p style='font-size: 16px; color: #333;'>Dear <strong>{userName}</strong>,</p>
+            <p style='font-size: 16px; color: #333;'>Your payment details have been successfully updated.</p>
+
+            <div style='background-color: #fff; padding: 15px; border-radius: 5px; border: 1px solid #ddd;'>
+                <h3 style='color: #28a745;'>Updated Payment Method:</h3>
+                <p style='font-size: 16px;'><strong>💳 Card Type:</strong> {newCardType}</p>
+                <p style='font-size: 16px;'><strong>🔢 Last 4 Digits:</strong> **** **** **** {lastFourDigits}</p>
+                <p style='font-size: 16px;'><strong>📅 Expiry Date:</strong> {expiryDate:MM/yyyy}</p>
+            </div>
+
+            <p style='font-size: 16px; color: #333;'>If you did not make this change, please contact us immediately.</p>
+            <p style='font-size: 16px; color: #333;'>Thank you for choosing Handyman Services!</p>
+
+            <hr style='border: none; border-top: 1px solid #ddd;' />
+            <p style='text-align: center; font-size: 14px; color: #777;'>Handyman Services &bull; 📍 Toronto, Canada</p>
+        </div>";
+
+                message.Body = new TextPart("html") { Text = emailBody };
+
+                using (var client = new SmtpClient())
+                {
+                    await client.ConnectAsync(smtpServer, smtpPort, MailKit.Security.SecureSocketOptions.StartTls);
+                    await client.AuthenticateAsync(senderEmail, senderPassword);
+                    await client.SendAsync(message);
+                    await client.DisconnectAsync(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Email sending failed: " + ex.Message);
+            }
+        }
+
+
+
         private async Task SendAppointmentUpdateEmail(string userName, string userEmail, DateTime newDate, TimeSpan newTime, 
-            string serviceName, string serviceAddress, int? serviceCost, DateTime originalDate, TimeSpan originalTime)
+            string serviceName, string serviceAddress, decimal? serviceCost, DateTime originalDate, TimeSpan originalTime)
         {
             try
             {

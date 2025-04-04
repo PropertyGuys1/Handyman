@@ -35,7 +35,10 @@
                 <label asp-for="Input.Role">Role</label>
                 <span asp-validation-for="Input.Role" class="text-danger"></span>
             </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary mb-2">Register</button>
+            <button type="reset" class="w-100 btn btn-lg btn-secondary mb-2">Reset</button>
+            <button type="button" class="w-100 btn btn-danger btn-lg" onclick="window.history.back()">Cancel</button>
+
         </form>
     </div>
 </div>

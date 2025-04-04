@@ -160,7 +160,7 @@ namespace Handyman.Controllers
         {
             _context.ServiceTypes.Update(service);
             await _context.SaveChangesAsync();
-            return RedirectToAction("ServiceList", service.Id);
+            return RedirectToAction("ServiceType", service.Id);
         }
 
         [HttpPost]

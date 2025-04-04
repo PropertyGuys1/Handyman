@@ -5,6 +5,22 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+<style>
+    .unified-image {
+        width: 100%;
+        height: 20rem; 
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        transition: transform 0.3s ease;
+    }
+
+     .unified-image:hover {
+            transform: scale(1.1); 
+        }
+</style>
 
 
 <div class="jumbotron jumbotron-fluid bg-opacity-75 bg-black text-center py-5 mb-5" style="width: 100%; margin: 0;">
@@ -41,8 +57,12 @@
     </div>
     <div class="row mb-4">
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="~/images/cleaning.jpg" class="card-img-top" alt="Cleaning">
+            <div class="card mb-4 shadow-lg">
+                <link>
+                <a href="@Url.Action("servicedetails", "Home", new { id = 74 })">
+                    <img src="~/images/serviceTypeImages/CleaningServiceType.jpg" class="card-img-top  unified-image" alt="Service Image" />
+                </a>
+                <link />
                 <div class="card-body">
                     <h5 class="card-title">Cleaning</h5>
                     <p class="card-text">Professional cleaning services for your home or office.</p>
@@ -50,8 +70,12 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="~/images/delivery.jpg" class="card-img-top" alt="Delivery">
+            <div class="card mb-4 shadow-lg">
+                <link>
+                <a href="@Url.Action("servicedetails", "Home", new { id = 81 })">
+                    <img src="~/images/serviceTypeImages/ShoppingDeliveryServiceType.jpg" class="card-img-top  unified-image" alt="Service Image" />
+                </a>
+                <link />
                 <div class="card-body">
                     <h5 class="card-title">Delivery</h5>
                     <p class="card-text">Fast and reliable delivery services for your items.</p>
@@ -59,8 +83,12 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="~/images/moving.jpg" class="card-img-top" alt="Moving">
+            <div class="card mb-4 shadow-lg">
+                <link>
+                <a href="@Url.Action("servicedetails", "Home", new { id = 42 })">
+                    <img src="~/images/serviceTypeImages/MovingServiceType.jpg" class="card-img-top  unified-image" alt="Service Image" />
+                </a>
+                <link />
                 <div class="card-body">
                     <h5 class="card-title">Moving</h5>
                     <p class="card-text">Efficient moving services to help you relocate.</p>
@@ -70,8 +98,12 @@
     </div>
     <div class="row">
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="~/images/handyman.jpg" class="card-img-top" alt="Handyman">
+            <div class="card mb-4 shadow-lg">
+                <link>
+                <a href="@Url.Action("servicedetails", "Home", new { id = 7 })">
+                    <img src="~/images/serviceTypeImages/HandyManServiceType.jpg" class="card-img-top  unified-image" alt="Service Image" />
+                </a>
+                <link />
                 <div class="card-body">
                     <h5 class="card-title">Handyman</h5>
                     <p class="card-text">Skilled handyman services for all your repair needs.</p>
@@ -79,8 +111,12 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="~/images/mounting.jpg" class="card-img-top" alt="Mounting">
+            <div class="card mb-4 shadow-lg">
+                <link>
+                <a href="@Url.Action("servicedetails", "Home", new { id = 26 })">
+                    <img src="~/images/serviceImages/TVMountingServices.jpg" class="card-img-top  unified-image" alt="Service Image" />
+                </a>
+                <link />
                 <div class="card-body">
                     <h5 class="card-title">Mounting</h5>
                     <p class="card-text">Professional mounting services for TVs and more.</p>
@@ -88,11 +124,93 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="~/images/furniture.jpg" class="card-img-top" alt="Furniture Assembly">
+            <div class="card mb-4 shadow-lg">
+                <link>
+                <a href="@Url.Action("servicedetails", "Home", new { id = 87 })">
+                    <img src="~/images/serviceTypeImages/ContactlessServiceType.jpg" class="card-img-top  unified-image" alt="Service Image" />
+                </a>
+                <link />
                 <div class="card-body">
-                    <h5 class="card-title">Furniture Assembly</h5>
-                    <p class="card-text">Expert furniture assembly services for your home.</p>
+                    <h5 class="card-title">Contactless</h5>
+                    <p class="card-text">Furniture assembly with little to no contact.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-lg">
+                <link>
+                <a href="@Url.Action("servicedetails", "Home", new { id = 1 })">
+                    <img src="~/images/serviceImages/LawnServices.jpg" class="card-img-top  unified-image" alt="Service Image" />
+                </a> 
+                <link />
+                <div class="card-body">
+                    <h5 class="card-title">Yard Work</h5>
+                    <p class="card-text">Mowing your lawn or trimming your hedges or trees.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-lg">
+                <link>
+                <a href="@Url.Action("servicedetails", "Home", new { id = 66 })">
+                    <img src="~/images/serviceTypeImages/WinterTasks.jpg" class="card-img-top  unified-image" alt="Service Image" />
+                </a>
+                <link />
+                <div class="card-body">
+                    <h5 class="card-title">Winter Tasks</h5>
+                    <p class="card-text">Provide great snow blowing assistance.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-lg">
+                <link>
+                <a href="@Url.Action("servicedetails", "Home", new { id = 51 })">
+                    <img src="~/images/serviceTypeImages/HolidayHelpServiceType.jpg" class="card-img-top  unified-image" alt="Service Image" />
+                </a>
+                <link />
+                <div class="card-body">
+                    <h5 class="card-title">Holiday Help</h5>
+                    <p class="card-text">Help put up a tree, gift wrapping or shopping.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-lg">
+                <link>
+                <a href="@Url.Action("servicedetails", "Home", new { id = 37 })">
+                    <img src="~/images/serviceImages/SmartHomeServices.jpg" class="card-img-top  unified-image" alt="Service Image" />
+                </a>
+                <link />
+                <div class="card-body">
+                    <h5 class="card-title">Smart Home Services</h5>
+                    <p class="card-text">Help install security system or other smart home devices.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-lg">
+                <link>
+                <a href="@Url.Action("servicedetails", "Home", new { id = 97 })">
+                    <img src="~/images/serviceTypeImages/MountingInstallationServiceType.jpg" class="card-img-top  unified-image" alt="Service Image" />
+                </a>
+                <link />
+                <div class="card-body">
+                    <h5 class="card-title">Installation</h5>
+                    <p class="card-text">Installing potlights or other products through out the house.</p>
+                </div>
+            </div>
+        </div>
+         <div class="col-md-4">
+            <div class="card mb-4 shadow-lg">
+            <link>
+            <a href="@Url.Action("servicedetails", "Home", new { id = 29 })">
+                <img src="~/images/serviceImages/PlumbingServices.jpg" class="card-img-top  unified-image" alt="Service Image" />
+            </a>
+            <link />
+                <div class="card-body">
+                    <h5 class="card-title">Plumbing</h5>
+                    <p class="card-text">Fast and Efficient Plumbing to get up and running in no time.</p>
                 </div>
             </div>
         </div>
