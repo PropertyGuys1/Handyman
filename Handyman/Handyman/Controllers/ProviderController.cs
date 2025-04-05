@@ -18,6 +18,8 @@ namespace Handyman.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IWebHostEnvironment _hostingEnvironment;
+
         public ProviderController(ApplicationDbContext context, UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager)
         {
@@ -153,6 +155,21 @@ namespace Handyman.Controllers
             }
         }
 
+        public async Task<IActionResult> GetProfileImage(int id)
+        {
+            var profile = await _context.Profiles
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (profile != null && profile.ProfileImage != null)
+            {
+                return File(profile.ProfileImage, "image/png"); // Adjust the MIME type as needed
+            }
+
+            // Return a default image if no profile image is found
+            var defaultImagePath = Path.Combine(_hostingEnvironment.WebRootPath, "images", "defaultpic.jpg");
+            var defaultImageBytes = await System.IO.File.ReadAllBytesAsync(defaultImagePath);
+            return File(defaultImageBytes, "image/jpeg");
+        }
 
         public async Task<ActionResult> Appointment(string providerId)
         {
