@@ -252,6 +252,10 @@ namespace Handyman.Controllers
         {
             return View();
         }
+        public IActionResult usermanual()
+        {
+            return View();
+        }
 
     }
 }
