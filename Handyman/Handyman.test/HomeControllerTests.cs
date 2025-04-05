@@ -32,7 +32,7 @@ namespace Handyman.test
         {
             // Arrange
             var context = GetInMemoryDbContext();
-            var mockEmailHelper = new Mock<EmailHelper>();
+            var mockEmailHelper = new Mock<IEmailHelper>();
             var controller = new HomeController(null, mockEmailHelper.Object);
 
             // Act
@@ -47,7 +47,7 @@ namespace Handyman.test
         {
             // Arrange
             var context = GetInMemoryDbContext();
-            var mockEmailHelper = new Mock<EmailHelper>();
+            var mockEmailHelper = new Mock<IEmailHelper>();
             var controller = new HomeController(null, mockEmailHelper.Object);
 
             // Act
@@ -63,7 +63,7 @@ namespace Handyman.test
         public void Contact_ReturnsViewResult()
         {
             // Arrange
-            var mockEmailHelper = new Mock<EmailHelper>();
+            var mockEmailHelper = new Mock<IEmailHelper>();
             var controller = new HomeController(null, mockEmailHelper.Object);
 
             // Act
@@ -78,7 +78,7 @@ namespace Handyman.test
         public async Task Contact_ReturnsViewWithModel_WhenModelStateIsInvalid()
         {
             // Arrange
-            var mockEmailHelper = new Mock<EmailHelper>();
+            var mockEmailHelper = new Mock<IEmailHelper>();
             var controller = new HomeController(null, mockEmailHelper.Object);
             controller.ModelState.AddModelError("Name", "Required");
             var model = new ContactViewModel();
