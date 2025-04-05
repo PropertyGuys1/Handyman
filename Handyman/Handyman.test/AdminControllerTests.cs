@@ -99,18 +99,23 @@ namespace Handyman.test
         public async Task Appointment_ReturnsViewWithAppointments()
         {
             // Arrange
-            var newAppointment = new Appointment { Id = 1, Address = "451 Main Street", PersonName = "John Doe", Status = "Approved", ServiceId = 1, AppointmentDate = DateTime.UtcNow, UserId = "13123123123hoawdhd211" };
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase("TestDatabase")
+                .Options;
 
-            _context.Appointments.Add(newAppointment);
-            _context.SaveChanges();
+            using var context = new ApplicationDbContext(options);
+            context.Appointments.Add(new Appointment { Id = 100, UserId = "190283kdjawkodhaw213", Address = "451 Main Street", PersonName = "Jane Doe", Status = "Active", AppointmentDate = DateTime.Now, notes = "Users test appointment for unit test purposes", Service = new Service { Name = "Test Service" } });
+            context.SaveChanges();
 
-            //Act
-            var result = await _controller.Appointment();
+            var controller = new AdminController(context);
 
-            //Assert
+            // Act
+            var result = await controller.Appointment();
+
+            // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
             var model = Assert.IsAssignableFrom<List<Appointment>>(viewResult.Model);
-            Assert.Contains(model, a => a.Id == 1);
+            Assert.Contains(model, a => a.notes == "Users test appointment for unit test purposes");
         }
 
         [Fact]
