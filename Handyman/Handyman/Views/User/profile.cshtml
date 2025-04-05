@@ -10,7 +10,7 @@
                 </div>
                 <div class="card-body p-4 text-center">
                     <div class="position-relative mx-auto mb-4" style="width: 150px;">
-                        @if (Model.Profile.Id > 0)
+                        @if (Model.Profile.ProfileImage != null)
                         {
                             <img src="@Url.Action("GetProfileImage", "User", new { id = Model.Profile.Id })" alt="Profile Image" class="img-thumbnail rounded-circle border-3 border-primary shadow" width="150" height="150" />
                         }

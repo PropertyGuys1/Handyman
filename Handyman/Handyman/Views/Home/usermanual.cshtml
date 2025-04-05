@@ -1,0 +1,502 @@
+﻿@{
+    ViewData["Title"] = "User Manual";
+}
+<div class="container-fluid py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-11">
+            <!-- Header Banner -->
+            <div class="card mb-4 border-0 bg-primary text-white">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-tools fa-3x me-3"></i>
+                        <div>
+                            <h1 class="mb-0">Handyman Service</h1>
+                            <p class="lead mb-0">Customer User Manual</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Left Sidebar - Table of Contents -->
+                <div class="col-md-3 mb-4">
+                    <div class="card shadow-sm sticky-top" style="top: 20px;">
+                        <div class="card-header bg-primary text-white py-3">
+                            <h4 class="mb-0 text-center"><i class="fas fa-list-ul me-2"></i>Table of Contents</h4>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="list-group list-group-flush">
+                                <a href="#introduction" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <i class="fas fa-info-circle text-primary me-2"></i> Introduction
+                                </a>
+                                <a href="#profile" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <i class="fas fa-user-circle text-primary me-2"></i> Profile Management
+                                </a>
+                                <a href="#address" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <i class="fas fa-map-marker-alt text-primary me-2"></i> Address Management
+                                </a>
+                                <a href="#payment" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <i class="fas fa-credit-card text-primary me-2"></i> Payment Methods
+                                </a>
+                                <a href="#services" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <i class="fas fa-toolbox text-primary me-2"></i> Services
+                                </a>
+                                <a href="#appointments" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <i class="fas fa-calendar-check text-primary me-2"></i> Appointment Booking
+                                </a>
+                                <a href="#manage-appointments" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <i class="fas fa-tasks text-primary me-2"></i> Managing Appointments
+                                </a>
+                                <a href="#faq" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <i class="fas fa-question-circle text-primary me-2"></i> FAQ
+                                </a>
+                                <a href="#support" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <i class="fas fa-headset text-primary me-2"></i> Support
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="col-md-9">
+                    <!-- Introduction Section -->
+                    <div id="introduction" class="card mb-4 shadow-sm">
+                        <div class="card-header bg-light py-3">
+                            <h3 class="mb-0"><i class="fas fa-book me-2 text-primary"></i>Introduction</h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <p class="lead">Welcome to our Handyman Service platform!</p>
+                            <p>This comprehensive user manual will guide you through using our platform efficiently. Whether you're looking to manage your profile, book services, or track appointments, this guide covers everything you need to know.</p>
+                            <div class="alert alert-info">
+                                <i class="fas fa-lightbulb me-2"></i>
+                                <strong>Pro Tip:</strong> Bookmark this manual for quick reference whenever you need assistance with our platform.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Management -->
+                    <div id="profile" class="card mb-4 shadow-sm">
+                        <div class="card-header bg-light py-3">
+                            <h3 class="mb-0"><i class="fas fa-user-circle me-2 text-primary"></i>Profile Management</h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="mb-4">
+                                <h4 class="border-bottom pb-2 text-primary"><i class="fas fa-sign-in-alt me-2"></i>Accessing Your Profile</h4>
+                                <p>Once logged in:</p>
+                                <ul class="list-group list-group-flush mb-3">
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-mouse-pointer text-primary me-3"></i>
+                                        Click the <span class="badge bg-primary">Profile</span> button on the homepage.
+                                    </li>
+                                    <li class="list-group-item">
+                                        <p>Your profile dashboard displays:</p>
+                                        <div class="ms-4">
+                                            <div class="d-flex align-items-center mb-2">
+                                                <i class="fas fa-id-card text-secondary me-2"></i>
+                                                Your name and contact information
+                                            </div>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <i class="fas fa-map-marker-alt text-secondary me-2"></i>
+                                                Saved addresses
+                                            </div>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <i class="fas fa-credit-card text-secondary me-2"></i>
+                                                Payment options
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-comment-dots text-secondary me-2"></i>
+                                                Feedback you've left or received
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="text-center">
+                                    <img src="/api/placeholder/600/300" alt="Profile Dashboard Screenshot" class="img-fluid rounded">
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="border-bottom pb-2 text-primary"><i class="fas fa-edit me-2"></i>Editing Your Profile</h4>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-edit text-primary me-3"></i>
+                                        In your profile, click the <span class="badge bg-success">Edit</span> button to change your personal details.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-pen text-primary me-3"></i>
+                                        You can update your <strong>email address</strong>, <strong>phone number</strong>, and other basic information.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-save text-primary me-3"></i>
+                                        Click <span class="badge bg-success">Save Changes</span> to apply your updates.
+                                    </li>
+                                </ul>
+                                <div class="alert alert-info mt-3">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    Changes to your profile are saved automatically once you submit the form.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Address Management -->
+                    <div id="address" class="card mb-4 shadow-sm">
+                        <div class="card-header bg-light py-3">
+                            <h3 class="mb-0"><i class="fas fa-home me-2 text-primary"></i>Address Management</h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="mb-4">
+                                <h4 class="border-bottom pb-2 text-primary"><i class="fas fa-plus-circle me-2"></i>Creating an Address</h4>
+                                <p>To add a new address to your profile:</p>
+                                <ul class="list-group list-group-flush mb-3">
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-user text-primary me-3"></i>
+                                        Fill in your <strong>Full Name</strong>, <strong>Phone Number</strong>, and <strong>Country</strong>.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-map-marker-alt text-primary me-3"></i>
+                                        Provide your <strong>Street Address</strong> and, if applicable, <strong>Apt/Suite</strong> number.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-city text-primary me-3"></i>
+                                        Fill in <strong>City</strong>, <strong>Province</strong>, and <strong>Postal Code</strong>.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-clipboard text-primary me-3"></i>
+                                        If needed, include any <strong>Delivery Instructions</strong>.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-check-square text-primary me-3"></i>
+                                        Tick the checkbox if your <strong>Mailing and Shipping Address</strong> are the same.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-save text-primary me-3"></i>
+                                        Click <span class="badge bg-success">Save Address</span> to store your address details.
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="border-bottom pb-2 text-primary"><i class="fas fa-pencil-alt me-2"></i>Editing an Address</h4>
+                                <p>To edit your existing address, follow these steps:</p>
+                                <ol class="list-group list-group-numbered">
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <div>
+                                            <span class="fw-bold">Navigate to your address list</span>
+                                            <p class="mb-0 text-muted">Go to the Addresses section in your profile</p>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <div>
+                                            <span class="fw-bold">Select the address you want to edit</span>
+                                            <p class="mb-0 text-muted">Click the Edit button next to the address</p>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <div>
+                                            <span class="fw-bold">Update any details</span>
+                                            <p class="mb-0 text-muted">Modify fields like Name, Phone Number, or Address</p>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <div>
+                                            <span class="fw-bold">Save your changes</span>
+                                            <p class="mb-0 text-muted">Click the Save Address button to apply changes</p>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+
+                            <div>
+                                <h4 class="border-bottom pb-2 text-primary"><i class="fas fa-trash-alt me-2"></i>Deleting an Address</h4>
+                                <p>If you wish to delete an address:</p>
+                                <ul class="list-group list-group-flush mb-3">
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-search text-primary me-3"></i>
+                                        Find the address you want to remove in your address list.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-trash-alt text-danger me-3"></i>
+                                        Click the <span class="badge bg-danger">Delete</span> button next to the address.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-check-circle text-primary me-3"></i>
+                                        Confirm the deletion when prompted.
+                                    </li>
+                                </ul>
+                                <div class="alert alert-warning">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    <strong>Note:</strong> Deleting an address cannot be undone. You'll receive an email confirmation when an address is deleted.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Methods -->
+                    <div id="payment" class="card mb-4 shadow-sm">
+                        <div class="card-header bg-light py-3">
+                            <h3 class="mb-0"><i class="fas fa-credit-card me-2 text-primary"></i>Payment Methods</h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="mb-4">
+                                <h4 class="border-bottom pb-2 text-primary"><i class="fas fa-plus-circle me-2"></i>Adding Payment Methods</h4>
+                                <p>To add a new payment method:</p>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-credit-card text-primary me-3"></i>
+                                        Go to the <strong>Payment Methods</strong> section in your profile.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-plus-circle text-success me-3"></i>
+                                        Click <span class="badge bg-success">Add Payment Method</span>.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-file-alt text-primary me-3"></i>
+                                        Enter your card details (number, expiry date, CVV).
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-map-marker-alt text-primary me-3"></i>
+                                        Provide the billing address for this payment method.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-save text-primary me-3"></i>
+                                        Click <span class="badge bg-primary">Save</span> to store your payment information.
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4 class="border-bottom pb-2 text-primary"><i class="fas fa-pencil-alt me-2"></i>Editing Payment Methods</h4>
+                                <p>To update your payment details:</p>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-credit-card text-primary me-3"></i>
+                                        Select the payment method you wish to edit.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-pencil-alt text-warning me-3"></i>
+                                        Click the <span class="badge bg-warning text-dark">Edit</span> button.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-file-alt text-primary me-3"></i>
+                                        Update the necessary information (expiry date, billing address).
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-save text-primary me-3"></i>
+                                        Click <span class="badge bg-primary">Save Changes</span> to apply your updates.
+                                    </li>
+                                </ul>
+                                <div class="alert alert-warning mt-3">
+                                    <i class="fas fa-exclamation-circle me-2"></i>
+                                    <strong>Note:</strong> At this time, payment methods cannot be removed, but updates are allowed. You'll receive email notifications for any changes made.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Services -->
+                    <div id="services" class="card mb-4 shadow-sm">
+                        <div class="card-header bg-light py-3">
+                            <h3 class="mb-0"><i class="fas fa-toolbox me-2 text-primary"></i>Services</h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <p>Our platform offers over <strong>80+ services</strong> to meet all your home maintenance and repair needs:</p>
+
+                            <div class="row row-cols-1 row-cols-md-3 g-4 mt-2 mb-4">
+                                <div class="col">
+                                    <div class="card h-100 border-0 bg-light">
+                                        <div class="card-body text-center">
+                                            <i class="fas fa-faucet fa-3x mb-3 text-primary"></i>
+                                            <h5 class="card-title">Plumbing</h5>
+                                            <p class="card-text small">Leak repairs, installations, drain cleaning</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card h-100 border-0 bg-light">
+                                        <div class="card-body text-center">
+                                            <i class="fas fa-bolt fa-3x mb-3 text-primary"></i>
+                                            <h5 class="card-title">Electrical</h5>
+                                            <p class="card-text small">Wiring, lighting, safety inspections</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card h-100 border-0 bg-light">
+                                        <div class="card-body text-center">
+                                            <i class="fas fa-paint-roller fa-3x mb-3 text-primary"></i>
+                                            <h5 class="card-title">Painting</h5>
+                                            <p class="card-text small">Interior, exterior, decorative finishes</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card h-100 border-0 bg-light">
+                                        <div class="card-body text-center">
+                                            <i class="fas fa-broom fa-3x mb-3 text-primary"></i>
+                                            <h5 class="card-title">Cleaning</h5>
+                                            <p class="card-text small">Regular, deep, move-in/out cleaning</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card h-100 border-0 bg-light">
+                                        <div class="card-body text-center">
+                                            <i class="fas fa-tree fa-3x mb-3 text-primary"></i>
+                                            <h5 class="card-title">Landscaping</h5>
+                                            <p class="card-text small">Lawn care, garden design, tree services</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card h-100 border-0 bg-light">
+                                        <div class="card-body text-center">
+                                            <i class="fas fa-hammer fa-3x mb-3 text-primary"></i>
+                                            <h5 class="card-title">Carpentry</h5>
+                                            <p class="card-text small">Furniture assembly, repairs, installations</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p>To explore our services:</p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex align-items-center">
+                                    <i class="fas fa-list text-primary me-3"></i>
+                                    Navigate to the <strong>Services</strong> section from the homepage.
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <i class="fas fa-search text-primary me-3"></i>
+                                    Use the search function to find specific services.
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <i class="fas fa-filter text-primary me-3"></i>
+                                    Filter services by category, price range, or availability.
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <i class="fas fa-info-circle text-primary me-3"></i>
+                                    Click on any service to view detailed information, pricing, and customer reviews.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Appointment Booking -->
+                    <div id="appointments" class="card mb-4 shadow-sm">
+                        <div class="card-header bg-light py-3">
+                            <h3 class="mb-0"><i class="fas fa-calendar-check me-2 text-primary"></i>Appointment Booking</h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <p>Booking an appointment with our skilled handymen is simple:</p>
+
+                            <div class="mb-4">
+                                <h4 class="border-bottom pb-2 text-primary"><i class="fas fa-calendar-plus me-2"></i>Creating a New Appointment</h4>
+                                <ul class="list-group list-group-flush mb-3">
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-hand-pointer text-primary me-3"></i>
+                                        Select the service you need from our Services page.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-scroll text-primary me-3"></i>
+                                        Click the <span class="badge bg-success">Book Appointment</span> button.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-calendar-alt text-primary me-3"></i>
+                                        Choose your preferred date and time from the available slots.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-map-marker-alt text-primary me-3"></i>
+                                        Select the address where the service will be performed or add a new one.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-clipboard-list text-primary me-3"></i>
+                                        Add any special instructions or notes for the service provider.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-credit-card text-primary me-3"></i>
+                                        Select your payment method (or add a new one).
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-check-circle text-primary me-3"></i>
+                                        Review your booking details and click <span class="badge bg-primary">Confirm Booking</span>.
+                                    </li>
+                                </ul>
+                                <div class="alert alert-success">
+                                    <i class="fas fa-envelope me-2"></i>
+                                    Once your appointment is confirmed, you'll receive an email with all the details and a reminder 24 hours before the appointment.
+                                </div>
+                            </div>
+
+                            <div class="text-center mb-4">
+                                <img src="/api/placeholder/600/300" alt="Booking Form Screenshot" class="img-fluid rounded">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Managing Appointments -->
+                    <div id="manage-appointments" class="card mb-4 shadow-sm">
+                        <div class="card-header bg-light py-3">
+                            <h3 class="mb-0"><i class="fas fa-tasks me-2 text-primary"></i>Managing Appointments</h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="mb-4">
+                                <h4 class="border-bottom pb-2 text-primary"><i class="fas fa-clipboard-check me-2"></i>Viewing Your Appointments</h4>
+                                <ul class="list-group list-group-flush mb-3">
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-tachometer-alt text-primary me-3"></i>
+                                        Go to the dashboard and click on the <span class="badge bg-warning text-dark">My Appointments</span> button.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-list-alt text-primary me-3"></i>
+                                        View a list of all your upcoming and past appointments in one place.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-filter text-primary me-3"></i>
+                                        Use filters to sort appointments by status: upcoming, completed, or cancelled.
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <i class="fas fa-info-circle text-primary me-3"></i>
+                                        Click on any appointment to view its full details.
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4 class="border-bottom pb-2 text-primary"><i class="fas fa-edit me-2"></i>Editing or Cancelling Appointments</h4>
+                                <p>For any <strong>upcoming appointment</strong>, you can:</p>
+                                <ul class="list-group list-group-flush mb-3">
+                                    <li class="list-group-item">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-pencil-alt text-warning me-3"></i>
+                                            <div>
+                                                <strong>Edit the details</strong>
+                                                <p class="text-muted mb-0 small">Change the scheduled time, update special instructions, or modify the service address</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-calendar-times text-danger me-3"></i>
+                                            <div>
+                                                <strong>Cancel the appointment</strong>
+                                                <p class="text-muted mb-0 small">Cancel appointments you no longer need</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="alert alert-warning">
+                                    <i class="fas fa-clock me-2"></i>
+                                    <strong>Important:</strong> Modifications or cancellations made less than 24 hours before the scheduled appointment may incur a fee according to our cancellation policy.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS, Popper.js and required dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
