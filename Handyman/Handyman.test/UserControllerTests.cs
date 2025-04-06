@@ -72,5 +72,36 @@ namespace Handyman.test
             // Assert
             Assert.IsType<NotFoundResult>(result);
         }
+
+        [Fact]
+        public async Task DeleteProfile_ReturnsBadRequest_WhenDeleteUserFails()
+        {
+            // Arrange
+            var userId = "testUserId";
+            _context.Profiles.Add(new Profile { UserId = userId });
+            await _context.SaveChangesAsync();
+
+            var userManager = new Mock<UserManager<IdentityUser>>(
+                new Mock<IUserStore<IdentityUser>>().Object,
+                null, null, null, null, null, null, null, null);
+            userManager.Setup(um => um.FindByIdAsync(userId)).ReturnsAsync(new IdentityUser { Id = userId });
+            userManager.Setup(um => um.DeleteAsync(It.IsAny<IdentityUser>())).ReturnsAsync(IdentityResult.Failed());
+
+            var signInManager = new Mock<SignInManager<IdentityUser>>(
+                userManager.Object,
+                new Mock<IHttpContextAccessor>().Object,
+                new Mock<IUserClaimsPrincipalFactory<IdentityUser>>().Object,
+                null, null, null, null);
+
+            var hostingEnvironment = new Mock<IWebHostEnvironment>();
+
+            var controller = new UserController(hostingEnvironment.Object, _context, userManager.Object, signInManager.Object);
+
+            // Act
+            var result = await controller.DeleteProfile(userId);
+
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result);
+        }        
     }
 }

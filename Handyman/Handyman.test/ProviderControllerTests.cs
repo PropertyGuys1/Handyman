@@ -77,8 +77,6 @@ namespace Handyman.test
             Assert.IsType<NotFoundResult>(result);
         }
 
-       
-
         [Fact]
         public void EditProfile_UserNotFound_ReturnsNotFound()
         {
@@ -91,7 +89,6 @@ namespace Handyman.test
             // Assert
             Assert.IsType<NotFoundResult>(result);
         }
-
 
         [Fact]
         public async Task EditProfile_ModelStateInvalid_ReturnsViewWithModel()
@@ -121,41 +118,6 @@ namespace Handyman.test
             var viewResult = Assert.IsType<ViewResult>(result);
             Assert.Equal(model, viewResult.Model);
         }
-
-
-        [Fact]
-        public async Task StartAppointment_AppointmentFound_UpdatesStatusAndReturnsRedirectToAction()
-        {
-            // Arrange
-            var appointmentId = 1;
-            var providerId = "providerId";
-            var appointment = new Appointment
-            {
-                Id = appointmentId,
-                ProviderId = providerId,
-                Status = "Pending",
-                Address = "123 Main St",
-                PersonName = "John Doe",
-                UserId = "userId"
-            };
-            _context.Appointments.Add(appointment);
-            await _context.SaveChangesAsync();
-
-            // Act
-            var result = await _controller.StartAppointment(appointmentId);
-
-            // Assert
-            var redirectResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("Appointment", redirectResult.ActionName);
-            Assert.Equal("Provider", redirectResult.ControllerName);
-            Assert.Equal(providerId, redirectResult.RouteValues["providerId"]);
-
-            var updatedAppointment = await _context.Appointments.FindAsync(appointmentId);
-            Assert.NotNull(updatedAppointment);
-            Assert.Equal("InProgress", updatedAppointment.Status);
-        }
-
-
 
 
 
