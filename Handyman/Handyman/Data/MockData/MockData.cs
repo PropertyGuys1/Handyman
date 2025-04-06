@@ -601,19 +601,19 @@ namespace Handyman.Data.MockData
                 {
                     Id = 63, Name = "Ice Melting", ServiceTypeId = 7, IsDeleted = false,
                     Description = "Applying ice-melting substances to prevent slips and falls.", Cost = 50.0m,
-                    ImageUrl = "/images/serviceImages/AssemblyServices.jpg"
+                    ImageUrl = "/images/serviceImages/WinterServices.jpg"
                 },
                 new Service
                 {
                     Id = 64, Name = "Winterizing Property", ServiceTypeId = 7, IsDeleted = false,
                     Description = "Preparing your property for winter by sealing windows, pipes, etc.", Cost = 150.0m,
-                    ImageUrl = "/images/serviceImages/AssemblyServices.jpg"
+                    ImageUrl = "/images/serviceTypeImages/WinterTasks.jpg"
                 },
                 new Service
                 {
                     Id = 65, Name = "Gutter Cleaning", ServiceTypeId = 7, IsDeleted = false,
                     Description = "Cleaning leaves and debris from gutters to prevent blockages.", Cost = 100.0m,
-                    ImageUrl = "/images/serviceImages/GeneralServices.jpg"
+                    ImageUrl = "/images/serviceTypeImages/WinterTasks.jpg"
                 },
                 new Service
                 {

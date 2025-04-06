@@ -43,7 +43,7 @@ namespace Handyman.test
             {
                 UserId = Guid.NewGuid().ToString(), // Ensure a unique ID
                 Role = "Customer",
-                Email = "test@example.com"
+                Email = "test@gmail.com"
             };
 
             //add this newCustomer to the temp database
@@ -62,7 +62,7 @@ namespace Handyman.test
             var model = Assert.IsAssignableFrom<List<Profile>>(viewResult.Model);
 
             //make sure the test database contains an email with the below data
-            Assert.Contains(model, c => c.Email == "test@example.com");
+            Assert.Contains(model, c => c.Email == "test@gmail.com");
         }
 
         [Fact]
@@ -74,7 +74,7 @@ namespace Handyman.test
             {
                 UserId = null,
                 Role = "Customer",
-                Email = "invalid@example.com"
+                Email = "invalid@gmail.com"
             };
 
             try
@@ -98,7 +98,7 @@ namespace Handyman.test
         public async Task ServiceProviders_ReturnsViewWithInvalidProvider_ReturnsNotOk()
         {
             //make a false provider data
-            var invalidProvider = new Profile { UserId = null, Role = "ServiceProvider", Email = "invalid@example.com" };
+            var invalidProvider = new Profile { UserId = null, Role = "ServiceProvider", Email = "invalid@gmail.com" };
             try
             {
                 //make this invalidProvider added to the profiles list
@@ -154,7 +154,7 @@ namespace Handyman.test
         public async Task ServiceType_ReturnsViewWithActiveServiceTypes()
         {
             //Arrange
-            var activeServiceType = new ServiceType { Id = 100, Name = "Plumbing", Description = "Fix all of the plumbing needs", IsDeleted = false };
+            var activeServiceType = new ServiceType { Id = 100, Name = "Plumbing", Description = "Fix all of your leaky pipes and toilet issues", IsDeleted = false };
             _context.ServiceTypes.Add(activeServiceType);
             _context.SaveChanges();
 
