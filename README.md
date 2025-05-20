@@ -32,18 +32,6 @@
 
 ---
 
-## 🏗️ Tech Stack
-
-- **Frontend:** (Add your framework - e.g., Angular, React, etc.)
-- **Backend:** (e.g., Node.js/Express, ASP.NET Core)
-- **Database:** (e.g., MongoDB, PostgreSQL)
-- **Authentication:** OAuth, JWT
-- **Real-Time Tracking:** (e.g., Google Maps API or equivalent)
-- **Payments:** (e.g., Stripe, PayPal)
-- **Hosting:** (e.g., Vercel, Firebase, Heroku)
-
----
-
 ## 🧪 How to Run Locally
 
 ```bash
