@@ -1,35 +1,52 @@
-# Handyman Project
+# 🛠️ Handyman - On-Demand Home Services Platform
 
-## Overview
-This project is built using ASP.NET Core 8 MVC. It includes user authentication with roles such as Admin, Customer, and Provider.
+**Handyman** is a full-stack web application that connects users with professional service providers for tasks like plumbing, cleaning, snow removal, and more. The platform features dedicated user, provider, and admin portals with robust features for scheduling, payments, and real-time tracking.
 
-## Prerequisites
-- .NET 8 SDK
-- SQL Server
+---
 
-## Getting Started
+## 🚀 Features
 
-### 1. Clone the Repository
+### 👤 User Panel
+- **User Registration & Login:** Email, phone, and social login (Google, Facebook)
+- **Profile Management:** Edit personal info, view appointment history, manage payment methods
+- **Service Booking:** Browse/filter services, book appointments, request urgent services
+- **Appointment Management:** Reschedule or cancel based on provider policies
+- **Real-Time Tracking:** Live location updates and ETA of service providers
+- **Notifications:** Alerts for bookings, reminders, updates
+- **Payments:** Multiple options including credit/debit cards and wallets
+
+### 🧰 Service Provider Panel
+- **Provider Registration/Login:** Admin-approved access
+- **Profile Management:** Add/edit services, availability toggle, view ratings/reviews
+- **Appointment Handling:** Accept/decline jobs, mark as completed
+- **Earnings Tracking:** View payment history and payout schedules
+- **Support:** Report issues, contact admin
+
+### 🛡️ Admin Panel
+- **Dashboard:** Overview of users, providers, appointments
+- **User & Provider Management:** Approve/suspend accounts, manage bookings
+- **Appointment Oversight:** Reassign/cancel bookings, resolve disputes
+- **Payment Management:** Handle platform commissions and payouts
+- **Notifications:** Broadcast announcements, send job alerts
+- **Category Management:** Add/remove service categories
+
+---
+
+## 🏗️ Tech Stack
+
+- **Frontend:** (Add your framework - e.g., Angular, React, etc.)
+- **Backend:** (e.g., Node.js/Express, ASP.NET Core)
+- **Database:** (e.g., MongoDB, PostgreSQL)
+- **Authentication:** OAuth, JWT
+- **Real-Time Tracking:** (e.g., Google Maps API or equivalent)
+- **Payments:** (e.g., Stripe, PayPal)
+- **Hosting:** (e.g., Vercel, Firebase, Heroku)
+
+---
+
+## 🧪 How to Run Locally
+
 ```bash
-git clone https://github.com/PropertyGuys1/Handyman.git
+# Clone the repo
+git clone https://github.com/your-username/handyman.git
 cd handyman
-```
-## Set Up the Database
-Ensure your database connection string is correctly configured in appsettings.json.
-
-## Update the Database
-To create the necessary database tables, run the following command in the Package Manager Console:
-```bash
-Update-Database
-```
-## Start the application using Visual Studio or the .NET CLI:
-```bash
-dotnet run
-```
-## Features
-User registration and login
-Role-based authorization (Admin, Customer, Provider)
-Password recovery and reset
-Contributing
-Feel free to submit issues and pull requests. For major changes, please open an issue first to discuss what you would like to change.
-
